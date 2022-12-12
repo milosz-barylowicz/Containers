@@ -18,8 +18,7 @@ set(TEST_PROJECT_NAME "${PROJECT_NAME}_test")
 
 add_executable(
     ${TEST_PROJECT_NAME}
-        math_test_suit.cpp
-        ../src/math.cpp) # TODO: find way to link cpp files diffrent way (maybe some way to "link" binary?)
+        StackTestSuite.cpp)
 
 target_include_directories(
     ${TEST_PROJECT_NAME}
