@@ -33,3 +33,8 @@
 
 # Local building directories
 build/
+
+# Custom directories to ignore
+tests/googletests-prefix/
+CMakeFiles/
+CMakeCache.txt
