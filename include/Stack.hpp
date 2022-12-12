@@ -1,7 +1,7 @@
 /*
  * Author: Milosz Barylowicz
  * Date:   2022
-*/
+ */
 
 #pragma once
 
@@ -69,7 +69,7 @@ public:
         return m_data[m_size - 1];
     }
 
-    void swap(const Stack<T>& other)
+    void swap(Stack<T>& other)
     {
         if (not m_data)
         {
