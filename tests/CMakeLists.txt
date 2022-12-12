@@ -30,3 +30,9 @@ target_link_libraries(
     ${TEST_PROJECT_NAME}
         gtest gtest_main
         pthread)
+
+enable_testing()
+
+add_test(
+    NAME ${TEST_PROJECT_NAME}
+    COMMAND $<TARGET_FILE:${TEST_PROJECT_NAME}>)
