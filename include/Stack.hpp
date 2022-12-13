@@ -19,7 +19,17 @@ class Stack
 public:
     Stack() noexcept = default;
 
-    ~Stack()
+    Stack(const Stack<T>& other)
+    {
+        CopyData(other);
+    }
+
+    Stack(const Stack<T>&& other)
+    {
+        CopyData(other);
+    }
+
+    virtual ~Stack()
     {
         delete[] m_data;
     }
@@ -33,6 +43,24 @@ public:
         {
             m_data[i] = other.m_data[i];
         }
+    }
+
+    friend bool operator==(const Stack<T>& base, const Stack<T>& other)
+    {
+        if (other.m_size != base.m_size)
+        {
+            return false;
+        }
+
+        for (size_t i = 0; i < base.m_size; ++i)
+        {
+            if (base.m_data[i] != other.m_data[i])
+            {
+                return false;
+            }
+        }
+
+        return true;
     }
 
     void push(const T& value)
@@ -103,6 +131,17 @@ public:
     }
 
 private:
+    void CopyData(const Stack<T>& other)
+    {
+        m_size = other.m_size;
+        m_data = new T[m_size];
+
+        for (size_t i = 0; i < m_size; ++i)
+        {
+            m_data[i] = other.m_data[i];
+        }
+    }
+
     void InsertWhenStackIsEmpty(const T& value)
     {
         m_size++;

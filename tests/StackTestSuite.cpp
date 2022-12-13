@@ -103,6 +103,12 @@ public:
     }
 };
 
+TEST_F(NonEmptyStackTestSuite, ShouldBuildStackBasedOnOtherOne)
+{
+    Stack<int> result(sut);
+    ASSERT_EQ(sut, result);
+}
+
 TEST_F(NonEmptyStackTestSuite, ShouldPushNextVariable)
 {
     sut.push(DEFAULT_VALUE);
