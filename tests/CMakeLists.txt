@@ -1,23 +1,26 @@
+# Author: Milosz Barylowicz
+# Date:   2022
+
 cmake_minimum_required(VERSION 3.25.1)
 
 find_package(Git REQUIRED)
 
-set(GTEST_INTALL_LOCATION ${CMAKE_BINARY_DIR}/googletest)
+set(GTEST_ROOT ${CMAKE_BINARY_DIR}/googletest)
 
 include(ExternalProject)
 ExternalProject_Add(googletests
     GIT_REPOSITORY https://github.com/google/googletest.git
     GIT_TAG        release-1.12.1 
-    CMAKE_ARGS -DCMAKE_INSTALL_PREFIX=${GTEST_INTALL_LOCATION}
+    CMAKE_ARGS -DCMAKE_INSTALL_PREFIX=${GTEST_ROOT}
 )
 
-include_directories(${GTEST_INTALL_LOCATION}/include)
-link_directories(${GTEST_INTALL_LOCATION}/lib)
+include_directories(${GTEST_ROOT}/include)
+link_directories(${GTEST_ROOT}/lib)
 
 add_subdirectory(Stack)
+add_subdirectory(Array)
 
 # Copy unit test runnning script
-message("Copying unit test running script...")
 file(
     COPY
         ${CMAKE_SOURCE_DIR}/tests/run_all_unit_tests.sh

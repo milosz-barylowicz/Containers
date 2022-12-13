@@ -1,3 +1,8 @@
+/*
+ * Author: Milosz Barylowicz
+ * Date:   2022
+ */
+
 #include <iostream>
 
 int main()

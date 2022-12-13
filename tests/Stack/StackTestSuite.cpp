@@ -27,7 +27,7 @@ Stack<int> BuildFilledStack(int value)
     return result;
 }
 
-} // namespace anonymus
+} // namespace anonymous
 
 using namespace ::testing;
 
