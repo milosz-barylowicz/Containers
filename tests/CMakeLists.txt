@@ -14,24 +14,12 @@ ExternalProject_Add(googletests
 include_directories(${GTEST_INTALL_LOCATION}/include)
 link_directories(${GTEST_INTALL_LOCATION}/lib)
 
-set(TEST_PROJECT_NAME "${PROJECT_NAME}_test")
+add_subdirectory(Stack)
 
-add_executable(
-    ${TEST_PROJECT_NAME}
-        StackTestSuite.cpp)
-
-target_include_directories(
-    ${TEST_PROJECT_NAME}
-        PRIVATE
-            "${CMAKE_SOURCE_DIR}/include")
-
-target_link_libraries(
-    ${TEST_PROJECT_NAME}
-        gtest gtest_main
-        pthread)
-
-enable_testing()
-
-add_test(
-    NAME ${TEST_PROJECT_NAME}
-    COMMAND $<TARGET_FILE:${TEST_PROJECT_NAME}>)
+# Copy unit test runnning script
+message("Copying unit test running script...")
+file(
+    COPY
+        ${CMAKE_SOURCE_DIR}/tests/run_all_unit_tests.sh
+    DESTINATION
+        ${CMAKE_BINARY_DIR}/tests)
