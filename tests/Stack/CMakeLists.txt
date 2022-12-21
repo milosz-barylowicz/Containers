@@ -9,8 +9,10 @@ add_executable(
     ${STACK_TEST_SUITE_NAME}
         StackTestSuite.cpp)
 
-set(GTest_DIR "${GTEST_ROOT}/lib/cmake/GTest/")
-message("ELO: ${GTest_DIR}")
+# set(GTest_DIR "${GTEST_ROOT}/lib/cmake/GTest")
+set(CMAKE_PREFIX_PATH "${GTEST_ROOT}/lib/cmake/GTest")
+
+message("ELO: ${CMAKE_PREFIX_PATH}")
 find_package(GTest CONFIG REQUIRED)
 enable_testing()
 
