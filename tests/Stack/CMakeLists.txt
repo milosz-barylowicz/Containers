@@ -9,8 +9,7 @@ add_executable(
     ${STACK_TEST_SUITE_NAME}
         StackTestSuite.cpp)
 
-# set(GTest_DIR "${GTEST_ROOT}/lib/cmake/GTest")
-set(CMAKE_PREFIX_PATH "${CMAKE_PREFIX_PATH};${GTEST_ROOT}/lib/cmake/GTest")
+set(GTest_DIR "${GTEST_ROOT}/lib/cmake/GTest")
 find_package(GTest CONFIG REQUIRED)
 
 target_include_directories(
