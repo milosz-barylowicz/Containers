@@ -11,6 +11,7 @@ add_executable(
 
 set(GTest_DIR "${GTEST_ROOT}/lib/cmake/GTest")
 find_package(GTest CONFIG REQUIRED)
+enable_testing()
 
 target_include_directories(
     ${STACK_TEST_SUITE_NAME}
@@ -21,8 +22,6 @@ target_link_libraries(
     ${STACK_TEST_SUITE_NAME}
         GTest::gtest GTest::gtest_main
         pthread)
-
-enable_testing()
 
 add_test(
     NAME ${STACK_TEST_SUITE_NAME}
