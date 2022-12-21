@@ -9,8 +9,6 @@ add_executable(
     ${STACK_TEST_SUITE_NAME}
         StackTestSuite.cpp)
 
-set(CMAKE_PREFIX_PATH "${GTEST_ROOT}/lib/cmake/GTest")
-
 find_package(GTest CONFIG REQUIRED)
 enable_testing()
 

@@ -17,6 +17,8 @@ ExternalProject_Add(googletests
 include_directories(${GTEST_ROOT}/include)
 link_directories(${GTEST_ROOT}/lib)
 
+set(GTest_DIR "${GTEST_ROOT}/lib/cmake/GTest")
+
 add_subdirectory(Stack)
 add_subdirectory(Array)
 
