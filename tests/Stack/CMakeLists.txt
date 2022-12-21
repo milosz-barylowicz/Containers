@@ -10,7 +10,7 @@ add_executable(
         StackTestSuite.cpp)
 
 # set(GTest_DIR "${GTEST_ROOT}/lib/cmake/GTest")
-set(CMAKE_PREFIX_PATH "${GTEST_ROOT}/lib/cmake/GTest")
+set(CMAKE_PREFIX_PATH "${GTEST_ROOT}/lib/cmake/GTest/GTestConfig.cmake")
 
 message("ELO: ${CMAKE_PREFIX_PATH}")
 find_package(GTest CONFIG REQUIRED)
