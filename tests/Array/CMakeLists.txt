@@ -16,9 +16,9 @@ target_include_directories(
 include(GoogleTest)
 
 set(ADDITIONAL_LINK_LIBS "")
- if (UNIX)
+if (UNIX)
     set(ADDITIONAL_LINK_LIBS "${ADDITIONAL_LINK_LIBS} pthread")
- endif()
+endif()
 
 string(STRIP ${ADDITIONAL_LINK_LIBS} ADDITIONAL_LINK_LIBS)
 target_link_libraries(

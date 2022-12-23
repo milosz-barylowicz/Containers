@@ -2,9 +2,9 @@ name: CMake
 
 on:
   push:
-    branches: [ "main", "fix-CI-using-cmake" ]
+    branches: [ "main" ]
   pull_request:
-    branches: [ "main", "fix-CI-using-cmake" ]
+    branches: [ "main" ]
 
 jobs:
   build:
