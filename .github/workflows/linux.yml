@@ -2,9 +2,9 @@ name: linux
 
 on:
   push:
-    branches: [ "main", "creating-github-workflow-for-windows"]
+    branches: [ "creating-github-workflow-for-windows"]
   pull_request:
-    branches: [ "main", "creating-github-workflow-for-windows" ]
+    branches: [ "creating-github-workflow-for-windows" ]
 
 env:
   # Customize the CMake build type here (Release, Debug, RelWithDebInfo, etc.)
