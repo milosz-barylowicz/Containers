@@ -38,3 +38,6 @@ build/
 tests/googletests-prefix/
 CMakeFiles/
 CMakeCache.txt
+
+# Ignoring files specific for Visual Studio
+.vs/
