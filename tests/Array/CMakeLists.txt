@@ -14,15 +14,12 @@ target_include_directories(
             "${CMAKE_SOURCE_DIR}/include")
 
 include(GoogleTest)
-set(CMAKE_PREFIX_PATH "${GTEST_ROOT}/lib/cmake/GTest")
-# find_package(GTest CONFIG REQUIRED)
 target_link_libraries(
     ${ARRAY_TEST_SUITE_NAME}
         GTest::gtest GTest::gtest_main
         pthread) # TODO: /barylowi/ add support for Linux/Windows building
 
 enable_testing()
-
 add_test(
     NAME ${ARRAY_TEST_SUITE_NAME}
     COMMAND $<TARGET_FILE:${ARRAY_TEST_SUITE_NAME}>)
