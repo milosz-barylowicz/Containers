@@ -1,4 +1,4 @@
 #!/bin/bash
 
-cd Stack/ && ctest;
-cd ../Array/ && ctest
+cd Stack && ctest;
+cd ../Array && ctest

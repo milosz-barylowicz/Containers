@@ -1,18 +1,22 @@
 # Author: Milosz Barylowicz
 # Date:   2022
 
-cmake_minimum_required(VERSION 3.25.1)
+cmake_minimum_required(VERSION 3.24)
 
 find_package(Git REQUIRED)
 
 set(GTEST_ROOT ${CMAKE_BINARY_DIR}/googletest)
 
-include(ExternalProject)
-ExternalProject_Add(googletests
+include(FetchContent)
+FetchContent_Declare(googletest
     GIT_REPOSITORY https://github.com/google/googletest.git
     GIT_TAG        release-1.12.1 
     CMAKE_ARGS -DCMAKE_INSTALL_PREFIX=${GTEST_ROOT}
 )
+
+# For Windows: Prevent overriding the parent project's compiler/linker settings
+set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
+FetchContent_MakeAvailable(googletest)
 
 include_directories(${GTEST_ROOT}/include)
 link_directories(${GTEST_ROOT}/lib)

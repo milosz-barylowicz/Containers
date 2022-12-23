@@ -1,15 +1,17 @@
 # Author: Milosz Barylowicz
 # Date:   2022
 
-cmake_minimum_required(VERSION 3.25.1)
+cmake_minimum_required(VERSION 3.24)
 
 set(STACK_TEST_SUITE_NAME "StackTestSuite")
 
 add_executable(
     ${STACK_TEST_SUITE_NAME}
         StackTestSuite.cpp)
+include(GoogleTest)
 
-find_package(GTest CONFIG REQUIRED)
+set(CMAKE_PREFIX_PATH "${GTEST_ROOT}/lib/cmake/GTest")
+# find_package(GTest CONFIG REQUIRED)
 enable_testing()
 
 target_include_directories(

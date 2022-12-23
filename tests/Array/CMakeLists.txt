@@ -1,7 +1,7 @@
 # Author: Milosz Barylowicz
 # Date:   2022
 
-cmake_minimum_required(VERSION 3.25.1)
+cmake_minimum_required(VERSION 3.24)
 
 set(ARRAY_TEST_SUITE_NAME "ArrayTestSuite")
 add_executable(
@@ -13,12 +13,13 @@ target_include_directories(
         PRIVATE
             "${CMAKE_SOURCE_DIR}/include")
 
+include(GoogleTest)
 set(CMAKE_PREFIX_PATH "${GTEST_ROOT}/lib/cmake/GTest")
-find_package(GTest CONFIG REQUIRED)
+# find_package(GTest CONFIG REQUIRED)
 target_link_libraries(
     ${ARRAY_TEST_SUITE_NAME}
         GTest::gtest GTest::gtest_main
-        pthread)
+        pthread) # TODO: /barylowi/ add support for Linux/Windows building
 
 enable_testing()
 
