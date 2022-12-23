@@ -12,4 +12,7 @@ using namespace ::testing;
 class ArrayTestSuite : public Test
 {};
 
+TEST_F(ArrayTestSuite, NoneTest)
+{}
+
 } // namespace containers::ut
