@@ -14,10 +14,17 @@ target_include_directories(
             "${CMAKE_SOURCE_DIR}/include")
 
 include(GoogleTest)
+
+set(ADDITIONAL_LINK_LIBS "")
+ if (UNIX)
+    set(ADDITIONAL_LINK_LIBS "${ADDITIONAL_LINK_LIBS} pthread")
+ endif()
+
+string(STRIP ${ADDITIONAL_LINK_LIBS} ADDITIONAL_LINK_LIBS)
 target_link_libraries(
     ${ARRAY_TEST_SUITE_NAME}
         GTest::gtest GTest::gtest_main
-        pthread) # TODO: /barylowi/ add support for Linux/Windows building
+        "${ADDITIONAL_LINK_LIBS}")
 
 enable_testing()
 add_test(
