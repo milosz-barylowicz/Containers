@@ -2,9 +2,9 @@ name: macos
 
 on:
   push:
-    branches: [ "main", "creating-github-workflow-for-macos" ]
+    branches: [ "main" ]
   pull_request:
-    branches: [ "main", "creating-github-workflow-for-macos" ]
+    branches: [ "main" ]
 
 env:
   # Customize the CMake build type here (Release, Debug, RelWithDebInfo, etc.)
