@@ -20,7 +20,7 @@ if (UNIX)
     set(ADDITIONAL_LINK_LIBS "${ADDITIONAL_LINK_LIBS} pthread")
 endif()
 
-string(STRIP ${ADDITIONAL_LINK_LIBS} ADDITIONAL_LINK_LIBS)
+string(STRIP ${ADDITIONAL_LINK_LIBS} ${ADDITIONAL_LINK_LIBS})
 target_link_libraries(
     ${ARRAY_TEST_SUITE_NAME}
         GTest::gtest GTest::gtest_main
