@@ -8,13 +8,12 @@
 namespace containers
 {
 
-template<typename T, size_t size>
+template<typename T, size_t element_count>
 class Array
 {
 public:
     Array()
     {
-        m_size = size;
         m_data = new T[m_size];
 
         for (size_t i = 0; i < m_size; ++i)
@@ -25,18 +24,16 @@ public:
 
     Array(std::initializer_list<T> args)
     {
-        m_size = size;
-        m_data = new T[m_size];
+        m_data = new T[element_count];
 
-        for (size_t i = 0; i < m_size; ++i)
+        for (const auto& arg : args)
         {
-            m_data[i] = args[i];
+            m_data[m_current] = arg;
         }
     }
 
-    Array(const Array<T>& other)
+    Array(const Array<T, element_count>& other)
     {
-        m_size = other.m_size;
         m_data = new T[m_size];
 
         for (size_t i = 0; i < m_size; ++i)
@@ -45,15 +42,14 @@ public:
         }
     }
 
-    Array(const Array<T>&& other)
+    Array(const Array<T, element_count>&& other)
     {
-        m_size = other.m_size;
         m_data = new T[m_size];
 
-       for (size_t i = 0; i < m_size; ++i)
-       {
-           m_data[i] = other.m_data[i];
-       }
+        for (size_t i = 0; i < m_size; ++i)
+        {
+            m_data[i] = other.m_data[i];
+        }
     }
 
     ~Array()
@@ -66,20 +62,16 @@ public:
         return m_data[index];
     }
 
-    friend bool operator==(const T& other) const
+    friend bool operator==(const Array<T, element_count>& lhs, const Array<T, element_count>& rhs)
     {
-        if (other.m_size != m_size)
+        for (size_t i = 0; i < element_count; ++i)
         {
-            return false;
-        }
-
-        for (size_t i = 0; i < m_size; ++i)
-        {
-            if (m_data[i] != other.m_data[i])
+            if (lhs.m_data[i] != rhs.m_data[i])
             {
                 return false;
             }
         }
+
         return true;
     }
 
@@ -90,7 +82,8 @@ public:
 
 private:
     T* m_data = nullptr;
-    size_t m_size = size;
+    size_t m_size = element_count;
+    size_t m_current = {};
 };
 
 } // namespace containers
