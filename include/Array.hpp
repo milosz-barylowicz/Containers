@@ -30,8 +30,6 @@ public:
         {
             m_data[m_current] = arg;
         }
-
-        T* a = new T[100000];
     }
 
     Array(const Array<T, element_count>& other)
