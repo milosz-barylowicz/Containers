@@ -2,9 +2,9 @@ name: valgrind
 
 on:
   push:
-    branches: [ "main", "creating-github-workflow-to-run-valgrind" ]
+    branches: [ "main" ]
   pull_request:
-    branches: [ "main", "creating-github-workflow-to-run-valgrind" ]
+    branches: [ "main" ]
 
 env:
   # Customize the CMake build type here (Release, Debug, RelWithDebInfo, etc.)
