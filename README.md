@@ -13,5 +13,5 @@ Repository is created to practice building project with:
  - To compile generated project: cmake --build build
  
  - Using additional functionality requires using flags when generating project:
-   - Addess Sanitizers: cmake -B <<build-dir>> -S <project-dir> -ASan=ON
+   - Addess Sanitizers: cmake -B <<"build-dir">> -S <project-dir> -ASan=ON
    - Leak Sanitizers: cmake -B <build-dir> -S <project-dir> -LSan=ON
