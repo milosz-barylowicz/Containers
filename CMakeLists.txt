@@ -14,5 +14,11 @@ if (ASan)
     set(CMAKE_LINKER_FLAGS "${CMAKE_LINKER_FLAGS} -fsanitize=address")
 endif()
 
+if (LSan)
+    message("-- LSan check enabled")
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fsanitize=leak")
+    set(CMAKE_LINKER_FLAGS "${CMAKE_LINKER_FLAGS} -fsanitize=leak")
+endif()
+
 add_subdirectory(src)
 add_subdirectory(tests)
