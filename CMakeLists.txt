@@ -9,15 +9,21 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 project(Containers LANGUAGES CXX)
 
 if (ASan)
-    message("-- ASan check enabled")
+    message("-- Address sanitizer check enabled")
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fsanitize=address")
     set(CMAKE_LINKER_FLAGS "${CMAKE_LINKER_FLAGS} -fsanitize=address")
 endif()
 
 if (LSan)
-    message("-- LSan check enabled")
+    message("-- Leak sanitizer check enabled")
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fsanitize=leak")
     set(CMAKE_LINKER_FLAGS "${CMAKE_LINKER_FLAGS} -fsanitize=leak")
+endif()
+
+if (UBSan)
+    message("-- Undefined behavior sanitizer check enabled")
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fsanitize=undefined")
+    set(CMAKE_LINKER_FLAGS "${CMAKE_LINKER_FLAGS} -fsanitize=undefined")
 endif()
 
 add_subdirectory(src)
