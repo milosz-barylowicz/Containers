@@ -1,2 +1,5 @@
 # Containers
-repository created to practise some CI/CD and build system with CMake
+Repository it my place to practice building project with :
+ - Automated builds using Github workflows
+ - CMake build system
+ - C/C++
