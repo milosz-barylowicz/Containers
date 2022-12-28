@@ -8,6 +8,11 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 project(Containers LANGUAGES CXX)
 
+set(ADDITIONAL_LINK_LIBS "")
+if (UNIX)
+    set(ADDITIONAL_LINK_LIBS "${ADDITIONAL_LINK_LIBS} pthread")
+endif()
+
 if (ASan)
     message("-- Address sanitizer check enabled")
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fsanitize=address")
