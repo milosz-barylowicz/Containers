@@ -14,8 +14,8 @@ Repository is created to practice building project with:
  - To compile generated project: cmake --build build-dir
  
  - Using additional functionality requires using flags when generating project:
-   - Addess Sanitizers: cmake -B build-dir -S project-dir -ASan=ON
-   - Leak Sanitizers: cmake -B build-dir -S project-dir -LSan=ON
+   - Addess Sanitizers: cmake -B build-dir -S project-dir -DASan=ON
+   - Leak Sanitizers: cmake -B build-dir -S project-dir -DLSan=ON
 
 # How to run project
  - Linux: install CMake, gcc and editor of your choice and follow "Recommended way of using CMake" paragraph
