@@ -29,10 +29,10 @@ public:
         CopyData(other);
     }
 
-    virtual ~Stack()
-    {
-        delete[] m_data;
-    }
+    virtual ~Stack(){}
+    // {
+    //     delete[] m_data;
+    // }
 
     Stack<T>& operator=(const Stack<T>& other)
     {
