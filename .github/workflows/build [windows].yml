@@ -3,8 +3,6 @@ name: build [windows]
 on:
   push:
     branches: [ '**' ] # '**' it used to match all existing branches
-  pull_request:
-    branches: [ '**' ] # '**' it used to match all existing branches
 
 env:
   # Customize the CMake build type here (Release, Debug, RelWithDebInfo, etc.)
