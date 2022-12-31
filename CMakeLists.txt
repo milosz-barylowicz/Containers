@@ -12,7 +12,7 @@ endif()
 
 if (COVERAGE)
     message("-- Build with code coverage")
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} --coverage -fprofile-arcs -ftest-coverage")
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fprofile-arcs -ftest-coverage")
 endif()
 
 project(Containers LANGUAGES CXX)
