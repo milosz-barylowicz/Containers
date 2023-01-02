@@ -39,7 +39,4 @@ jobs:
 
     - name: Code coverage generation
       working-directory: ${{github.workspace}}/build
-      run:
-        sudo apt install lcov &&
-        lcov -c -d . -o sheet.info --include *.cpp --include *.hpp &&
-        genhtml sheet.info --output-directory out
+      run: ./generate_code_coverage_raport.sh

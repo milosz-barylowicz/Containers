@@ -1,5 +1,5 @@
 # Author: Milosz Barylowicz
-# Date:   2022
+# Date:   2022-2023
 
 cmake_minimum_required(VERSION 3.24)
 
@@ -42,3 +42,10 @@ endif()
 
 add_subdirectory(src)
 add_subdirectory(tests)
+
+# Copy script to generating code coverage raport into build directory
+file(
+    COPY
+        ${CMAKE_SOURCE_DIR}/scripts/generate_code_coverage_raport.sh
+    DESTINATION
+        ${CMAKE_BINARY_DIR})

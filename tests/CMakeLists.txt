@@ -27,6 +27,6 @@ add_subdirectory(Array)
 # Copy unit test runnning script
 file(
     COPY
-        ${CMAKE_SOURCE_DIR}/tests/run_all_unit_tests.sh
+        ${CMAKE_SOURCE_DIR}/scripts/run_all_unit_tests.sh
     DESTINATION
         ${CMAKE_BINARY_DIR}/tests)

@@ -1,6 +1,6 @@
 /*
  * Author: Milosz Barylowicz
- * Date:   2022
+ * Date:   2022-2023
  */
 
 #include <gtest/gtest.h>
@@ -21,6 +21,13 @@ class ArrayTestSuite : public Test
 public:
 	Array<int, 0> sut;
 };
+
+TEST_F(ArrayTestSuite, ShouldCreateDefultArrayFilledWithZeros)
+{
+	Array<int, 2> result;
+	ASSERT_EQ(0, result[0]);
+	ASSERT_EQ(0, result[1]);
+}
 
 TEST_F(ArrayTestSuite, ShouldCreateEmptyArray)
 {
