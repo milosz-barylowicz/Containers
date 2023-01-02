@@ -27,5 +27,5 @@ To generate code coverage using lcov you need to use linux OS and follow steps:
  - Compile project: cmake --build build-dir
  - Navigate into build-dir and invoke: generate_code_coverage_raport.sh script
    - It will create new directory: code_coverage which will contain essential files.
-   - Navigate into code_coverage directory and use your web-browser to see "index.html" file which will contain
+   - Navigate into code_coverage directory and use your web-browser to inspect "index.html" file which will contain
      code-coverage for the project
