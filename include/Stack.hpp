@@ -1,6 +1,6 @@
 /*
  * Author: Milosz Barylowicz
- * Date:   2022
+ * Date:   2022-2023
  */
 
 #pragma once
@@ -24,17 +24,12 @@ public:
         CopyData(other);
     }
 
-    Stack(const Stack<T>&& other)
-    {
-        CopyData(other);
-    }
-
     virtual ~Stack()
     {
         delete[] m_data;
     }
 
-    Stack<T>& operator=(const Stack<T>& other)
+    void operator=(const Stack<T>& other)
     {
         m_size = other.m_size;
         m_data = new T[m_size];
