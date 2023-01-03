@@ -44,12 +44,9 @@ public:
 
     Array(const Array<T, element_count>&& other)
     {
-        m_data = new T[m_size];
-
-        for (size_t i = 0; i < m_size; ++i)
-        {
-            m_data[i] = other.m_data[i];
-        }
+        m_data = std::move(other.m_data);
+        m_size = std::move(other.m_size);
+        m_current = std::move(other.m_current);
     }
 
     ~Array()
