@@ -22,7 +22,7 @@ public:
         }
     }
 
-    Array(std::initializer_list<T> args)
+    Array(const std::initializer_list<T>& args)
     {
         m_data = new T[element_count];
 
@@ -77,10 +77,15 @@ public:
         return m_size;
     }
 
+    bool empty() const
+    {
+        return m_size == 0;
+    }
+
 private:
     T* m_data = nullptr;
     size_t m_size = element_count;
-    size_t m_current = {};
+    size_t m_current{};
 };
 
 } // namespace containers

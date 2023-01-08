@@ -22,6 +22,18 @@ public:
 	Array<int, 0> sut;
 };
 
+TEST_F(ArrayTestSuite, ShouldReturnFalseWhenEvaluatingNonEmptyArray)
+{
+	Array<int, 5> result{ 1, 2, 3, 4, 5 };
+
+	ASSERT_FALSE(result.empty());
+}
+
+TEST_F(ArrayTestSuite, ShouldReturnTrueWhenEvaluatingEmptyArray)
+{
+	ASSERT_TRUE(EMPTY_ARRAY.empty());
+}
+
 TEST_F(ArrayTestSuite, ShouldCreateDefultArrayFilledWithZeros)
 {
 	Array<int, 2> result;
