@@ -5,6 +5,10 @@
 
 #pragma once
 
+#include <optional>
+#include <stdexcept>
+#include <functional>
+
 namespace containers
 {
 
@@ -29,6 +33,7 @@ public:
         for (const auto& arg : args)
         {
             m_data[m_current] = arg;
+            m_current++;
         }
     }
 
@@ -54,8 +59,18 @@ public:
         delete[] m_data;
     }
 
-    T& operator[](size_t index)
+    T& operator[](size_t index) const
     {
+        return m_data[index];
+    }
+
+    T& at(size_t index) const
+    {
+        if (not m_data or m_size == 0)
+        {
+            throw std::out_of_range("There are no data to access!");
+        }
+
         return m_data[index];
     }
 
@@ -72,9 +87,24 @@ public:
         return true;
     }
 
+    std::optional<std::reference_wrapper<T>> front() const
+    {
+        if (not m_data or m_size == 0)
+        {
+            throw std::out_of_range("There is no data to access");
+        }
+
+        return m_data[0];
+    }
+
     size_t size() const
     {
         return m_size;
+    }
+
+    size_t max_size() const
+    {
+        return std::numeric_limits<size_t>::max();
     }
 
     bool empty() const
@@ -85,7 +115,7 @@ public:
 private:
     T* m_data = nullptr;
     size_t m_size = element_count;
-    size_t m_current{};
+    size_t m_current{0};
 };
 
 } // namespace containers
