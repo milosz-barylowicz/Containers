@@ -29,14 +29,6 @@ jobs:
       # Build your program with the given configuration
       run: cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}}
 
-    - name: Running Tests
-      working-directory: ${{github.workspace}}/build/tests
-      # Execute tests defined by the CMake configuration.
-      # See https://cmake.org/cmake/help/latest/manual/ctest.1.html for more detail
-      run: 
-        cd ${{github.workspace}}/build/tests/Array && ./ArrayTestSuite &&
-        cd ${{github.workspace}}/build/tests/Stack && ./StackTestSuite
-
     - name: Code coverage generation
       working-directory: ${{github.workspace}}/build
       run: ./generate_code_coverage_raport.sh
