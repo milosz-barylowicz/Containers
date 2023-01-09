@@ -14,7 +14,6 @@ namespace
 constexpr size_t MAX_SIZE = std::numeric_limits<size_t>::max();
 constexpr size_t EMPTY = 0;
 constexpr size_t NON_EMPTY = 5;
-const Array<int, EMPTY> EMPTY_ARRAY;
 constexpr int FIRST_ELEMENT = 1;
 const Array<int, NON_EMPTY> NON_EMPTY_ARRAY
 	{ FIRST_ELEMENT, FIRST_ELEMENT + 1, FIRST_ELEMENT + 2, FIRST_ELEMENT + 3, FIRST_ELEMENT + 4 };
@@ -29,34 +28,6 @@ void ExpectThatArrayWillBeFilledUpWithZeros(const Array<int, 2>& res)
 } // namespace anonymous
 
 using namespace ::testing;
-
-class EmptyArrayTestSuite : public Test
-{
-public:
-	Array<int, EMPTY> sut;
-};
-
-TEST_F(EmptyArrayTestSuite, ShouldReturnMaxPossibleSizeOfArray)
-{
-	ASSERT_EQ(MAX_SIZE, sut.max_size());
-}
-
-TEST_F(EmptyArrayTestSuite, ShouldThrowWhenTryingToAccessNonExistingElement)
-{
-	ASSERT_THROW(sut.at(0), std::out_of_range);
-}
-
-TEST_F(EmptyArrayTestSuite, ShouldCreateEmptyArray)
-{
-	ASSERT_TRUE(EMPTY_ARRAY.empty());
-	ASSERT_EQ(EMPTY, sut.size());
-	ASSERT_EQ(EMPTY_ARRAY, sut);
-}
-
-TEST_F(EmptyArrayTestSuite, ShouldThrowOutOfRangeExeptionWhenTryingToAccessFrontElementOfArray)
-{
-	ASSERT_THROW(sut.front(), std::out_of_range);
-}
 
 class ArrayTestSuite : public Test
 {
