@@ -25,6 +25,15 @@ void ExpectThatArrayWillBeFilledUpWithZeros(const Array<int, 2>& res)
 		ASSERT_EQ(EMPTY, res[i]);
 	}
 }
+
+void ExpectThatArrayIsFilledCorrectly(const int* array, size_t size)
+{
+	for (size_t i = 0; i < size; ++i)
+	{
+		ASSERT_EQ(NON_EMPTY_ARRAY[i], *array);
+		array++;
+	}
+}
 } // namespace anonymous
 
 using namespace ::testing;
@@ -36,6 +45,11 @@ public:
 		{ FIRST_ELEMENT, FIRST_ELEMENT + 1, FIRST_ELEMENT + 2, FIRST_ELEMENT + 3, FIRST_ELEMENT + 4 };
 };
 
+TEST_F(ArrayTestSuite, ShouldGrandAccessToUnderlyingData)
+{
+	ExpectThatArrayIsFilledCorrectly(sut.data(), sut.size());
+}
+
 TEST_F(ArrayTestSuite, ShouldReturnMaxPossibleSizeOfArray)
 {
 	ASSERT_EQ(MAX_SIZE, sut.max_size());
@@ -44,6 +58,11 @@ TEST_F(ArrayTestSuite, ShouldReturnMaxPossibleSizeOfArray)
 TEST_F(ArrayTestSuite, ShouldAccessFirstElement)
 {
 	ASSERT_EQ(FIRST_ELEMENT, sut.front());
+}
+
+TEST_F(ArrayTestSuite, ShouldAccessLastElement)
+{
+	ASSERT_EQ(FIRST_ELEMENT + 4, sut.back());
 }
 
 TEST_F(ArrayTestSuite, ShouldModifySpecificElementOfArray)
@@ -81,6 +100,15 @@ TEST_F(ArrayTestSuite, ShouldModifyFirstElementOfArray)
 	
 	value->get() = FIRST_ELEMENT + 1;
 	ASSERT_EQ(FIRST_ELEMENT + 1, value);
+}
+
+TEST_F(ArrayTestSuite, ShouldModifyLastElementOfArray)
+{
+	auto value = sut.back();
+	EXPECT_EQ(FIRST_ELEMENT + 4, value);
+
+	value->get() = FIRST_ELEMENT;
+	ASSERT_EQ(FIRST_ELEMENT, value);
 }
 
 TEST_F(ArrayTestSuite, ShouldCreateNonEmptyArray)

@@ -22,7 +22,7 @@ link_directories(${GTEST_ROOT}/lib)
 set(GTest_DIR "${GTEST_ROOT}/lib/cmake/GTest")
 
 add_subdirectory(Stack)
-add_subdirectory(Array)
+add_subdirectory(ArrayTestSute)
 
 # Copy unit test runnning script
 file(

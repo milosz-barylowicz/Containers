@@ -74,6 +74,16 @@ public:
         return m_data[index];
     }
 
+    T* data() const
+    {
+        if (not m_data or m_size == 0)
+        {
+            return nullptr;
+        }
+
+        return m_data;
+    }
+
     friend bool operator==(const Array<T, element_count>& lhs, const Array<T, element_count>& rhs)
     {
         for (size_t i = 0; i < element_count; ++i)
@@ -95,6 +105,16 @@ public:
         }
 
         return m_data[0];
+    }
+
+    std::optional<std::reference_wrapper<T>> back() const
+    {
+        if (not m_data or m_size == 0)
+        {
+            throw std::out_of_range("There is no data to access");
+        }
+
+        return m_data[m_current - 1];
     }
 
     size_t size() const

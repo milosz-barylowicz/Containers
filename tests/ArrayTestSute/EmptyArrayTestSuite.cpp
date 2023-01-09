@@ -45,4 +45,14 @@ TEST_F(EmptyArrayTestSuite, ShouldThrowOutOfRangeExeptionWhenTryingToAccessFront
 	ASSERT_THROW(sut.front(), std::out_of_range);
 }
 
+TEST_F(EmptyArrayTestSuite, ShouldThrowWhenTryingAccessLastElement)
+{
+	ASSERT_THROW(sut.back(), std::out_of_range);
+}
+
+TEST_F(EmptyArrayTestSuite, ShouldReturnNullPointerWhenTryingAccessUnderlyingData)
+{
+	ASSERT_FALSE(sut.data());
+}
+
 } // namespace containers::ut
