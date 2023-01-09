@@ -3,5 +3,5 @@
 
 #!/bin/bash
 
-./Stack/StackTestSuite;
-./ArrayTestSute/ArrayTestSuite;
+./StackTestSuite/StackTestSuite;
+./ArrayTestSuite/ArrayTestSuite;

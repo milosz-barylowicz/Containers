@@ -10,6 +10,7 @@ namespace containers::ut
 {
 namespace
 {
+constexpr int DEFAULT_VALUE = 100;
 constexpr size_t EMPTY = 0;
 const Array<int, EMPTY> EMPTY_ARRAY;
 constexpr size_t MAX_SIZE = std::numeric_limits<size_t>::max();
@@ -53,6 +54,12 @@ TEST_F(EmptyArrayTestSuite, ShouldThrowWhenTryingAccessLastElement)
 TEST_F(EmptyArrayTestSuite, ShouldReturnNullPointerWhenTryingAccessUnderlyingData)
 {
 	ASSERT_FALSE(sut.data());
+}
+
+TEST_F(EmptyArrayTestSuite, ShouldNotFillEmptyArray)
+{
+	sut.fill(DEFAULT_VALUE);
+	ASSERT_EQ(EMPTY_ARRAY, sut);
 }
 
 } // namespace containers::ut

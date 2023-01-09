@@ -132,6 +132,15 @@ public:
         return m_size == 0;
     }
 
+    void fill(T value)
+    {
+        for (size_t i = 0; i < m_size; ++i)
+        {
+            m_data[i] = value;
+        }
+        m_current = m_size;
+    }
+
 private:
     T* m_data = nullptr;
     size_t m_size = element_count;

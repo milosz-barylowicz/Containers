@@ -11,6 +11,7 @@ namespace containers::ut
 
 namespace
 {
+constexpr int DEFAULT_VALUE = 100;
 constexpr size_t MAX_SIZE = std::numeric_limits<size_t>::max();
 constexpr size_t EMPTY = 0;
 constexpr size_t NON_EMPTY = 5;
@@ -34,6 +35,15 @@ void ExpectThatArrayIsFilledCorrectly(const int* array, size_t size)
 		array++;
 	}
 }
+
+void ExpectThatArrayIsFilledWithDefaultValue(const Array<int, 5>& array)
+{
+	for (size_t i = 0; i < array.size(); ++i)
+	{
+		ASSERT_EQ(DEFAULT_VALUE, array[i]);
+	}
+}
+
 } // namespace anonymous
 
 using namespace ::testing;
@@ -44,6 +54,12 @@ public:
 	Array<int, NON_EMPTY> sut
 		{ FIRST_ELEMENT, FIRST_ELEMENT + 1, FIRST_ELEMENT + 2, FIRST_ELEMENT + 3, FIRST_ELEMENT + 4 };
 };
+
+TEST_F(ArrayTestSuite, ShouldFillUpArrayWithDefaultValue)
+{
+	sut.fill(DEFAULT_VALUE);
+	ExpectThatArrayIsFilledWithDefaultValue(sut);
+}
 
 TEST_F(ArrayTestSuite, ShouldGrandAccessToUnderlyingData)
 {
