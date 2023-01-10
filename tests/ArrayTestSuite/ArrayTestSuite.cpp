@@ -55,6 +55,13 @@ public:
 		{ FIRST_ELEMENT, FIRST_ELEMENT + 1, FIRST_ELEMENT + 2, FIRST_ELEMENT + 3, FIRST_ELEMENT + 4 };
 };
 
+TEST_F(ArrayTestSuite, ShouldAssingOneArrayToOtherOne)
+{
+	Array<int, NON_EMPTY> result{ 10, 20, 30, 40, 50 };
+	sut = result;
+	ASSERT_EQ(result, sut);
+}
+
 TEST_F(ArrayTestSuite, ShouldFillUpArrayWithDefaultValue)
 {
 	sut.fill(DEFAULT_VALUE);
