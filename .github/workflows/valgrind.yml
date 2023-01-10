@@ -38,4 +38,5 @@ jobs:
       # See https://cmake.org/cmake/help/latest/manual/ctest.1.html for more detail
       run: 
         cd ${{github.workspace}}/build/tests/ArrayTestSuite && valgrind -s -v --error-exitcode=1 --leak-check=full ./ArrayTestSuite &&
-        cd ${{github.workspace}}/build/tests/StackTestSuite && valgrind -s -v --error-exitcode=1 --leak-check=full ./StackTestSuite
+        cd ${{github.workspace}}/build/tests/StackTestSuite && valgrind -s -v --error-exitcode=1 --leak-check=full ./StackTestSuite &&
+        cd ${{github.workspace}}/build/tests/VectorTestSuite && valgrind -s -v --error-exitcode=1 --leak-check=full ./VectorTestSuite

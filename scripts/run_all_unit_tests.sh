@@ -5,3 +5,4 @@
 
 ./StackTestSuite/StackTestSuite;
 ./ArrayTestSuite/ArrayTestSuite;
+./VectorTestSuite/VectorTestSuite;
