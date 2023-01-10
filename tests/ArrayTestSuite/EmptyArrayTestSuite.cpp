@@ -24,6 +24,15 @@ public:
 	Array<int, EMPTY> sut;
 };
 
+TEST_F(EmptyArrayTestSuite, ShouldSwapTwoEmptyArrays)
+{
+	Array<int, EMPTY> result;
+	sut.swap(result);
+
+	ASSERT_EQ(EMPTY, sut.size());
+	ASSERT_EQ(EMPTY, result.size());
+}
+
 TEST_F(EmptyArrayTestSuite, ShouldReturnMaxPossibleSizeOfArray)
 {
 	ASSERT_EQ(MAX_SIZE, sut.max_size());

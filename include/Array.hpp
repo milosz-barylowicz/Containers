@@ -16,6 +16,9 @@ template<typename T, std::size_t element_count>
 class Array
 {
 public:
+    using iterator = T*;
+    using const_iterator = const T*;
+
     Array()
     {
         m_data = new T[m_size];
@@ -114,6 +117,26 @@ public:
         return m_data;
     }
 
+    iterator begin() const noexcept
+    {
+        return m_data;
+    }
+
+    iterator end() const noexcept
+    {
+        return m_data + m_size;
+    }
+
+    const_iterator cbegin() const noexcept
+    {
+        return m_data;
+    }
+
+    const_iterator cend() const noexcept
+    {
+        return m_data + m_size;
+    }
+
     std::optional<std::reference_wrapper<T>> front() const
     {
         if (not m_data or m_size == 0)
@@ -155,6 +178,30 @@ public:
         {
             m_data[i] = value;
         }
+    }
+
+    void swap(Array& other)
+    {
+        T* temp = new T[other.m_size];
+        size_t temp_size = other.m_size;
+
+        for (size_t i = 0; i < temp_size; ++i)
+        {
+            temp[i] = other.m_data[i];
+        }
+
+        delete[] other.m_data;
+        other.m_size = m_size;
+        other.m_data = new T[m_size];
+
+        for (size_t i = 0; i < m_size; ++i)
+        {
+            other.m_data[i] = m_data[i];
+        }
+
+        delete[] m_data;
+        m_data = temp;
+        m_size = temp_size;
     }
 
 private:

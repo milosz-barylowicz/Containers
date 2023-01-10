@@ -55,6 +55,44 @@ public:
 		{ FIRST_ELEMENT, FIRST_ELEMENT + 1, FIRST_ELEMENT + 2, FIRST_ELEMENT + 3, FIRST_ELEMENT + 4 };
 };
 
+TEST_F(ArrayTestSuite, ShouldAccessLastElementUsingConstEndIterator)
+{
+	auto it = sut.cend();
+	it--;
+	ASSERT_EQ(FIRST_ELEMENT + 4, *it);
+}
+
+TEST_F(ArrayTestSuite, ShouldAccessLastElementUsingEndIterator)
+{
+	auto it = sut.end();
+	it--;
+	ASSERT_EQ(FIRST_ELEMENT + 4, *it);
+}
+
+TEST_F(ArrayTestSuite, ShouldAccessFirstElementUsingConstBeginIterator)
+{
+	auto it = sut.cbegin();
+	ASSERT_EQ(FIRST_ELEMENT, *it);
+}
+
+TEST_F(ArrayTestSuite, ShouldAccessFirstElementUsingBeginIterator)
+{
+	auto it = sut.begin();
+	ASSERT_EQ(FIRST_ELEMENT, *it);
+
+	it++;
+	ASSERT_EQ(FIRST_ELEMENT + 1, *it);
+}
+
+TEST_F(ArrayTestSuite, ShouldSwapToArraysOfTheSameSize)
+{
+	Array<int, NON_EMPTY> result{ FIRST_ELEMENT, FIRST_ELEMENT + 10, FIRST_ELEMENT + 20, FIRST_ELEMENT + 30, FIRST_ELEMENT + 40 };
+	sut.swap(result);
+
+	ASSERT_EQ(FIRST_ELEMENT + 10, sut[1]);
+	ASSERT_EQ(FIRST_ELEMENT + 1, result[1]);
+}
+
 TEST_F(ArrayTestSuite, ShouldAssingOneArrayToOtherOne)
 {
 	Array<int, NON_EMPTY> result{ 10, 20, 30, 40, 50 };
