@@ -33,4 +33,4 @@ jobs:
       working-directory: ${{github.workspace}}\build\tests
       # Execute tests defined by the CMake configuration.
       # See https://cmake.org/cmake/help/latest/manual/ctest.1.html for more detail
-      run: cd ${{github.workspace}}\build\tests\Array\Debug && start ArrayTestSuite.exe && cd ${{github.workspace}}\build\tests\Stack\Debug && start StackTestSuite.exe
+      run: cd ${{github.workspace}}\build\tests\ArrayTestSuite\Debug && start ArrayTestSuite.exe && cd ${{github.workspace}}\build\tests\StackTestSuite\Debug && start StackTestSuite.exe
