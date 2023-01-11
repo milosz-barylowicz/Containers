@@ -15,19 +15,16 @@ namespace containers::ut
 {
 using namespace ::testing;
 
-
-class VectorTestSuite : public Test
+class EmptyVectorTestSuite : public Test
 {
 public:
 	Vector<int> sut;
 };
 
-TEST_F(VectorTestSuite, ShouldAddNewElement)
+TEST_F(EmptyVectorTestSuite, ShouldAddNewElement)
 {
-	// TODO: when init list will be implemented replace that code
 	sut.push_back(DEFAULT_VALUE);
-	sut.push_back(DEFAULT_VALUE + 1);
-	ASSERT_EQ(DEFAULT_VALUE + 1, sut[1]);
+	ASSERT_EQ(DEFAULT_VALUE, sut[0]);
 }
 
 } // namespace containers::ut
