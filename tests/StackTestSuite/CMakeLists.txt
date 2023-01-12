@@ -6,7 +6,8 @@ cmake_minimum_required(VERSION 3.24)
 set(STACK_TEST_SUITE_NAME "StackTestSuite")
 add_executable(
     ${STACK_TEST_SUITE_NAME}
-        StackTestSuite.cpp)
+        StackTestSuite.cpp
+        EmptyStackTestSuite.cpp)
 
 target_include_directories(
     ${STACK_TEST_SUITE_NAME}
