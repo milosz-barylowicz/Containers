@@ -33,12 +33,6 @@ using namespace testing;
 class StackTestSuite : public Test
 {
 public:
-    Stack<int> sut;
-};
-
-class NonEmptyStackTestSuite : public StackTestSuite
-{
-public:
     void SetUp() override
     {
         FillStackWithData();
@@ -52,6 +46,7 @@ public:
         ASSERT_EQ(DEFAULT_VALUE, sut.top());
     }
 
+    Stack<int> sut;
 private:
     void FillStackWithData()
     {
@@ -62,7 +57,7 @@ private:
     }
 };
 
-TEST_F(NonEmptyStackTestSuite, ShouldNotBeEqualIfThereAreDifferentValuesInStacksBuTheSameSizes)
+TEST_F(StackTestSuite, ShouldNotBeEqualIfThereAreDifferentValuesInStacksBuTheSameSizes)
 {
     Stack<int> result;
     for (size_t i = 0; i < DEFAULT_SIZE; ++i)
@@ -74,7 +69,7 @@ TEST_F(NonEmptyStackTestSuite, ShouldNotBeEqualIfThereAreDifferentValuesInStacks
     ASSERT_NE(sut, result);
 }
 
-TEST_F(NonEmptyStackTestSuite, ShouldNotBeEqualIfThereAreDifferentSizesOfStacks)
+TEST_F(StackTestSuite, ShouldNotBeEqualIfThereAreDifferentSizesOfStacks)
 {
     Stack<int> result;
     result.push(DEFAULT_VALUE);
@@ -82,25 +77,25 @@ TEST_F(NonEmptyStackTestSuite, ShouldNotBeEqualIfThereAreDifferentSizesOfStacks)
     ASSERT_NE(result, sut);
 }
 
-TEST_F(NonEmptyStackTestSuite, ShouldBuildStackBasedOnOtherOne)
+TEST_F(StackTestSuite, ShouldBuildStackBasedOnOtherOne)
 {
     Stack<int> result(sut);
     ASSERT_EQ(sut, result);
 }
 
-TEST_F(NonEmptyStackTestSuite, ShouldPushNextVariable)
+TEST_F(StackTestSuite, ShouldPushNextVariable)
 {
     sut.push(DEFAULT_VALUE);
     ExpectThatThereIsAdditionalVariable();
 }
 
-TEST_F(NonEmptyStackTestSuite, ShouldEmplaceNextVariable)
+TEST_F(StackTestSuite, ShouldEmplaceNextVariable)
 {
     sut.emplace(100);
     ExpectThatThereIsAdditionalVariable();
 }
 
-TEST_F(NonEmptyStackTestSuite, ShouldSwapTwoStacksWithEachOther)
+TEST_F(StackTestSuite, ShouldSwapTwoStacksWithEachOther)
 {
     Stack<int> other = BuildFilledStack(DEFAULT_VALUE);
 
@@ -110,7 +105,7 @@ TEST_F(NonEmptyStackTestSuite, ShouldSwapTwoStacksWithEachOther)
     ASSERT_EQ(5, sut.size());
 }
 
-TEST_F(NonEmptyStackTestSuite, ShouldReturnSizeEqToPushCallTimesAndItIsMoreThenOnce)
+TEST_F(StackTestSuite, ShouldReturnSizeEqToPushCallTimesAndItIsMoreThenOnce)
 {
     ASSERT_EQ(EXPECTED_VALUE, sut.top());
     ASSERT_EQ(DEFAULT_SIZE, sut.size());
