@@ -5,7 +5,6 @@
 
 #pragma once
 
-#include <iostream>
 
 namespace containers
 {
@@ -19,6 +18,27 @@ public:
         m_data = new T[m_capacity];
     }
 
+    Vector(const Vector<T>& other)
+    {
+        m_size = other.m_size;
+        m_capacity = other.m_capacity;
+        m_data = new T[m_capacity];
+
+        for (size_t i = 0; i < m_size; ++i)
+        {
+            m_data[i] = other.m_data[i];
+        }
+    }
+
+    Vector(Vector<T>&& other)
+    {
+        m_data = other.m_data;
+        other.m_data = nullptr;
+
+        m_size = other.m_size;
+        m_capacity = other.m_capacity;
+    }
+
     Vector(const std::initializer_list<T>& args)
     {
         m_capacity = args.size();
@@ -30,12 +50,46 @@ public:
         }
     }
 
+    Vector<T>& operator=(const Vector<T>& other)
+    {
+        m_size = other.m_size;
+        m_capacity = other.m_capacity;
+        delete[] m_data;
+        m_data = new T[m_capacity];
+
+        for (size_t i = 0; i < m_size; ++i)
+        {
+            m_data[i] = other.m_data[i];
+        }
+
+        return *this;
+    }
+
     ~Vector()
     {
         delete[] m_data;
     }
 
-    T& operator[](size_t index)
+    friend bool operator==(const Vector<T>& lhs, const Vector<T>& rhs)
+    {
+        const auto size = lhs.size();
+        if (size != rhs.size())
+        {
+            return false;
+        }
+
+        for (size_t i = 0; i < size; ++i)
+        {
+            if (lhs[i] != rhs[i])
+            {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    T& operator[](size_t index) const
     {
         return m_data[index];
     }
@@ -66,9 +120,9 @@ public:
     }
 
 private:
-    T* m_data = nullptr;
     size_t m_size{};
     size_t m_capacity{10};
+    T* m_data = nullptr;
 };
 
 } // namespace containers

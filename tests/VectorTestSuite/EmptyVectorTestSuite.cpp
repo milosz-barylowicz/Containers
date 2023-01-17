@@ -32,10 +32,37 @@ TEST_F(EmptyVectorTestSuite, ShouldPushBackNewElementsEvenWhenBasicCapacityWillB
     ASSERT_EQ(DEFAULT_CAPACITY + 2, sut.size());
 }
 
+TEST_F(EmptyVectorTestSuite, ShouldAssignNonEmptyVectorToEmptyOne)
+{
+    Vector<int> result {1,2,3,4,5};
+    sut = result;
+
+    ASSERT_EQ(result.size(), sut.size());
+    ASSERT_EQ(result, sut);
+}
+
 TEST_F(EmptyVectorTestSuite, ShouldAddNewElement)
 {
     sut.push_back(DEFAULT_VALUE);
     ASSERT_EQ(DEFAULT_VALUE, sut[0]);
+}
+
+TEST(EmptyVectorTester, ShouldCreateNewVectorFromExistingOne)
+{
+    Vector<int> other {1, 2, 3, 4, 5};
+    Vector<int> sut(other);
+
+    ASSERT_EQ(5, sut.size());
+    ASSERT_EQ(5, sut[4]); // TODO: add matcher for whole vector
+}
+
+TEST(EmptyVectorTester, ShouldCreateNewVectorFromOtherCreatedInPlace)
+{
+    Vector<int> other {1, 2, 3, 4, 5};
+    Vector<int> sut(std::move(other));
+
+    ASSERT_EQ(5, sut.size());
+    ASSERT_EQ(5, sut[4]); // TODO: add matcher for whole vector
 }
 
 } // namespace containers::ut
