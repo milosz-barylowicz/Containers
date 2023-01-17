@@ -19,15 +19,21 @@ using namespace ::testing;
 class VectorTestSuite : public Test
 {
 public:
-	Vector<int> sut;
+    Vector<int> sut {DEFAULT_VALUE, DEFAULT_VALUE + 1};
 };
 
 TEST_F(VectorTestSuite, ShouldAddNewElement)
 {
-	// TODO: when init list will be implemented replace that code
-	sut.push_back(DEFAULT_VALUE);
-	sut.push_back(DEFAULT_VALUE + 1);
-	ASSERT_EQ(DEFAULT_VALUE + 1, sut[1]);
+    sut.push_back(DEFAULT_VALUE + 2);
+    ASSERT_EQ(DEFAULT_VALUE + 2, sut[2]);
+}
+
+TEST(VectorTest, ShouldCreateMoreThen10ElementsInVector)
+{
+    Vector<int> sut {DEFAULT_VALUE, DEFAULT_VALUE, DEFAULT_VALUE, DEFAULT_VALUE, DEFAULT_VALUE, DEFAULT_VALUE,
+        DEFAULT_VALUE, DEFAULT_VALUE, DEFAULT_VALUE, DEFAULT_VALUE, DEFAULT_VALUE, DEFAULT_VALUE + 1};
+    ASSERT_EQ(12, sut.size());
+    ASSERT_EQ(DEFAULT_VALUE + 1, sut[11]);
 }
 
 } // namespace containers::ut
