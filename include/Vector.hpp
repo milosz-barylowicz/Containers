@@ -5,7 +5,7 @@
 
 #pragma once
 
-
+#include <iostream>
 namespace containers
 {
 
@@ -81,6 +81,16 @@ public:
         return m_data[index];
     }
 
+    T& at(size_t index)
+    {
+        if (index > m_size and m_data)
+        {
+            throw std::out_of_range("Trying access data out of range");
+        }
+
+        return m_data[index];
+    }
+
     void push_back(const T& value)
     {
         if (m_size == m_capacity)
@@ -101,6 +111,16 @@ public:
     size_t size() const
     {
         return m_size;
+    }
+
+    size_t capacity() const
+    {
+        return m_capacity;
+    }
+
+    bool empty() const
+    {
+        return m_size == 0;
     }
 
 private:

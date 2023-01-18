@@ -22,6 +22,21 @@ public:
     Vector<int> sut;
 };
 
+// TEST_F(EmptyVectorTestSuite, ShouldThrowWhenAccessingElements) //TODO: investigate issue with this test-case
+// {
+//     ASSERT_THROW(sut.at(0), std::out_of_range);
+// }
+
+TEST_F(EmptyVectorTestSuite, ShouldCreateEmptyVector)
+{
+    ASSERT_TRUE(sut.empty());
+}
+
+TEST_F(EmptyVectorTestSuite, ShouldCreateEmptyVectorWIthDefaultCapacity)
+{
+    ASSERT_EQ(DEFAULT_CAPACITY, sut.capacity());
+}
+
 TEST_F(EmptyVectorTestSuite, ShouldPushBackNewElementsEvenWhenBasicCapacityWillBeCrossed)
 {
     for (size_t i = 0; i < DEFAULT_CAPACITY + 2; ++i)

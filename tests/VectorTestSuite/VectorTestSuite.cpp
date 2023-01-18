@@ -9,6 +9,7 @@
 namespace
 {
 constexpr int DEFAULT_VALUE = 100;
+constexpr size_t DEFAULT_CAPACITY = 2;
 } // namespace anonymous
 
 namespace containers::ut
@@ -21,6 +22,40 @@ class VectorTestSuite : public Test
 public:
     Vector<int> sut {DEFAULT_VALUE, DEFAULT_VALUE + 1};
 };
+
+TEST_F(VectorTestSuite, ShouldThrowWhenTryingToAccessOutOfRange)
+{
+    ASSERT_THROW(sut.at(sut.size() + 1), std::out_of_range);
+}
+
+TEST_F(VectorTestSuite, ShouldAccessAndBeAbleToModyfiElementsInrange)
+{
+    int& value = sut.at(1);
+    ASSERT_EQ(value, DEFAULT_VALUE + 1);
+
+    value++;
+    ASSERT_EQ(sut.at(1), DEFAULT_VALUE + 2);
+}
+
+TEST_F(VectorTestSuite, ShouldCreateNonEmptyVector)
+{
+    ASSERT_FALSE(sut.empty());
+}
+
+TEST_F(VectorTestSuite, ShouldIncreaseCapacityWhenThereArevectorResizeInvoked)
+{
+    for (size_t i = 0; i < DEFAULT_CAPACITY; ++i)
+    {
+        sut.push_back(DEFAULT_VALUE);
+    }
+
+    ASSERT_EQ(DEFAULT_CAPACITY * 10, sut.capacity());
+}
+
+TEST_F(VectorTestSuite, ShouldCreateVectorWithDefaultCapacity)
+{
+    ASSERT_EQ(DEFAULT_CAPACITY, sut.capacity());
+}
 
 TEST_F(VectorTestSuite, ShouldModifyElementUsingAccessOperator)
 {
