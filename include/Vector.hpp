@@ -20,14 +20,8 @@ public:
 
     Vector(const Vector<T>& other)
     {
-        m_size = other.m_size;
-        m_capacity = other.m_capacity;
-        m_data = new T[m_capacity];
-
-        for (size_t i = 0; i < m_size; ++i)
-        {
-            m_data[i] = other.m_data[i];
-        }
+        CreateNewDataContainer_(other);
+        CopyData_(other.m_data, m_data);
     }
 
     Vector(Vector<T>&& other)
@@ -52,15 +46,8 @@ public:
 
     Vector<T>& operator=(const Vector<T>& other)
     {
-        m_size = other.m_size;
-        m_capacity = other.m_capacity;
-        delete[] m_data;
-        m_data = new T[m_capacity];
-
-        for (size_t i = 0; i < m_size; ++i)
-        {
-            m_data[i] = other.m_data[i];
-        }
+        CreateNewDataContainer_(other);
+        CopyData_(other.m_data, m_data);
 
         return *this;
     }
@@ -101,10 +88,7 @@ public:
             m_capacity = m_capacity * 10;
             T* temp = new T[m_capacity];
 
-            for (size_t i = 0; i < m_size; ++i)
-            {
-                temp[i] = m_data[i];
-            }
+            CopyData_(temp, m_data);
 
             delete[] m_data;
             m_data = temp;
@@ -120,6 +104,27 @@ public:
     }
 
 private:
+    void CopyData_(const T* src, T* dest)
+    {
+        for (size_t i = 0; i < m_size; ++i)
+        {
+            dest[i] = src[i];
+        }
+    }
+
+    void CreateNewDataContainer_(const Vector<T>& other)
+    {
+        m_size = other.m_size;
+        m_capacity = other.m_capacity;
+
+        if (m_data)
+        {
+            delete[] m_data;
+        }
+        m_data = new T[m_capacity];
+    }
+
+
     size_t m_size{};
     size_t m_capacity{10};
     T* m_data = nullptr;
