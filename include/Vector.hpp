@@ -5,7 +5,7 @@
 
 #pragma once
 
-#include <iostream>
+#include <string>
 #include <optional>
 #include <functional>
 
@@ -16,7 +16,7 @@ template <typename T>
 class Vector
 {
 public:
-    Vector() {}
+    Vector() = default;
 
     Vector(const Vector<T>& other)
     {
@@ -81,7 +81,7 @@ public:
         return m_data[index];
     }
 
-    T& at(size_t index)
+    T& at(size_t index) const
     {
         if (index >= m_size or not m_data)
         {
@@ -191,6 +191,58 @@ public:
         }
 
         return m_data[m_size - 1];
+    }
+
+    void shrink_to_fit()
+    {
+        m_capacity = m_size;
+    }
+
+    void clear()
+    {
+        if (not m_data)
+        {
+            return;
+        }
+
+        m_size = 0;
+        m_capacity = 10;
+
+        delete[] m_data;
+        m_data = new T[m_capacity];
+    }
+
+    void reverse()
+    {
+        if (not m_data)
+        {
+            return;
+        }
+
+        for (size_t i = 0; i < m_size/2; ++i)
+        {
+            const auto last = m_size - 1 - i;
+            T temp = m_data[i];
+            m_data[i] = m_data[last];
+            m_data[last] = temp;
+        }
+    }
+
+    void assing(size_t count, const T& value)
+    {
+        if (m_data)
+        {
+            delete[] m_data;
+        }
+
+        m_data = new T[count];
+        m_capacity = count;
+        m_size = count;
+
+        for (size_t i = 0; i < m_capacity; ++i)
+        {
+            m_data[i] = value;
+        }
     }
 
 private:

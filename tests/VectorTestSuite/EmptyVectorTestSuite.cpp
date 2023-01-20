@@ -25,6 +25,32 @@ public:
     Vector<int> sut;
 };
 
+TEST_F(EmptyVectorTestSuite, ShouldFillEmptyVector)
+{
+    sut.assing(7, DEFAULT_VALUE);
+
+    ASSERT_FALSE(sut.empty());
+    ASSERT_EQ(7, sut.size());
+}
+
+TEST_F(EmptyVectorTestSuite, ShouldNotReverse)
+{
+    sut.reverse();
+    ASSERT_TRUE(sut.empty());
+}
+
+TEST_F(EmptyVectorTestSuite, ShouldChangeCapacityOnlyToCurrentlyExistingElements)
+{
+    sut.shrink_to_fit();
+    ASSERT_EQ(sut.size(), sut.capacity());
+}
+
+TEST_F(EmptyVectorTestSuite, ShouldStayEmptyWhenCleared)
+{
+    sut.clear();
+    ASSERT_TRUE(sut.empty());
+}
+
 TEST_F(EmptyVectorTestSuite, ShouldNotAccessBackElement)
 {
     ASSERT_EQ(std::nullopt, sut.back());

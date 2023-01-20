@@ -10,18 +10,45 @@ namespace
 {
 constexpr int DEFAULT_VALUE = 100;
 constexpr size_t DEFAULT_CAPACITY = 2;
+const containers::Vector<int> reversed{DEFAULT_VALUE + 1, DEFAULT_VALUE};
 } // namespace anonymous
 
 namespace containers::ut
 {
 using namespace ::testing;
 
-
 class VectorTestSuite : public Test
 {
 public:
     Vector<int> sut {DEFAULT_VALUE, DEFAULT_VALUE + 1};
 };
+
+TEST_F(VectorTestSuite, ShouldReplaceValuses)
+{
+    sut.assing(7, DEFAULT_VALUE);
+
+    ASSERT_FALSE(sut.empty());
+    ASSERT_EQ(7, sut.size());
+}
+
+TEST_F(VectorTestSuite, ShouldReverseVectorsContent)
+{
+    sut.reverse();
+    ASSERT_EQ(reversed, sut);
+}
+
+TEST_F(VectorTestSuite, ShouldChangeCapacityOnlyToCurrentlyExistingElements)
+{
+    sut.shrink_to_fit();
+    ASSERT_EQ(sut.size(), sut.capacity());
+}
+
+TEST_F(VectorTestSuite, ShouldClearIt)
+{
+    sut.clear();
+
+    ASSERT_TRUE(sut.empty());
+}
 
 TEST_F(VectorTestSuite, ShouldAccessFirstElementAndCouldModifyItWhenCallingBack)
 {
