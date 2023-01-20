@@ -23,6 +23,55 @@ public:
     Vector<int> sut {DEFAULT_VALUE, DEFAULT_VALUE + 1};
 };
 
+TEST_F(VectorTestSuite, ShouldAccessFirstElementAndCouldModifyItWhenCallingBack)
+{
+    auto last = sut.back();
+    ASSERT_EQ(DEFAULT_VALUE + 1, *last);
+
+    *last += 2;
+    ASSERT_EQ(DEFAULT_VALUE + 3, sut[1]);
+}
+
+TEST_F(VectorTestSuite, ShouldAccessFirstElementAndCouldModifyItWhenCallingFront)
+{
+    auto first = sut.front();
+    ASSERT_EQ(DEFAULT_VALUE, *first);
+
+    *first += 2;
+    ASSERT_EQ(DEFAULT_VALUE + 2, sut[0]);
+}
+
+TEST_F(VectorTestSuite, ShouldAccessEndWithIterator)
+{
+    const auto end = sut.end();
+    ASSERT_EQ(DEFAULT_VALUE + 1, *end);
+}
+
+TEST_F(VectorTestSuite, ShouldAccessBeginWithIterator)
+{
+    const auto first = sut.begin();
+    ASSERT_EQ(DEFAULT_VALUE, *first);
+}
+
+TEST_F(VectorTestSuite, ShouldEmplaceBackNewElement)
+{
+    const auto size = sut.size();
+    const auto value = DEFAULT_VALUE;
+    sut.emplace_back(std::move(value + 5));
+    ASSERT_EQ(size + 1, sut.size());
+    ASSERT_EQ(DEFAULT_VALUE + 5, sut[size]);
+}
+
+TEST_F(VectorTestSuite, ShouldPopLastElementFormNonEmptyVector)
+{
+    EXPECT_EQ(2, sut.size());
+    sut.pop_back();
+
+    ASSERT_EQ(1, sut.size());
+    ASSERT_THROW(sut.at(1), std::out_of_range);
+    ASSERT_EQ(sut.at(0), DEFAULT_VALUE);
+}
+
 TEST_F(VectorTestSuite, ShouldThrowWhenTryingToAccessOutOfRange)
 {
     ASSERT_THROW(sut.at(sut.size() + 1), std::out_of_range);

@@ -6,6 +6,9 @@
 #pragma once
 
 #include <iostream>
+#include <optional>
+#include <functional>
+
 namespace containers
 {
 
@@ -13,10 +16,7 @@ template <typename T>
 class Vector
 {
 public:
-    Vector()
-    {
-        m_data = new T[m_capacity];
-    }
+    Vector() {}
 
     Vector(const Vector<T>& other)
     {
@@ -83,7 +83,7 @@ public:
 
     T& at(size_t index)
     {
-        if (index > m_size and m_data)
+        if (index >= m_size or not m_data)
         {
             throw std::out_of_range("Trying access data out of range");
         }
@@ -93,6 +93,11 @@ public:
 
     void push_back(const T& value)
     {
+        if (not m_data)
+        {
+            m_data = new T[m_capacity];
+        }
+
         if (m_size == m_capacity)
         {
             m_capacity = m_capacity * 10;
@@ -108,6 +113,36 @@ public:
         m_size++;
     }
 
+    void emplace_back(const T&& value)
+    {
+        if (not m_data)
+        {
+            m_data = new T[m_capacity];
+        }
+
+        if (m_size == m_capacity)
+        {
+            m_capacity = m_capacity * 10;
+            T* temp = new T[m_capacity];
+
+            CopyData_(temp, m_data);
+
+            delete[] m_data;
+            m_data = temp;
+        }
+
+        m_data[m_size] = std::move(value);
+        m_size++;
+    }
+
+    void pop_back()
+    {
+        if (m_data)
+        {
+            m_size--;
+        }
+    }
+
     size_t size() const
     {
         return m_size;
@@ -121,6 +156,41 @@ public:
     bool empty() const
     {
         return m_size == 0;
+    }
+
+    T* begin() const
+    {
+        return m_data;
+    }
+
+    std::optional<std::reference_wrapper<T>> front() const
+    {
+        if (not m_data or m_size == 0)
+        {
+            return std::nullopt;
+        }
+
+        return m_data[0];
+    }
+
+    T* end() const
+    {
+        if (not m_data)
+        {
+            return nullptr;
+        }
+
+        return m_data + (m_size - 1);
+    }
+
+    std::optional<std::reference_wrapper<T>> back() const
+    {
+        if (not m_data or m_size == 0)
+        {
+            return std::nullopt;
+        }
+
+        return m_data[m_size - 1];
     }
 
 private:

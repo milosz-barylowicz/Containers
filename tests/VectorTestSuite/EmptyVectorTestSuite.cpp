@@ -10,6 +10,9 @@ namespace
 {
 constexpr int DEFAULT_VALUE = 100;
 constexpr size_t DEFAULT_CAPACITY = 10;
+
+const containers::Vector<int> NON_EMPTY_VECTOR{1, 2, 3, 4, 5};
+
 } // namespace anonymous
 
 namespace containers::ut
@@ -22,10 +25,46 @@ public:
     Vector<int> sut;
 };
 
-// TEST_F(EmptyVectorTestSuite, ShouldThrowWhenAccessingElements) //TODO: investigate issue with this test-case
-// {
-//     ASSERT_THROW(sut.at(0), std::out_of_range);
-// }
+TEST_F(EmptyVectorTestSuite, ShouldNotAccessBackElement)
+{
+    ASSERT_EQ(std::nullopt, sut.back());
+}
+
+TEST_F(EmptyVectorTestSuite, ShouldNotAccessFrontElement)
+{
+    ASSERT_EQ(std::nullopt, sut.front());
+}
+
+TEST_F(EmptyVectorTestSuite, ShouldReturnEmptyPtrWhenAccessingEndOfData)
+{
+    ASSERT_EQ(nullptr, sut.end());
+}
+
+TEST_F(EmptyVectorTestSuite, ShouldReturnEmptyPtrWhenAccessingBeginOfData)
+{
+    ASSERT_EQ(nullptr, sut.begin());
+}
+
+TEST_F(EmptyVectorTestSuite, ShouldEmplaceBackNewElement)
+{
+    sut.emplace_back(std::move(DEFAULT_VALUE));
+
+    ASSERT_EQ(1, sut.size());
+    ASSERT_EQ(DEFAULT_VALUE, sut[0]);
+}
+
+TEST_F(EmptyVectorTestSuite, ShouldNotPopElemetns)
+{
+    EXPECT_TRUE(sut.empty());
+    sut.pop_back();
+    ASSERT_TRUE(sut.empty());
+}
+
+TEST_F(EmptyVectorTestSuite, ShouldThrowWhenAccessingElements)
+{
+    ASSERT_THROW(sut.at(0), std::out_of_range);
+    ASSERT_THROW(sut.at(10), std::out_of_range);
+}
 
 TEST_F(EmptyVectorTestSuite, ShouldCreateEmptyVector)
 {
@@ -47,13 +86,12 @@ TEST_F(EmptyVectorTestSuite, ShouldPushBackNewElementsEvenWhenBasicCapacityWillB
     ASSERT_EQ(DEFAULT_CAPACITY + 2, sut.size());
 }
 
-TEST_F(EmptyVectorTestSuite, ShouldAssignNonEmptyVectorToEmptyOne)
+TEST_F(EmptyVectorTestSuite, ShouldAssingNonEmptyVector)
 {
-    Vector<int> result {1,2,3,4,5};
-    sut = result;
+    sut = NON_EMPTY_VECTOR;
 
-    ASSERT_EQ(result.size(), sut.size());
-    ASSERT_EQ(result, sut);
+    ASSERT_EQ(NON_EMPTY_VECTOR.size(), sut.size());
+    ASSERT_EQ(NON_EMPTY_VECTOR, sut);
 }
 
 TEST_F(EmptyVectorTestSuite, ShouldAddNewElement)
@@ -64,20 +102,19 @@ TEST_F(EmptyVectorTestSuite, ShouldAddNewElement)
 
 TEST(EmptyVectorTester, ShouldCreateNewVectorFromExistingOne)
 {
-    Vector<int> other {1, 2, 3, 4, 5};
-    Vector<int> sut(other);
+    Vector<int> sut(NON_EMPTY_VECTOR);
 
-    ASSERT_EQ(5, sut.size());
-    ASSERT_EQ(5, sut[4]); // TODO: add matcher for whole vector
+    ASSERT_EQ(NON_EMPTY_VECTOR.size(), sut.size());
+    ASSERT_EQ(NON_EMPTY_VECTOR, sut);
 }
 
-TEST(EmptyVectorTester, ShouldCreateNewVectorFromOtherCreatedInPlace)
+TEST(EmptyVectorTester, ShouldCreateNewVectorFromMovedOne)
 {
-    Vector<int> other {1, 2, 3, 4, 5};
-    Vector<int> sut(std::move(other));
+    auto result = NON_EMPTY_VECTOR;
+    Vector<int> sut(std::move(NON_EMPTY_VECTOR));
 
-    ASSERT_EQ(5, sut.size());
-    ASSERT_EQ(5, sut[4]); // TODO: add matcher for whole vector
+    ASSERT_EQ(result.size(), sut.size());
+    ASSERT_EQ(result, sut);
 }
 
 } // namespace containers::ut
