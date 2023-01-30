@@ -25,6 +25,22 @@ public:
     Vector<int> sut;
 };
 
+TEST_F(EmptyVectorTestSuite, ShouldSwapWithNonEmptyVector)
+{
+    Vector<int> other{ 1, 2, 3, 4, 5 };
+    sut.swap(other);
+
+    EXPECT_FALSE(sut.empty());
+    ASSERT_EQ(sut, NON_EMPTY_VECTOR);
+}
+
+TEST_F(EmptyVectorTestSuite, ShouldSwapWithEmptyVector)
+{
+    Vector<int> other;
+    sut.swap(other);
+    ASSERT_EQ(sut, other);
+}
+
 TEST_F(EmptyVectorTestSuite, ShouldFillEmptyVector)
 {
     sut.assing(7, DEFAULT_VALUE);

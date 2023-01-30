@@ -23,6 +23,24 @@ public:
     Vector<int> sut {DEFAULT_VALUE, DEFAULT_VALUE + 1};
 };
 
+TEST_F(VectorTestSuite, ShouldSwapWithNonEmptyVector)
+{
+    Vector<int> res{ DEFAULT_VALUE, DEFAULT_VALUE + 1, DEFAULT_VALUE + 2 };
+    sut.swap(res);
+
+    ASSERT_EQ(3, sut.size());
+}
+
+TEST_F(VectorTestSuite, ShouldSwapWithEmptyVector)
+{
+    Vector<int> empty;
+    sut.swap(empty);
+    Vector<int> res{ DEFAULT_VALUE, DEFAULT_VALUE + 1 };
+
+    ASSERT_EQ(empty, res);
+    ASSERT_TRUE(sut.empty());
+}
+
 TEST_F(VectorTestSuite, ShouldReplaceValuses)
 {
     sut.assing(7, DEFAULT_VALUE);

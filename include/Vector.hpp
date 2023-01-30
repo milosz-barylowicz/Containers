@@ -245,6 +245,21 @@ public:
         }
     }
 
+    void swap(Vector<T>& other)
+    {
+        T* temp = m_data;
+        const size_t size = m_size;
+        const size_t capacity = m_capacity;
+
+        m_data = other.m_data;
+        m_size = other.m_size;
+        m_capacity = other.m_capacity;
+
+        other.m_data = temp;
+        other.m_size = size;
+        other.m_capacity = capacity;
+    }
+
 private:
     void CopyData_(const T* src, T* dest)
     {
