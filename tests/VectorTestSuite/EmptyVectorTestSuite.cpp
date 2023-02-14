@@ -12,6 +12,12 @@ constexpr int DEFAULT_VALUE = 100;
 constexpr size_t DEFAULT_CAPACITY = 10;
 
 const containers::Vector<int> NON_EMPTY_VECTOR{1, 2, 3, 4, 5};
+const containers::Vector<int> FILLED_WITH_ZEROS{ 0, 0, 0, 0, 0 };
+
+containers::Vector<int> BuildDefaultFilledVector()
+{
+    return { DEFAULT_VALUE , DEFAULT_VALUE , DEFAULT_VALUE , DEFAULT_VALUE , DEFAULT_VALUE };
+}
 
 } // namespace anonymous
 
@@ -24,6 +30,24 @@ class EmptyVectorTestSuite : public Test
 public:
     Vector<int> sut;
 };
+
+TEST_F(EmptyVectorTestSuite, ShouldChangeCapacitySizeAndFillVectorWithPassedValue)
+{
+    sut.resize(5, DEFAULT_VALUE);
+
+    EXPECT_EQ(5, sut.size());
+    EXPECT_EQ(5, sut.capacity());
+    ASSERT_EQ(BuildDefaultFilledVector(), sut);
+}
+
+TEST_F(EmptyVectorTestSuite, ShouldChangeCapacityButDoNotChangeSizeWhenResizing)
+{
+    sut.resize(5);
+
+    EXPECT_EQ(5, sut.size());
+    EXPECT_EQ(5, sut.capacity());
+    ASSERT_EQ(FILLED_WITH_ZEROS, sut);
+}
 
 TEST_F(EmptyVectorTestSuite, ShouldSwapWithNonEmptyVector)
 {

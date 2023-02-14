@@ -11,6 +11,12 @@ namespace
 constexpr int DEFAULT_VALUE = 100;
 constexpr size_t DEFAULT_CAPACITY = 2;
 const containers::Vector<int> reversed{DEFAULT_VALUE + 1, DEFAULT_VALUE};
+
+containers::Vector<int> BuildDefaultFilledVecotr()
+{
+    return { DEFAULT_VALUE, DEFAULT_VALUE + 1, DEFAULT_VALUE, DEFAULT_VALUE, DEFAULT_VALUE };
+}
+
 } // namespace anonymous
 
 namespace containers::ut
@@ -22,6 +28,25 @@ class VectorTestSuite : public Test
 public:
     Vector<int> sut {DEFAULT_VALUE, DEFAULT_VALUE + 1};
 };
+
+TEST_F(VectorTestSuite, ShouldChangeSizeCapacityAndFillVectorWithPassedValueWhenResizing)
+{
+    sut.resize(5, DEFAULT_VALUE);
+
+    EXPECT_EQ(5, sut.size());
+    EXPECT_EQ(5, sut.capacity());
+    ASSERT_EQ(BuildDefaultFilledVecotr(), sut);
+}
+
+TEST_F(VectorTestSuite, ShouldChangeCapacityButDoNotChangeSizeWhenResizing)
+{
+    Vector<int> expected{ DEFAULT_VALUE, DEFAULT_VALUE + 1, 0, 0, 0 };
+    sut.resize(5);
+
+    EXPECT_EQ(5, sut.size());
+    EXPECT_EQ(5, sut.capacity());
+    ASSERT_EQ(expected, sut);
+}
 
 TEST_F(VectorTestSuite, ShouldSwapWithNonEmptyVector)
 {

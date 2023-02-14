@@ -6,6 +6,8 @@
 #pragma once
 
 #include <string>
+#include <ostream>
+#include <iostream>
 #include <optional>
 #include <functional>
 
@@ -89,6 +91,17 @@ public:
         }
 
         return m_data[index];
+    }
+
+    friend std::ostream& operator<<(std::ostream& os, const Vector<T>& other)
+    {
+        for (size_t i = 0; i < other.m_size; ++i)
+        {
+            os << other.m_data[i] << " ";
+        }
+        os << std::endl;
+
+        return os;
     }
 
     void push_back(const T& value)
@@ -196,6 +209,13 @@ public:
     void shrink_to_fit()
     {
         m_capacity = m_size;
+        T* temp = new T[m_size];
+        for (size_t i = 0; i < m_size; ++i)
+        {
+            temp[i] = m_data[i];
+        }
+        delete[] m_data;
+        m_data = temp;
     }
 
     void clear()
@@ -258,6 +278,48 @@ public:
         other.m_data = temp;
         other.m_size = size;
         other.m_capacity = capacity;
+    }
+
+    void resize(size_t count)
+    {
+        T* temp = new T[count];
+        for (size_t i = 0; i < count; ++i)
+        {
+            if (i >= m_size)
+            {
+                temp[i] = 0;
+            }
+            else
+            {
+                temp[i] = m_data[i];
+            }
+            std::cout << std::endl;
+        }
+
+        m_capacity = m_size = count;
+        delete[] m_data;
+        m_data = temp;
+    }
+
+    void resize(size_t count, const T& value)
+    {
+        T* temp = new T[count];
+        for (size_t i = 0; i < count; ++i)
+        {
+            if (i >= m_size)
+            {
+                temp[i] = value;
+            }
+            else
+            {
+                temp[i] = m_data[i];
+            }
+            std::cout << std::endl;
+        }
+
+        m_capacity = m_size = count;
+        delete[] m_data;
+        m_data = temp;
     }
 
 private:
