@@ -21,8 +21,9 @@ link_directories(${GTEST_ROOT}/lib)
 
 set(GTest_DIR "${GTEST_ROOT}/lib/cmake/GTest")
 
-add_subdirectory(StackTestSuite)
 add_subdirectory(ArrayTestSuite)
+add_subdirectory(ListTestSuite)
+add_subdirectory(StackTestSuite)
 add_subdirectory(VectorTestSuite)
 
 # Copy unit test runnning script
