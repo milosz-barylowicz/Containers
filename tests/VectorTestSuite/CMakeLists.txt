@@ -1,13 +1,13 @@
 # Author: Milosz Barylowicz
-# Date:   2022
+# Date:   2023
 
 cmake_minimum_required(VERSION 3.24)
 
-set(STACK_TEST_SUITE_NAME "StackTestSuite")
+set(STACK_TEST_SUITE_NAME "VectorTestSuite")
 add_executable(
     ${STACK_TEST_SUITE_NAME}
-        StackTestSuite.cpp
-        EmptyStackTestSuite.cpp)
+        VectorTestSuite.cpp
+        EmptyVectorTestSuite.cpp)
 
 target_include_directories(
     ${STACK_TEST_SUITE_NAME}

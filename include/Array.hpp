@@ -36,7 +36,7 @@ public:
 
         auto current = args.begin();
         int index = 0;
-       
+
         while (current != args.end())
         {
             m_data[index] = *current;

@@ -12,9 +12,7 @@ namespace containers::ut
 namespace
 {
 constexpr int DEFAULT_VALUE = 100;
-constexpr int EMPTY_STACK = 0;
 constexpr int EXPECTED_VALUE = 9;
-const auto EMPTY_VARIABLE = std::nullopt;
 constexpr size_t DEFAULT_SIZE = 10;
 
 Stack<int> BuildFilledStack(int value)
@@ -30,64 +28,9 @@ Stack<int> BuildFilledStack(int value)
 
 } // namespace anonymous
 
-using namespace ::testing;
+using namespace testing;
 
 class StackTestSuite : public Test
-{
-public:
-    Stack<int> sut;
-};
-
-class EmptyStackTestSuite : public StackTestSuite
-{};
-
-TEST_F(EmptyStackTestSuite, ShouldAssignOtherStacckToEmptyOne)
-{
-    Stack<int> result = BuildFilledStack(DEFAULT_VALUE);
-    sut = result;
-
-    ASSERT_EQ(result, sut);
-}
-
-TEST_F(EmptyStackTestSuite, ShouldReturnLastElementAsNull)
-{
-    ASSERT_EQ(EMPTY_VARIABLE, sut.top());
-}
-
-TEST_F(EmptyStackTestSuite, ShouldSwapWithNonEmptyStack)
-{
-    Stack<int> other = BuildFilledStack(DEFAULT_VALUE);
-
-    sut.swap(other);
-    ASSERT_FALSE(sut.empty());
-    ASSERT_EQ(5, sut.size());
-    ASSERT_EQ(DEFAULT_VALUE + 4, sut.top());
-}
-
-TEST_F(EmptyStackTestSuite, ShouldEmplaceVariable)
-{
-    sut.emplace(10);
-
-    ASSERT_FALSE(sut.empty());
-    ASSERT_EQ(EMPTY_STACK + 1, sut.size());
-    ASSERT_EQ(10, sut.top());
-}
-
-TEST_F(EmptyStackTestSuite, ShouldPushVariable)
-{
-    sut.push(DEFAULT_VALUE);
-
-    ASSERT_EQ(EMPTY_STACK + 1, sut.size());
-    ASSERT_FALSE(sut.empty());
-}
-
-TEST_F(EmptyStackTestSuite, ShouldReturnIsEmpty)
-{
-    ASSERT_EQ(EMPTY_STACK, sut.size());
-    ASSERT_TRUE(sut.empty());
-}
-
-class NonEmptyStackTestSuite : public StackTestSuite
 {
 public:
     void SetUp() override
@@ -103,6 +46,7 @@ public:
         ASSERT_EQ(DEFAULT_VALUE, sut.top());
     }
 
+    Stack<int> sut;
 private:
     void FillStackWithData()
     {
@@ -113,7 +57,7 @@ private:
     }
 };
 
-TEST_F(NonEmptyStackTestSuite, ShouldNotBeEqualIfThereAreDifferentValuesInStacksBuTheSameSizes)
+TEST_F(StackTestSuite, ShouldNotBeEqualIfThereAreDifferentValuesInStacksBuTheSameSizes)
 {
     Stack<int> result;
     for (size_t i = 0; i < DEFAULT_SIZE; ++i)
@@ -125,7 +69,7 @@ TEST_F(NonEmptyStackTestSuite, ShouldNotBeEqualIfThereAreDifferentValuesInStacks
     ASSERT_NE(sut, result);
 }
 
-TEST_F(NonEmptyStackTestSuite, ShouldNotBeEqualIfThereAreDifferentSizesOfStacks)
+TEST_F(StackTestSuite, ShouldNotBeEqualIfThereAreDifferentSizesOfStacks)
 {
     Stack<int> result;
     result.push(DEFAULT_VALUE);
@@ -133,25 +77,25 @@ TEST_F(NonEmptyStackTestSuite, ShouldNotBeEqualIfThereAreDifferentSizesOfStacks)
     ASSERT_NE(result, sut);
 }
 
-TEST_F(NonEmptyStackTestSuite, ShouldBuildStackBasedOnOtherOne)
+TEST_F(StackTestSuite, ShouldBuildStackBasedOnOtherOne)
 {
     Stack<int> result(sut);
     ASSERT_EQ(sut, result);
 }
 
-TEST_F(NonEmptyStackTestSuite, ShouldPushNextVariable)
+TEST_F(StackTestSuite, ShouldPushNextVariable)
 {
     sut.push(DEFAULT_VALUE);
     ExpectThatThereIsAdditionalVariable();
 }
 
-TEST_F(NonEmptyStackTestSuite, ShouldEmplaceNextVariable)
+TEST_F(StackTestSuite, ShouldEmplaceNextVariable)
 {
     sut.emplace(100);
     ExpectThatThereIsAdditionalVariable();
 }
 
-TEST_F(NonEmptyStackTestSuite, ShouldSwapTwoStacksWithEachOther)
+TEST_F(StackTestSuite, ShouldSwapTwoStacksWithEachOther)
 {
     Stack<int> other = BuildFilledStack(DEFAULT_VALUE);
 
@@ -161,7 +105,7 @@ TEST_F(NonEmptyStackTestSuite, ShouldSwapTwoStacksWithEachOther)
     ASSERT_EQ(5, sut.size());
 }
 
-TEST_F(NonEmptyStackTestSuite, ShouldReturnSizeEqToPushCallTimesAndItIsMoreThenOnce)
+TEST_F(StackTestSuite, ShouldReturnSizeEqToPushCallTimesAndItIsMoreThenOnce)
 {
     ASSERT_EQ(EXPECTED_VALUE, sut.top());
     ASSERT_EQ(DEFAULT_SIZE, sut.size());
