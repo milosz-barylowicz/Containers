@@ -1,7 +1,11 @@
 #!/bin/bash
 
-# TODO: redesign this part to run all tests without adding new element of calling here
-./array_test_suite/array_test_suite;
-./list_test_suite/list_test_suite;
-./stack_test_suite/stack_test_suite;
-./vector_test_suite/vector_test_suite;
+find_command="find"." -name '*test_suite' -type f"
+test_to_run=($(eval "${find_command}"))
+
+for test in ${test_to_run[@]}; do
+	pushd ${test}
+	echo "Running ${test} ..."
+	./`basename ${test}`
+	popd
+done
