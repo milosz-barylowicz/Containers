@@ -1,7 +1,8 @@
 set(STACK_TEST_SUITE_NAME "list_test_suite")
 add_executable(
     ${STACK_TEST_SUITE_NAME}
-        list_test_suite.cpp)
+        list_test_suite.cpp
+        empty_list_test_suite.cpp)
 
 target_include_directories(
     ${STACK_TEST_SUITE_NAME}
