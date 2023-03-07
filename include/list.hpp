@@ -84,6 +84,7 @@ public:
         delete m_tail;
         m_tail = temp;
         m_tail->next = nullptr;
+        m_size--;
     }
 
     size_t size() const { return m_size; }
