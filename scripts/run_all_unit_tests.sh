@@ -1,6 +1,6 @@
 #!/bin/bash
 
-find_command="find"." -name '*test_suite' -type f"
+find_command="find "." -name '*test_suite' -type f"
 test_to_run=($(eval "${find_command}"))
 
 failed_tests="failed test cases: "
