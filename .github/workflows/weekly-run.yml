@@ -3,7 +3,7 @@ name: weekly-run
 on:
   schedule:
     # * is a special character in YAML so you have to quote this string
-    - cron:  '33 * * * 3'
+    - cron:  '* 7 * * MON'
 
 env:
   # Customize the CMake build type here (Release, Debug, RelWithDebInfo, etc.)
