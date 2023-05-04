@@ -65,6 +65,7 @@ TEST_F(StackTestSuite, ShouldNotBeEqualIfThereAreDifferentValuesInStacksBuTheSam
         result.push(DEFAULT_VALUE);
     }
 
+
     ASSERT_EQ(sut.size(), result.size());
     ASSERT_NE(sut, result);
 }
