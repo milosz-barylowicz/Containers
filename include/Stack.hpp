@@ -6,6 +6,7 @@
 #pragma once
 
 #include <optional>
+#include <ostream>
 
 namespace containers
 {
@@ -38,6 +39,34 @@ public:
         {
             m_data[i] = other.m_data[i];
         }
+    }
+
+    friend std::ostream& operator<<(std::ostream& os, const Stack<T>& data)
+    {
+        os << "size: " << data.size() << ", elements: ";
+        for (size_t i = 0; i < data.size(); ++i)
+        {
+            os << data.m_data[i] << " ";
+        }
+        return os;
+    }
+
+    friend bool operator!=(const Stack<T>& base, const Stack<T>& other)
+    {
+        if (other.m_size == base.m_size)
+        {
+            for (size_t i = 0; i < base.m_size; ++i)
+            {
+                if (base.m_data[i] != other.m_data[i])
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        return true;
     }
 
     friend bool operator==(const Stack<T>& base, const Stack<T>& other)
