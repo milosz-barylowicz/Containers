@@ -4,6 +4,7 @@ on:
   schedule:
     # * is a special character in YAML so you have to quote this string
     - cron:  '0 5 * * SUN'
+  workflow_dispatch:   # workflow dispatch is enabling 'Re-run all jobs' button in github UI
 
 env:
   # Customize the CMake build type here (Release, Debug, RelWithDebInfo, etc.)
