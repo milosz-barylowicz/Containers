@@ -1,5 +1,5 @@
 #include <gtest/gtest.h>
-#include "Array.hpp"
+#include "array.hpp"
 
 namespace {
 

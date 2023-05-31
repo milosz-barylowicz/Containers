@@ -1,10 +1,8 @@
-cmake_minimum_required(VERSION 3.24)
-
-set(ARRAY_TEST_SUITE_NAME "ArrayTestSuite")
+set(ARRAY_TEST_SUITE_NAME "array_test_suite")
 add_executable(
     ${ARRAY_TEST_SUITE_NAME}
-        ArrayTestSuite.cpp
-        EmptyArrayTestSuite.cpp)
+        array_test_suite.cpp
+        empty_array_test_suite.cpp)
 
 target_include_directories(
     ${ARRAY_TEST_SUITE_NAME}

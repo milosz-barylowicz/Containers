@@ -1,9 +1,8 @@
-cmake_minimum_required(VERSION 3.24)
-
-set(STACK_TEST_SUITE_NAME "ListTestSuite")
+set(STACK_TEST_SUITE_NAME "stack_test_suite")
 add_executable(
     ${STACK_TEST_SUITE_NAME}
-        ListTestSuite.cpp)
+        stack_test_suite.cpp
+        empty_stack_test_suite.cpp)
 
 target_include_directories(
     ${STACK_TEST_SUITE_NAME}

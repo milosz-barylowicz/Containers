@@ -1,5 +1,5 @@
 #include <gtest/gtest.h>
-#include "List.hpp"
+#include "list.hpp"
 
 namespace containers::ut {
 
