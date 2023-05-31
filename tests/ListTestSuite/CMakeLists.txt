@@ -1,6 +1,3 @@
-# Author: Milosz Barylowicz
-# Date:   2023
-
 cmake_minimum_required(VERSION 3.24)
 
 set(STACK_TEST_SUITE_NAME "ListTestSuite")

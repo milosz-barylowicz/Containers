@@ -1,6 +1,3 @@
-# Author: Milosz Barylowicz
-# Date:   2023
-
 #!/bin/bash
 
 # run all unit tests to generate code coverage

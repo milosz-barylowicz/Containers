@@ -1,4 +1,4 @@
-name: weekly-run
+name: weekly
 
 on:
   schedule:
