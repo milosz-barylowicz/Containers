@@ -37,8 +37,4 @@ jobs:
       working-directory: ${{github.workspace}}/build/tests
       # Execute tests defined by the CMake configuration.
       # See https://cmake.org/cmake/help/latest/manual/ctest.1.html for more detail
-      run: 
-        cd ${{github.workspace}}/build/tests/array_test_suite && valgrind -s -v --error-exitcode=1 --leak-check=full ./array_test_suite &&
-        cd ${{github.workspace}}/build/tests/stack_test_suite && valgrind -s -v --error-exitcode=1 --leak-check=full ./stack_test_suite &&
-        cd ${{github.workspace}}/build/tests/vector_test_suite && valgrind -s -v --error-exitcode=1 --leak-check=full ./vector_test_suite &&
-        cd ${{github.workspace}}/build/tests/list_test_suite && valgrind -s -v --error-exitcode=1 --leak-check=full ./list_test_suite
+      run: ./run_valgrind.sh
