@@ -29,3 +29,6 @@ To generate code coverage using lcov you need to use linux OS and follow steps:
    - It will create new directory: code_coverage which will contain essential files.
    - Navigate into code_coverage directory and use your web-browser to inspect ```index.html``` file which will contain
      code-coverage for the project
+
+# Using Docker to compile and work with repository
+Follow instructions [here](https://docs.docker.com/engine/install/ubuntu/) to install Docker on your Ubuntu distribution
