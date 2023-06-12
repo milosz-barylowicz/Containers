@@ -1,0 +1,22 @@
+# Github Actions pipeline created to check if docekr building/unit-tests capabilities are corectly setup
+
+name: docker-build
+
+on:
+  schedule:
+    - cron:  '0 5 * * SUN'
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: [ ubuntu-22.04 ]
+
+    steps:
+    - uses: actions/checkout@v3.5.2
+
+    - name: Configure Docker
+      working-directory: ${{github.workspace}}
+      run: docker build --tag containers-docker --build-arg UID=$(id -u) --build-arg GID=$(id -g) ${{github.workspace}}
+
+    - name: Run Docker to build project and run unit-tests
+      run: docker run --user $(id -u):$(id -g) --rm --volume ${{github.workspace}}:/workspace/containers:ro containers-docker /bin/bash
