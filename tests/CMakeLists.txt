@@ -25,5 +25,6 @@ add_subdirectory(vector_test_suite)
 file(
     COPY
         ${CMAKE_SOURCE_DIR}/scripts/run_all_unit_tests.sh
+        ${CMAKE_SOURCE_DIR}/scripts/run_valgrind.sh
     DESTINATION
         ${CMAKE_BINARY_DIR}/tests)
