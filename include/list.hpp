@@ -18,11 +18,14 @@ private:
     };
 
 public:
+    // definition of member types
     using size_type = size_t;
     using iterator = Node<T>*;
+    using const_iterator = const Node<T>*;
     using value_type = T;
     using reference_type = std::reference_wrapper<T>;
 
+    // definition of basic methods
     list() = default;
 
     list(const list<T>& other) {
@@ -90,6 +93,72 @@ public:
         return os;
     }
 
+        void assign(size_type count, const T& value) {
+        remove_all_elements();
+        for (size_type i = 0; i < count; ++i) {
+            push_back(value);
+        }
+    }
+
+    void assign(const std::initializer_list<T>& args) {
+        remove_all_elements();
+
+        for (const auto& arg : args) {
+            push_back(arg);
+        }
+    }
+
+    // definition of elemnets access
+    std::optional<reference_type> front() const {
+        if (not m_head) {
+            return std::nullopt;
+        }
+
+        return m_head->data;
+    }
+
+    std::optional<reference_type> back() const {
+        if (not m_head) {
+            return std::nullopt;
+        }
+
+        return m_tail->data;
+    }
+
+    // definition of iterators
+    iterator begin() const {
+        if (not m_head) {
+            return nullptr;
+        }
+
+        return m_head;
+    }
+
+    const_iterator cbegin() const {
+        if (not m_head) {
+            return nullptr;
+        }
+
+        return m_head;
+    }
+
+    iterator end() const {
+        if (not m_tail) {
+            return nullptr;
+        }
+
+        return m_tail;
+    }
+
+    const_iterator cend() const {
+        if (not m_tail) {
+            return nullptr;
+        }
+
+        return m_tail;
+    }
+
+    // definition of modifiers
     void push_back(const T& value) {
         m_size++;
 
@@ -104,17 +173,6 @@ public:
 
         m_tail->next = temp;
         m_tail = temp;
-    }
-
-    void pop_front() {
-        if (not m_head) {
-            return;
-        }
-
-        m_size--;
-        iterator temp = m_head->next;
-        delete m_head;
-        m_head = temp;
     }
 
     void pop_back() {
@@ -133,27 +191,24 @@ public:
         m_tail = temp;
     }
 
-    void assign(size_type count, const T& value) {
-        remove_all_elements();
-        for (size_type i = 0; i < count; ++i) {
-            push_back(value);
-        }
+    void push_front(const T& value) {
+        iterator temp = new Node<T>();
+        temp->data = value;
+        temp->next = m_head;
+        m_size++;
+
+        m_head = temp;
     }
 
-    std::optional<reference_type> front() const {
+    void pop_front() {
         if (not m_head) {
-            return std::nullopt;
+            return;
         }
 
-        return m_head->data;
-    }
-
-    std::optional<reference_type> back() const {
-        if (not m_head) {
-            return std::nullopt;
-        }
-
-        return m_tail->data;
+        m_size--;
+        iterator temp = m_head->next;
+        delete m_head;
+        m_head = temp;
     }
 
     void clear() {
@@ -170,6 +225,72 @@ public:
 
     size_type max_size() const {
         return std::numeric_limits<size_t>::max();
+    }
+
+    void resize(size_type count) {
+        if (count > m_size) {
+            size_type size = count - m_size;
+            for (size_type i = 0; i < size; ++i) {
+                push_back(0);
+            }
+
+            return;
+        }
+
+        iterator temp = m_head;
+        for (size_type i = 0; i < count; ++i) {
+            temp = temp->next;
+        }
+
+        iterator toDelete = temp;
+        while (toDelete and toDelete != m_tail) {
+            iterator next = toDelete->next;
+            delete toDelete;
+            toDelete = next;
+        }
+
+        m_tail = temp;
+        m_size = count;
+    }
+
+    void resize(size_type count, const T& value) {
+        if (count > m_size) {
+            size_type size = count - m_size;
+            for (size_type i = 0; i < size; ++i) {
+                push_back(value);
+            }
+
+            return;
+        }
+
+        iterator temp = m_head;
+        for (size_type i = 0; i < count; ++i) {
+            temp = temp->next;
+        }
+
+        iterator toDelete = temp;
+        while (toDelete and toDelete != m_tail) {
+            iterator next = toDelete->next;
+            delete toDelete;
+            toDelete = next;
+        }
+
+        m_tail = temp;
+        m_size = count;
+    }
+
+    void swap(list<T>& other) {
+        iterator tempHead = other.m_head;
+        iterator tempTail = other.m_tail;
+        size_type size = other.m_size;
+
+        other.m_head = m_head;
+        other.m_tail = m_tail;
+        other.m_size = m_size;
+
+        m_head = tempHead;
+        m_tail = tempTail;
+        m_size = size;
     }
 
 private:
