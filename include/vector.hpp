@@ -120,7 +120,7 @@ public:
         m_size++;
     }
 
-    void pop_back() { // TODO: /thebarylowi/ resize of stack should be implemented here
+    void pop_back() {
         if (m_data) {
             m_size--;
         }
