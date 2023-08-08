@@ -2,6 +2,9 @@ cmake_minimum_required(VERSION 3.22)
 
 set(CMAKE_CXX_STANDARD 20)
 
+# macros & functions
+include(${CMAKE_SOURCE_DIR}/cmake/create_test_suite.cmake)
+
 if (UNIX)
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Werror")
 endif()

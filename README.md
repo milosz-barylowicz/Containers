@@ -17,7 +17,7 @@ Main focuses here are to:
 # Recommended way of using CMake (Linux)
  - To generate project: ```cmake -B <build-dir> -S <source-dir>```
  - To compile generated project: ```cmake --build <build-dir>```
- 
+
 # Generating code-coverage locally (Linux)
 To generate code coverage using lcov you need to use linux OS and follow steps:
  - Generate project with 'COVERAGE' option included: ```cmake -B <build-dir> -S <source-dir> -DCOVERAGE=ON```
@@ -46,6 +46,6 @@ Follow instructions [here](https://docs.docker.com/engine/install/ubuntu/) to in
 
 After successful installation and setup of docker execute ```build_and_run_docker.sh``` script to build project and run all unit-tests. This method won't produce output directory.
 
-## Manually buildin and running docker
+## Manually building and running docker
 1. To build docker image run ```docker build --tag containers-docker --build-arg UID=$(id -u) --build-arg GID=$(id -g) .```
 2. To run previously builded image run ```docker run --user $(id -u):$(id -g) --rm --volume $(pwd):/workspace/containers:rw containers-docker /bin/bash```
