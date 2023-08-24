@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.22)
 
 set(CMAKE_CXX_STANDARD 20)
 
-# macros & functions
+# Macros & functions
 include(${CMAKE_SOURCE_DIR}/cmake/create_test_suite.cmake)
 
 if (UNIX)
@@ -39,7 +39,6 @@ if (UBSan)
     set(CMAKE_LINKER_FLAGS "${CMAKE_LINKER_FLAGS} -fsanitize=undefined")
 endif()
 
-add_subdirectory(src)
 add_subdirectory(tests)
 
 # Copy script to generating code coverage raport into build directory
@@ -48,3 +47,7 @@ file(
         ${CMAKE_SOURCE_DIR}/scripts/generate_code_coverage_raport.sh
     DESTINATION
         ${CMAKE_BINARY_DIR})
+
+# Export project as library
+add_library(containers INTERFACE)
+target_include_directories(containers INTERFACE ${CMAKE_SOURCE_DIR})
