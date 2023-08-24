@@ -1,0 +1,22 @@
+name: clang-format
+
+on:
+  push:
+    branches: [ '**' ]
+  workflow_dispatch:
+
+jobs:
+   code-format:
+    runs-on: [ ubuntu-latest ]
+
+    steps:
+    - uses: actions/checkout@v3.5.2
+
+    - name: Configure git
+      run: git config --global user.email "milosz.barylowicz@gmail.com" && git config --global user.name "Github Action agent"
+
+    - name: Code formatting
+      run: ./scripts/run_clang_format.sh
+
+    - name: Commit changes
+      run: ./.github/workflows/scripts/commit_changes.sh
