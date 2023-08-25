@@ -1,289 +1,274 @@
 #pragma once
 
-#include <string>
-#include <ostream>
+#include <functional>
 #include <iostream>
 #include <optional>
-#include <functional>
+#include <ostream>
+#include <string>
 
 namespace containers {
 
 template <typename T>
 class Vector {
-public:
-    Vector() = default;
+ public:
+  Vector() = default;
 
-    Vector(const Vector<T>& other) {
-        CreateNewDataContainer(other);
-        CopyData(other.m_data, m_data);
+  Vector(const Vector<T>& other) {
+    CreateNewDataContainer(other);
+    CopyData(other.m_data, m_data);
+  }
+
+  Vector(Vector<T>&& other) {
+    m_data = other.m_data;
+    other.m_data = nullptr;
+
+    m_size = other.m_size;
+    m_capacity = other.m_capacity;
+  }
+
+  Vector(const std::initializer_list<T>& args) {
+    m_capacity = args.size();
+    m_data = new T[m_capacity];
+
+    for (const auto& arg : args) {
+      push_back(arg);
+    }
+  }
+
+  Vector<T>& operator=(const Vector<T>& other) {
+    CreateNewDataContainer(other);
+    CopyData(other.m_data, m_data);
+
+    return *this;
+  }
+
+  ~Vector() { delete[] m_data; }
+
+  friend bool operator==(const Vector<T>& lhs, const Vector<T>& rhs) {
+    const auto size = lhs.size();
+    if (size != rhs.size()) {
+      return false;
     }
 
-    Vector(Vector<T>&& other) {
-        m_data = other.m_data;
-        other.m_data = nullptr;
-
-        m_size = other.m_size;
-        m_capacity = other.m_capacity;
+    for (size_t i = 0; i < size; ++i) {
+      if (lhs[i] != rhs[i]) {
+        return false;
+      }
     }
 
-    Vector(const std::initializer_list<T>& args) {
-        m_capacity = args.size();
-        m_data = new T[m_capacity];
+    return true;
+  }
 
-        for (const auto& arg : args) {
-            push_back(arg);
-        }
+  T& operator[](size_t index) const { return m_data[index]; }
+
+  T& at(size_t index) const {
+    if (index >= m_size or not m_data) {
+      throw std::out_of_range("Trying access data out of range");
     }
 
-    Vector<T>& operator=(const Vector<T>& other) {
-        CreateNewDataContainer(other);
-        CopyData(other.m_data, m_data);
+    return m_data[index];
+  }
 
-        return *this;
+  friend std::ostream& operator<<(std::ostream& os, const Vector<T>& other) {
+    for (size_t i = 0; i < other.m_size; ++i) {
+      os << other.m_data[i] << " ";
+    }
+    os << std::endl;
+
+    return os;
+  }
+
+  void push_back(const T& value) {
+    if (not m_data) {
+      m_data = new T[m_capacity];
     }
 
-    ~Vector() {
-        delete[] m_data;
+    if (m_size == m_capacity) {
+      m_capacity = m_capacity * 10;
+      T* temp = new T[m_capacity];
+
+      CopyData(temp, m_data);
+
+      delete[] m_data;
+      m_data = temp;
     }
 
-    friend bool operator==(const Vector<T>& lhs, const Vector<T>& rhs) {
-        const auto size = lhs.size();
-        if (size != rhs.size()) {
-            return false;
-        }
+    m_data[m_size] = value;
+    m_size++;
+  }
 
-        for (size_t i = 0; i < size; ++i) {
-            if (lhs[i] != rhs[i]) {
-                return false;
-            }
-        }
-
-        return true;
+  void emplace_back(const T&& value) {
+    if (not m_data) {
+      m_data = new T[m_capacity];
     }
 
-    T& operator[](size_t index) const {
-        return m_data[index];
+    if (m_size == m_capacity) {
+      m_capacity = m_capacity * 10;
+      T* temp = new T[m_capacity];
+
+      CopyData(temp, m_data);
+
+      delete[] m_data;
+      m_data = temp;
     }
 
-    T& at(size_t index) const {
-        if (index >= m_size or not m_data) {
-            throw std::out_of_range("Trying access data out of range");
-        }
+    m_data[m_size] = std::move(value);
+    m_size++;
+  }
 
-        return m_data[index];
+  void pop_back() {
+    if (m_data) {
+      m_size--;
+    }
+  }
+
+  size_t size() const { return m_size; }
+
+  size_t capacity() const { return m_capacity; }
+
+  bool empty() const { return m_size == 0; }
+
+  T* begin() const { return m_data; }
+
+  std::optional<std::reference_wrapper<T>> front() const {
+    if (not m_data or m_size == 0) {
+      return std::nullopt;
     }
 
-    friend std::ostream& operator<<(std::ostream& os, const Vector<T>& other) {
-        for (size_t i = 0; i < other.m_size; ++i) {
-            os << other.m_data[i] << " ";
-        }
-        os << std::endl;
+    return m_data[0];
+  }
 
-        return os;
+  T* end() const {
+    if (not m_data) {
+      return nullptr;
     }
 
-    void push_back(const T& value) {
-        if (not m_data) {
-            m_data = new T[m_capacity];
-        }
+    return m_data + (m_size - 1);
+  }
 
-        if (m_size == m_capacity) {
-            m_capacity = m_capacity * 10;
-            T* temp = new T[m_capacity];
-
-            CopyData(temp, m_data);
-
-            delete[] m_data;
-            m_data = temp;
-        }
-
-        m_data[m_size] = value;
-        m_size++;
+  std::optional<std::reference_wrapper<T>> back() const {
+    if (not m_data or m_size == 0) {
+      return std::nullopt;
     }
 
-    void emplace_back(const T&& value) {
-        if (not m_data) {
-            m_data = new T[m_capacity];
-        }
+    return m_data[m_size - 1];
+  }
 
-        if (m_size == m_capacity) {
-            m_capacity = m_capacity * 10;
-            T* temp = new T[m_capacity];
+  void shrink_to_fit() {
+    m_capacity = m_size;
+    T* temp = new T[m_size];
+    for (size_t i = 0; i < m_size; ++i) {
+      temp[i] = m_data[i];
+    }
+    delete[] m_data;
+    m_data = temp;
+  }
 
-            CopyData(temp, m_data);
-
-            delete[] m_data;
-            m_data = temp;
-        }
-
-        m_data[m_size] = std::move(value);
-        m_size++;
+  void clear() {
+    if (not m_data) {
+      return;
     }
 
-    void pop_back() {
-        if (m_data) {
-            m_size--;
-        }
+    m_size = 0;
+    m_capacity = 10;
+
+    delete[] m_data;
+    m_data = new T[m_capacity];
+  }
+
+  void reverse() {
+    if (not m_data) {
+      return;
     }
 
-    size_t size() const {
-        return m_size;
+    for (size_t i = 0; i < m_size / 2; ++i) {
+      const auto last = m_size - 1 - i;
+      T temp = m_data[i];
+      m_data[i] = m_data[last];
+      m_data[last] = temp;
+    }
+  }
+
+  void assing(size_t count, const T& value) {
+    if (m_data) {
+      delete[] m_data;
     }
 
-    size_t capacity() const {
-        return m_capacity;
+    m_data = new T[count];
+    m_capacity = count;
+    m_size = count;
+
+    for (size_t i = 0; i < m_capacity; ++i) {
+      m_data[i] = value;
+    }
+  }
+
+  void swap(Vector<T>& other) {
+    T* temp = m_data;
+    const size_t size = m_size;
+    const size_t capacity = m_capacity;
+
+    m_data = other.m_data;
+    m_size = other.m_size;
+    m_capacity = other.m_capacity;
+
+    other.m_data = temp;
+    other.m_size = size;
+    other.m_capacity = capacity;
+  }
+
+  void resize(size_t count) {
+    T* temp = new T[count];
+    for (size_t i = 0; i < count; ++i) {
+      if (i >= m_size) {
+        temp[i] = 0;
+      } else {
+        temp[i] = m_data[i];
+      }
+      std::cout << std::endl;
     }
 
-    bool empty() const {
-        return m_size == 0;
+    m_capacity = m_size = count;
+    delete[] m_data;
+    m_data = temp;
+  }
+
+  void resize(size_t count, const T& value) {
+    T* temp = new T[count];
+    for (size_t i = 0; i < count; ++i) {
+      if (i >= m_size) {
+        temp[i] = value;
+      } else {
+        temp[i] = m_data[i];
+      }
+      std::cout << std::endl;
     }
 
-    T* begin() const {
-        return m_data;
+    m_capacity = m_size = count;
+    delete[] m_data;
+    m_data = temp;
+  }
+
+ private:
+  void CopyData(const T* src, T* dest) {
+    for (size_t i = 0; i < m_size; ++i) {
+      dest[i] = src[i];
     }
+  }
 
-    std::optional<std::reference_wrapper<T>> front() const {
-        if (not m_data or m_size == 0) {
-            return std::nullopt;
-        }
+  void CreateNewDataContainer(const Vector<T>& other) {
+    m_size = other.m_size;
+    m_capacity = other.m_capacity;
 
-        return m_data[0];
+    if (m_data) {
+      delete[] m_data;
     }
+    m_data = new T[m_capacity];
+  }
 
-    T* end() const {
-        if (not m_data) {
-            return nullptr;
-        }
-
-        return m_data + (m_size - 1);
-    }
-
-    std::optional<std::reference_wrapper<T>> back() const {
-        if (not m_data or m_size == 0) {
-            return std::nullopt;
-        }
-
-        return m_data[m_size - 1];
-    }
-
-    void shrink_to_fit() {
-        m_capacity = m_size;
-        T* temp = new T[m_size];
-        for (size_t i = 0; i < m_size; ++i) {
-            temp[i] = m_data[i];
-        }
-        delete[] m_data;
-        m_data = temp;
-    }
-
-    void clear() {
-        if (not m_data) {
-            return;
-        }
-
-        m_size = 0;
-        m_capacity = 10;
-
-        delete[] m_data;
-        m_data = new T[m_capacity];
-    }
-
-    void reverse() {
-        if (not m_data) {
-            return;
-        }
-
-        for (size_t i = 0; i < m_size/2; ++i) {
-            const auto last = m_size - 1 - i;
-            T temp = m_data[i];
-            m_data[i] = m_data[last];
-            m_data[last] = temp;
-        }
-    }
-
-    void assing(size_t count, const T& value) {
-        if (m_data) {
-            delete[] m_data;
-        }
-
-        m_data = new T[count];
-        m_capacity = count;
-        m_size = count;
-
-        for (size_t i = 0; i < m_capacity; ++i) {
-            m_data[i] = value;
-        }
-    }
-
-    void swap(Vector<T>& other) {
-        T* temp = m_data;
-        const size_t size = m_size;
-        const size_t capacity = m_capacity;
-
-        m_data = other.m_data;
-        m_size = other.m_size;
-        m_capacity = other.m_capacity;
-
-        other.m_data = temp;
-        other.m_size = size;
-        other.m_capacity = capacity;
-    }
-
-    void resize(size_t count) {
-        T* temp = new T[count];
-        for (size_t i = 0; i < count; ++i) {
-            if (i >= m_size) {
-                temp[i] = 0;
-            }
-            else {
-                temp[i] = m_data[i];
-            }
-            std::cout << std::endl;
-        }
-
-        m_capacity = m_size = count;
-        delete[] m_data;
-        m_data = temp;
-    }
-
-    void resize(size_t count, const T& value) {
-        T* temp = new T[count];
-        for (size_t i = 0; i < count; ++i) {
-            if (i >= m_size) {
-                temp[i] = value;
-            }
-            else {
-                temp[i] = m_data[i];
-            }
-            std::cout << std::endl;
-        }
-
-        m_capacity = m_size = count;
-        delete[] m_data;
-        m_data = temp;
-    }
-
-private:
-    void CopyData(const T* src, T* dest) {
-        for (size_t i = 0; i < m_size; ++i) {
-            dest[i] = src[i];
-        }
-    }
-
-    void CreateNewDataContainer(const Vector<T>& other) {
-        m_size = other.m_size;
-        m_capacity = other.m_capacity;
-
-        if (m_data) {
-            delete[] m_data;
-        }
-        m_data = new T[m_capacity];
-    }
-
-
-    size_t m_size{};
-    size_t m_capacity{10};
-    T* m_data = nullptr;
+  size_t m_size{};
+  size_t m_capacity{10};
+  T* m_data = nullptr;
 };
 
-} // namespace containers
+}  // namespace containers
