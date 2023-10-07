@@ -29,32 +29,32 @@ jobs:
 
   ubsan:
     runs-on: [ ubuntu-latest ]
-    
+
     steps:
     - uses: actions/checkout@v3.5.2
-    
+
     - name: Configure CMake
       run: cmake -B ${{github.workspace}}/build -S ${{github.workspace}} -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} -DUBSan=ON
-    
+
     - name: Build repository
       run: cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}}
-    
+
     - name: Running USan
       working-directory: ${{github.workspace}}/build/tests
       run: ./run_all_unit_tests.sh
 
   lsan:
     runs-on: [ ubuntu-latest ]
-    
+
     steps:
-      - uses: actions/checkout@v3.5.2
-    
+      - uses: actions/checkout@v4.1.0
+
       - name: Configure CMake
         run: cmake -B ${{github.workspace}}/build -S ${{github.workspace}} -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} -DLSan=ON
-    
+
       - name: Build
         run: cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}}
-    
+
       - name: Running LSan
         working-directory: ${{github.workspace}}/build/tests
         run: ./run_all_unit_tests.sh
