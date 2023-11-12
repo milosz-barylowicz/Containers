@@ -15,6 +15,7 @@ containers::Stack<int> BuildFilledStack(int value) {
   }
   return result;
 }
+
 }  // namespace
 
 namespace containers::ut {

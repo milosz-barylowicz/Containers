@@ -3,6 +3,7 @@
 #include "vector.hpp"
 
 namespace {
+
 constexpr int DEFAULT_VALUE = 100;
 constexpr size_t DEFAULT_CAPACITY = 10;
 

@@ -3,6 +3,7 @@
 #include "vector.hpp"
 
 namespace {
+
 constexpr int DEFAULT_VALUE = 100;
 constexpr size_t DEFAULT_CAPACITY = 2;
 const containers::Vector<int> reversed{DEFAULT_VALUE + 1, DEFAULT_VALUE};
