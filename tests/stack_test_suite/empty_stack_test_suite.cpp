@@ -1,5 +1,6 @@
-#include "stack.hpp"
 #include <gtest/gtest.h>
+
+#include "stack.hpp"
 
 namespace {
 

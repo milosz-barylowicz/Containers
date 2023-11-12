@@ -1,5 +1,6 @@
-#include "list.hpp"
 #include <gtest/gtest.h>
+
+#include "list.hpp"
 
 namespace {
 

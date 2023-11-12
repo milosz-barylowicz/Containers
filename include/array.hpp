@@ -1,9 +1,9 @@
 #pragma once
 
+#include <functional>
 #include <limits>
 #include <optional>
 #include <stdexcept>
-#include <functional>
 
 namespace containers {
 

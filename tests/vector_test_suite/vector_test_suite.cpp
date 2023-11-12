@@ -1,5 +1,6 @@
-#include "vector.hpp"
 #include <gtest/gtest.h>
+
+#include "vector.hpp"
 
 namespace {
 

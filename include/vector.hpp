@@ -1,10 +1,10 @@
 #pragma once
 
-#include <string>
-#include <ostream>
-#include <optional>
-#include <iostream>
 #include <functional>
+#include <iostream>
+#include <optional>
+#include <ostream>
+#include <string>
 
 namespace containers {
 

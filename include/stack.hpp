@@ -1,7 +1,7 @@
 #pragma once
 
-#include <ostream>
 #include <optional>
+#include <ostream>
 
 namespace containers {
 
