@@ -1,6 +1,5 @@
-#include <gtest/gtest.h>
-
 #include "stack.hpp"
+#include <gtest/gtest.h>
 
 namespace {
 
@@ -15,6 +14,7 @@ containers::Stack<int> BuildFilledStack(int value) {
   }
   return result;
 }
+
 }  // namespace
 
 namespace containers::ut {

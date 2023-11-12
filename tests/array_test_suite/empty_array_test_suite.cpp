@@ -1,6 +1,5 @@
-#include <gtest/gtest.h>
-
 #include "array.hpp"
+#include <gtest/gtest.h>
 
 namespace {
 
@@ -8,6 +7,7 @@ constexpr int DEFAULT_VALUE = 100;
 constexpr size_t EMPTY = 0;
 const containers::Array<int, EMPTY> EMPTY_ARRAY;
 constexpr size_t MAX_SIZE = std::numeric_limits<size_t>::max();
+
 }  // namespace
 
 namespace containers::ut {
