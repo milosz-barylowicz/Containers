@@ -6,20 +6,34 @@ on:
   pull_request:
     branches: [ '**' ]
   workflow_dispatch:
+    inputs:
+        build-type:
+          description: 'build type'
+          required: true
+          default: Debug
+          type: choice
+          options:
+          - Debug
+          - Release
+          - RelWithDebInfo
+          - MinSizeRel
+
+env:
+  BUILD_DIR: ${{ github.workspace }}/build
 
 jobs:
   build:
     runs-on: [ ubuntu-22.04 ]
 
     steps:
-    - uses: actions/checkout@v4.1.0
+    - uses: actions/checkout@v4.1.1
 
-    - name: Configure CMake
-      run: cmake -B ${{ github.workspace }}/build -S ${{ github.workspace }} -DCOVERAGE=ON
+    - name: configuring CMake
+      run: cmake -B ${{ env.BUILD_DIR }} -S ${{ github.workspace }} -DCOVERAGE=ON -DCMAKE_BUILD_TYPE=${{ inputs.build-type }}
 
-    - name: Build
-      run: cmake --build ${{ github.workspace }}/build
+    - name: building
+      run: cmake --build ${{ env.BUILD_DIR }}
 
-    - name: Code coverage generation
-      working-directory: ${{ github.workspace }}/build
+    - name: generating code-coverage
+      working-directory: ${{ env.BUILD_DIR }}
       run: ./generate_code_coverage_raport.sh

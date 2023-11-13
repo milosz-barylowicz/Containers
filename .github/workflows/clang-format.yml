@@ -6,19 +6,27 @@ on:
   pull_request:
     branches: [ '**' ]
   workflow_dispatch:
+    inputs:
+      chosen-os:
+        required: true
+        type: choice
+        default: ubuntu-22.04
+        options:
+        - ubuntu-22.04
+        - macos-12
 
 jobs:
    code-format:
-    runs-on: [ ubuntu-22.04 ]
+    runs-on: [ "${{ github.event_name == 'push' && 'ubuntu-22.04' || inputs.chosen-os }}" ]
 
     steps:
-    - uses: actions/checkout@v4.1.0
+    - uses: actions/checkout@v4.1.1
 
-    - name: Configure git
+    - name: configuring git
       run: git config --global user.email "${{ secrets.EMAIL }}" && git config --global user.name "${{ secrets.AGENT_NAME }}"
 
-    - name: Code formatting
+    - name: formatting code
       run: ./scripts/run_clang_format.sh
 
-    - name: Commit changes
+    - name: commiting changes
       run: ./.github/workflows/scripts/commit_changes.sh

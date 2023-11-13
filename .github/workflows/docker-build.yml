@@ -1,10 +1,10 @@
-# Github Actions pipeline created to check if docekr building/unit-tests capabilities are corectly setup
+# Github Actions pipeline created to check if docker building/unit-tests capabilities are corectly setup
 
 name: docker-build
 
 on:
   schedule:
-    - cron:  '0 5 * * SUN'
+    - cron:  '0 3 * * SUN'
   workflow_dispatch:
 
 jobs:
@@ -12,7 +12,7 @@ jobs:
     runs-on: [ ubuntu-22.04 ]
 
     steps:
-    - uses: actions/checkout@v4.1.0
+    - uses: actions/checkout@v4.1.1
 
     - name: Configure Docker
       working-directory: ${{ github.workspace }}

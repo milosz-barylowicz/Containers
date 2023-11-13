@@ -2,22 +2,37 @@ name: weekly
 
 on:
   schedule:
-    - cron:  '0 5 * * SUN'
+    - cron:  '0 3 * * SUN'
   workflow_dispatch:
+    inputs:
+        build-type:
+          description: 'build type'
+          required: true
+          default: Debug
+          type: choice
+          options:
+          - Debug
+          - Release
+          - RelWithDebInfo
+          - MinSizeRel
+
+env:
+  BUILD_DIR: ${{ github.workspace }}/build
+  TEST_DIR: ${{ github.workspace }}/build/tests
 
 jobs:
   build:
     runs-on: [ ubuntu-22.04 ]
 
     steps:
-    - uses: actions/checkout@v4.1.0
+    - uses: actions/checkout@v4.1.1
 
-    - name: Configure CMake
-      run: cmake -B ${{ github.workspace }}/build -S ${{ github.workspace }}
+    - name: configuring CMake
+      run: cmake -B ${{ env.BUILD_DIR }} -S ${{ github.workspace }} -DCMAKE_BUILD_TYPE=${{ inputs.build-type }}
 
-    - name: Build
-      run: cmake --build ${{ github.workspace }}/build
+    - name: building
+      run: cmake --build ${{ env.BUILD_DIR }}
 
-    - name: Run unit tests
-      working-directory: ${{ github.workspace }}/build/tests
+    - name: unit-tests executing
+      working-directory: ${{ env.TEST_DIR }}
       run: ./run_all_unit_tests.sh
