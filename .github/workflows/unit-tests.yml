@@ -1,0 +1,68 @@
+name: unit-tests
+
+on:
+  push:
+    branches: [ '**' ]
+  pull_request:
+    branches: [ '**' ]
+  workflow_dispatch:
+    inputs:
+      build-type:
+        description: 'build type'
+        required: true
+        default: Debug
+        type: choice
+        options:
+        - Debug
+        - Release
+        - RelWithDebInfo
+        - MinSizeRel
+
+jobs:
+    execute-unix-based-unit-tests:
+      strategy:
+        matrix:
+          os: [ubuntu-22.04, macos-12]
+
+      env:
+        BUILD_DIR: ${{ github.workspace }}/build
+        TEST_DIR: ${{ github.workspace }}/build/tests
+
+      runs-on: ${{ matrix.os }}
+
+      steps:
+        - uses: actions/checkout@v4.1.1
+
+        - name: configuring CMake
+          run: cmake -B ${{ env.BUILD_DIR }} -S ${{ github.workspace }} -DCMAKE_BUILD_TYPE=${{ inputs.build-type }}
+
+        - name: building
+          run: cmake --build ${{ env.BUILD_DIR }}
+
+        - name: unit-tests executing
+          run: bash ${{ env.TEST_DIR }}/run_all_unit_tests.sh
+
+    execute-windows-based-unit-tests:
+      strategy:
+        matrix:
+          os: [ windows-2022 ]
+      env:
+        BUILD_DIR: ${{ github.workspace }}\build
+        TEST_DIR: ${{ github.workspace }}\build\tests
+
+      runs-on: ${{ matrix.os }}
+
+      steps:
+      - uses: actions/checkout@v4.1.1
+
+      - name: configuring CMake
+        run: cmake -B ${{ env.BUILD_DIR }} -S ${{ github.workspace }} -DCMAKE_BUILD_TYPE=${{ inputs.build-type }}
+
+      - name: building
+        run: cmake --build ${{ env.BUILD_DIR }}
+
+      - name: unit-tests executing
+        run: cd ${{ env.TEST_DIR }}\array_test_suite\Debug && start array_test_suite.exe &&
+             cd ${{ env.TEST_DIR }}\stack_test_suite\Debug && start stack_test_suite.exe &&
+             cd ${{ env.TEST_DIR }}\vector_test_suite\Debug && start vector_test_suite.exe &&
+             cd ${{ env.TEST_DIR }}\list_test_suite\Debug && start list_test_suite.exe
