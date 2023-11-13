@@ -6,18 +6,10 @@ on:
   pull_request:
     branches: [ '**' ]
   workflow_dispatch:
-    inputs:
-      chosen-os:
-        required: true
-        type: choice
-        default: ubuntu-22.04
-        options:
-        - ubuntu-22.04
-        - macos-12
 
 jobs:
    code-format:
-    runs-on: [ "${{ github.event_name == 'push' && 'ubuntu-22.04' || inputs.chosen-os }}" ]
+    runs-on: [ ubuntu-22.04 ]
 
     steps:
     - uses: actions/checkout@v4.1.1

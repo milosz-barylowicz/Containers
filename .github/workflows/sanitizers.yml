@@ -6,17 +6,6 @@ on:
   pull_request:
     branches: [ '**' ]
   workflow_dispatch:
-    inputs:
-        build-type:
-          description: 'build type'
-          required: true
-          default: Debug
-          type: choice
-          options:
-          - Debug
-          - Release
-          - RelWithDebInfo
-          - MinSizeRel
 
 env:
   BUILD_DIR: ${{ github.workspace }}/build
@@ -30,7 +19,7 @@ jobs:
     - uses: actions/checkout@v4.1.1
 
     - name: configuring CMake
-      run: cmake -B ${{ env.BUILD_DIR }} -S ${{ github.workspace }} -DASan=ON -DCMAKE_BUILD_TYPE=${{ inputs.build-type }}
+      run: cmake -B ${{ env.BUILD_DIR }} -S ${{ github.workspace }} -DASan=ON
 
     - name: building
       run: cmake --build ${{ env.BUILD_DIR }}
@@ -46,7 +35,7 @@ jobs:
     - uses: actions/checkout@v4.1.1
 
     - name: configuring CMake
-      run: cmake -B ${{ env.BUILD_DIR }} -S ${{ github.workspace }} -DUBSan=ON -DCMAKE_BUILD_TYPE=${{ inputs.build-type }}
+      run: cmake -B ${{ env.BUILD_DIR }} -S ${{ github.workspace }} -DUBSan=ON
 
     - name: building
       run: cmake --build ${{ env.BUILD_DIR }}
@@ -62,7 +51,7 @@ jobs:
       - uses: actions/checkout@v4.1.1
 
       - name: configuring CMake
-        run: cmake -B ${{ env.BUILD_DIR }} -S ${{ github.workspace }} -DLSan=ON -DCMAKE_BUILD_TYPE=${{ inputs.build-type }}
+        run: cmake -B ${{ env.BUILD_DIR }} -S ${{ github.workspace }} -DLSan=ON
 
       - name: building
         run: cmake --build ${{ env.BUILD_DIR }}
