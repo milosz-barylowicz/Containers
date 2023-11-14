@@ -7,6 +7,9 @@ on:
     branches: [ '**' ]
   workflow_dispatch:
 
+env:
+  GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
 jobs:
    code-format:
     runs-on: [ ubuntu-22.04 ]
@@ -14,8 +17,10 @@ jobs:
     steps:
     - uses: actions/checkout@v4.1.1
 
-    - name: configuring git
-      run: git config --global user.email "${{ secrets.EMAIL }}" && git config --global user.name "${{ secrets.AGENT_NAME }}"
+    - name: setting-up-git
+      uses: de-vri-es/setup-git-credentials@v2.0.10
+      with:
+        credentials: ${{ secrets.GITHUB_TOKEN }}
 
     - name: formatting code
       run: ./scripts/run_clang_format.sh
