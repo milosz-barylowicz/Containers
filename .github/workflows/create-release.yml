@@ -1,0 +1,30 @@
+name: create-release
+
+on:
+  workflow_dispatch:
+    inputs:
+      release-number:
+        description: 'Release number that will be used to create release branch and tag'
+        required: true
+
+env:
+  GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+jobs:
+  create-release:
+    runs-on: [ ubuntu-22.04 ]
+
+    steps:
+      - uses: actions/checkout@v4.1.1
+
+      - name: setting-up-git
+        uses: de-vri-es/setup-git-credentials@v2.0.10
+        with:
+          credentials: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: creating-release-branch
+        run: ./.github/workflows/scripts/create-release-branch.sh ${{ inputs.release-number }}
+
+      - name: creating-release-tag
+        run: |
+          git checkout release/${{ inputs.release-number }} && gh release create v${{ inputs.release-number }} --title "v${{ inputs.release-number }}"
