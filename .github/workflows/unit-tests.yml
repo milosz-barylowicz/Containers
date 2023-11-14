@@ -6,20 +6,9 @@ on:
   pull_request:
     branches: [ '**' ]
   workflow_dispatch:
-    inputs:
-      build-type:
-        description: 'build type'
-        required: true
-        default: Debug
-        type: choice
-        options:
-        - Debug
-        - Release
-        - RelWithDebInfo
-        - MinSizeRel
 
 jobs:
-    execute-unix-based-unit-tests:
+    unix-based-unit-tests:
       strategy:
         matrix:
           os: [ubuntu-22.04, macos-12]
@@ -34,7 +23,7 @@ jobs:
         - uses: actions/checkout@v4.1.1
 
         - name: configuring CMake
-          run: cmake -B ${{ env.BUILD_DIR }} -S ${{ github.workspace }} -DCMAKE_BUILD_TYPE=${{ inputs.build-type }}
+          run: cmake -B ${{ env.BUILD_DIR }} -S ${{ github.workspace }}
 
         - name: building
           run: cmake --build ${{ env.BUILD_DIR }}
@@ -42,7 +31,7 @@ jobs:
         - name: unit-tests executing
           run: bash ${{ env.TEST_DIR }}/run_all_unit_tests.sh
 
-    execute-windows-based-unit-tests:
+    windows-based-unit-tests:
       strategy:
         matrix:
           os: [ windows-2022 ]
@@ -56,13 +45,13 @@ jobs:
       - uses: actions/checkout@v4.1.1
 
       - name: configuring CMake
-        run: cmake -B ${{ env.BUILD_DIR }} -S ${{ github.workspace }} -DCMAKE_BUILD_TYPE=${{ inputs.build-type }}
+        run: cmake -B ${{ env.BUILD_DIR }} -S ${{ github.workspace }}
 
       - name: building
         run: cmake --build ${{ env.BUILD_DIR }}
 
       - name: unit-tests executing
-        run: cd ${{ env.TEST_DIR }}\array_test_suite\Debug && start array_test_suite.exe &&
-             cd ${{ env.TEST_DIR }}\stack_test_suite\Debug && start stack_test_suite.exe &&
-             cd ${{ env.TEST_DIR }}\vector_test_suite\Debug && start vector_test_suite.exe &&
-             cd ${{ env.TEST_DIR }}\list_test_suite\Debug && start list_test_suite.exe
+        run: cd ${{ env.TEST_DIR }}\array_test_suite && ctest --verbose -C Debug &&
+             cd ${{ env.TEST_DIR }}\stack_test_suite && ctest --verbose -C Debug &&
+             cd ${{ env.TEST_DIR }}\vector_test_suite && ctest --verbose -C Debug &&
+             cd ${{ env.TEST_DIR }}\list_test_suite && ctest --verbose -C Debug
