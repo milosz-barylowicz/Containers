@@ -1,10 +1,10 @@
 #pragma once
 
 #include <functional>
+#include <initializer_list>
 #include <limits>
 #include <optional>
 #include <ostream>
-#include <initializer_list>
 
 namespace containers {
 
