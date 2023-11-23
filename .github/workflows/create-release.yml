@@ -4,8 +4,11 @@ on:
   workflow_dispatch:
     inputs:
       release-number:
-        description: 'Release number that will be used to create release branch and tag'
+        description: 'Release number'
         required: true
+      release-title:
+        description: 'Release title'
+        required: false
 
 env:
   GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -25,6 +28,12 @@ jobs:
       - name: creating-release-branch
         run: ./.github/workflows/scripts/create-release-branch.sh ${{ inputs.release-number }}
 
-      - name: creating-release-tag
+      - name: creating-release
+        if: inputs.release-title == ''
         run: |
-          git checkout release/${{ inputs.release-number }} && gh release create v${{ inputs.release-number }} --title "v${{ inputs.release-number }}"
+          gh release create v${{ inputs.release-number }} --title "v${{ inputs.release-number }}" --generate-notes
+
+      - name: creating-release-with-title
+        if: inputs.release-title != ''
+        run: |
+          gh release create v${{ inputs.release-number }} --title "v${{ inputs.release-number }}: ${{ inputs.release-title }}" --generate-notes
