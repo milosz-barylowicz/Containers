@@ -1,10 +1,11 @@
 find_package(Git REQUIRED)
 
-set(GTEST_ROOT ${CMAKE_BINARY_DIR}/googletest)
+set(GTEST_ROOT ${PROJECT_BINARY_DIR}/googletest)
 
-set(GTEST_VERSION "v1.14.0")
 include(FetchContent)
+
 # One of methods can be used to downloading googletests framework
+set(GTEST_VERSION "v1.14.0")
 FetchContent_Declare(googletest
     GIT_REPOSITORY https://github.com/google/googletest.git
     GIT_TAG        ${GTEST_VERSION}
@@ -31,7 +32,7 @@ add_subdirectory(vector_test_suite)
 # Copy unit test runnning script
 file(
     COPY
-        ${CMAKE_SOURCE_DIR}/scripts/run_all_unit_tests.sh
-        ${CMAKE_SOURCE_DIR}/scripts/run_valgrind.sh
+        ${PROJECT_SOURCE_DIR}/scripts/run_all_unit_tests.sh
+        ${PROJECT_SOURCE_DIR}/scripts/run_valgrind.sh
     DESTINATION
-        ${CMAKE_BINARY_DIR}/tests)
+        ${PROJECT_BINARY_DIR}/tests)

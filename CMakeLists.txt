@@ -2,8 +2,10 @@ cmake_minimum_required(VERSION 3.22)
 
 set(CMAKE_CXX_STANDARD 20)
 
+project(Containers LANGUAGES CXX)
+
 # Macros & functions
-include(${CMAKE_SOURCE_DIR}/cmake/create_test_suite.cmake)
+include(${PROJECT_SOURCE_DIR}/cmake/create_test_suite.cmake)
 
 if (UNIX)
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Werror")
@@ -13,8 +15,6 @@ if (COVERAGE)
     message("-- Build with code coverage")
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fprofile-arcs -ftest-coverage")
 endif()
-
-project(Containers LANGUAGES CXX)
 
 set(ADDITIONAL_LINK_LIBS "")
 if (UNIX)
@@ -44,9 +44,9 @@ add_subdirectory(tests)
 # Copy script to generating code coverage raport into build directory
 file(
     COPY
-        ${CMAKE_SOURCE_DIR}/scripts/generate_code_coverage_raport.sh
+        ${PROJECT_SOURCE_DIR}/scripts/generate_code_coverage_raport.sh
     DESTINATION
-        ${CMAKE_BINARY_DIR})
+        ${PROJECT_BINARY_DIR})
 
 # Export project as library
 add_library(containers INTERFACE)
