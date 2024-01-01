@@ -2,12 +2,19 @@ find_package(Git REQUIRED)
 
 set(GTEST_ROOT ${CMAKE_BINARY_DIR}/googletest)
 
+set(GTEST_VERSION "v1.14.0")
 include(FetchContent)
+# One of methods can be used to downloading googletests framework
 FetchContent_Declare(googletest
     GIT_REPOSITORY https://github.com/google/googletest.git
-    GIT_TAG        v1.14.0
+    GIT_TAG        ${GTEST_VERSION}
     CMAKE_ARGS -DCMAKE_INSTALL_PREFIX=${GTEST_ROOT}
 )
+
+# FetchContent_Declare(googletest
+#     URL https://github.com/google/googletest/archive/refs/tags/${GTEST_VERSION}.tar.gz
+#     URL_HASH MD5=c8340a482851ef6a3fe618a082304cfc
+# )
 
 FetchContent_MakeAvailable(googletest)
 
