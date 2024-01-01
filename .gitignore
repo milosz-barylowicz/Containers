@@ -33,6 +33,8 @@
 
 # Local building directories
 build/
+_build/
+build_/
 
 # Custom directories to ignore
 tests/googletests-prefix/
