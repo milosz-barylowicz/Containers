@@ -7,7 +7,7 @@ macro(create_test_suite target_to_test)
 
     target_include_directories(${TEST_SUITE_NAME}
         PRIVATE
-            "${CMAKE_SOURCE_DIR}/include")
+            "${PROJECT_SOURCE_DIR}/include")
 
     include(GoogleTest)
     string(STRIP "${ADDITIONAL_LINK_LIBS}" ADDITIONAL_LINK_LIBS)
