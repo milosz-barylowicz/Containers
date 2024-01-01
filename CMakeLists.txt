@@ -51,3 +51,5 @@ file(
 # Export project as library
 add_library(containers INTERFACE)
 target_include_directories(containers INTERFACE ${CMAKE_SOURCE_DIR})
+
+export(PACKAGE containers)
