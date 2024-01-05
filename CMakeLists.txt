@@ -48,8 +48,5 @@ file(
     DESTINATION
         ${PROJECT_BINARY_DIR})
 
-# Export project as library
-add_library(containers INTERFACE)
-target_include_directories(containers INTERFACE ${CMAKE_SOURCE_DIR})
-
-export(PACKAGE containers)
+install(FILES include/array.hpp include/list.hpp include/stack.hpp include/vector.hpp
+DESTINATION ${CMAKE_SOURCE_DIR}/containers)
