@@ -101,7 +101,7 @@ TEST_F(VectorTestSuite,
 
 TEST_F(VectorTestSuite, ShouldAccessEndWithIterator) {
   const auto end = sut.end();
-  ASSERT_EQ(DEFAULT_VALUE + 1, *end);
+  ASSERT_EQ(DEFAULT_VALUE + 1, *(end - 1));
 }
 
 TEST_F(VectorTestSuite, ShouldAccessBeginWithIterator) {
