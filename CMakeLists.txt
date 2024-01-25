@@ -48,8 +48,33 @@ file(
     DESTINATION
         ${PROJECT_BINARY_DIR})
 
-# Export project as library
-add_library(containers INTERFACE)
-target_include_directories(containers INTERFACE ${CMAKE_SOURCE_DIR})
+# make library able to install
+add_library(Containers INTERFACE)
 
-export(PACKAGE containers)
+target_include_directories(Containers
+    INTERFACE
+        $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include>
+        $<INSTALL_INTERFACE:include>
+)
+
+install(TARGETS Containers
+    EXPORT ContainersTargets
+    LIBRARY DESTINATION lib COMPONENT Runtime
+    LIBRARY DESTINATION lib COMPONENT Development
+    LIBRARY DESTINATION bin COMPONENT Runtime
+    PUBLIC_HEADER DESTINATION include COMPONENT Development
+    BUNDLE DESTINATION bin COMPONENT Runtime
+)
+
+include(CMakePackageConfigHelpers)
+configure_package_config_file(
+    "${PROJECT_SOURCE_DIR}/cmake/ContainersConfig.cmake.in"
+    "${PROJECT_BINARY_DIR}/ContainersConfig.cmake"
+    INSTALL_DESTINATION lib/cmake/containers
+)
+
+install(EXPORT ContainersTargets DESTINATION lib/cmake/containers)
+install(FILES "${PROJECT_BINARY_DIR}/ContainersConfigVersion.cmake"
+              "${PROJECT_BINARY_DIR}/ContainersConfig.cmake"
+        DESTINATION lib/cmake/containers)
+install(DIRECTORY ${PROJECT_SOURCE_DIR}/include/ DESTINATION include)

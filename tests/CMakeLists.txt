@@ -17,6 +17,7 @@ FetchContent_Declare(googletest
 #     URL_HASH MD5=c8340a482851ef6a3fe618a082304cfc
 # )
 
+option(INSTALL_GTEST OFF)
 FetchContent_MakeAvailable(googletest)
 
 include_directories(${GTEST_ROOT}/include)

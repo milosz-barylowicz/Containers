@@ -31,10 +31,14 @@
 *.out
 *.app
 
-# Local building directories
+# Local building/install directories
 build/
 _build/
 build_/
+
+install/
+_install/
+install_/
 
 # Custom directories to ignore
 tests/googletests-prefix/
