@@ -143,7 +143,7 @@ class Vector {
       return nullptr;
     }
 
-    return m_data + (m_size - 1);
+    return m_data + m_size;
   }
 
   std::optional<std::reference_wrapper<T>> back() const {
