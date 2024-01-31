@@ -32,18 +32,21 @@
 *.app
 
 # Local building/install directories
-build/
-_build/
-build_/
+build
+_build
+build_
 
-install/
-_install/
-install_/
+install
+_install
+install_
 
 # Custom directories to ignore
-tests/googletests-prefix/
-CMakeFiles/
+tests/googletests-prefix
+CMakeFiles
 CMakeCache.txt
 
 # Ignoring files specific for Visual Studio
-.vs/
+.vs
+
+# Ignoring files specific for VS Code
+.vscode
