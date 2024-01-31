@@ -17,7 +17,7 @@ jobs:
     steps:
     - uses: actions/checkout@v4.1.1
 
-    - uses: de-vri-es/setup-git-credentials@v2.0.10
+    - uses: de-vri-es/setup-git-credentials@v2.1.2
       with:
         credentials: ${{ secrets.GITHUB_TOKEN }}
 
