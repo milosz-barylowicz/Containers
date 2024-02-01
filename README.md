@@ -27,6 +27,9 @@ To generate code coverage using lcov you need to use linux OS and follow steps:
    - Navigate into code_coverage directory and use your web-browser to inspect ```index.html``` file which will contain
      code-coverage for the project
 
+# Results of code-coverage pipeline
+Code-coverage pipeline is creating code coverage report and deploying it on GitHub-pages. It can be found [here](https://milosz-barylowicz.github.io/Containers/)
+
 # Using Valgrind (Linux)
 To check if project contains any memory corrution issues Valgrind tool can be used.
 1. Build project with CMake following **Recommended way of using CMake** paragraph
