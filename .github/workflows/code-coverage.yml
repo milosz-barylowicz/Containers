@@ -11,7 +11,7 @@ env:
   BUILD_DIR: ${{ github.workspace }}/build
 
 jobs:
-  build:
+  code-coverage-generation:
     runs-on: [ ubuntu-22.04 ]
 
     steps:
@@ -26,3 +26,25 @@ jobs:
     - name: generating code-coverage
       working-directory: ${{ env.BUILD_DIR }}
       run: ./generate_code_coverage_raport.sh
+
+    - name: setup pages
+      uses: actions/upload-pages-artifact@v3.0.0
+      with:
+        path: "${{ env.BUILD_DIR }}/code_coverage"
+
+  deploy:
+    needs: code-coverage-generation
+
+    permissions:
+      pages: write
+      id-token: write
+
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    runs-on: [ ubuntu-22.04 ]
+    steps:
+    - name: Deploy code coverage to GitHub pages
+      id: deployment
+      uses: actions/deploy-pages@v4.0.3
