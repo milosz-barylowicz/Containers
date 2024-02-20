@@ -45,6 +45,9 @@ tests/googletests-prefix
 CMakeFiles
 CMakeCache.txt
 
+# Python specific files and directories
+venv/
+
 # Ignoring files specific for Visual Studio
 .vs
 
