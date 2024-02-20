@@ -5,8 +5,7 @@
 #include <optional>
 #include <stdexcept>
 
-namespace containers
-{
+namespace containers {
 
 template <typename T, std::size_t element_count>
 class Array {
