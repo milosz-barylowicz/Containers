@@ -33,7 +33,7 @@ add_subdirectory(vector_test_suite)
 # Copy unit test runnning script
 file(
     COPY
-        ${PROJECT_SOURCE_DIR}/scripts/run_all_unit_tests.sh
+        ${PROJECT_SOURCE_DIR}/scripts/run_unit_tests.py
         ${PROJECT_SOURCE_DIR}/scripts/run_valgrind.sh
     DESTINATION
         ${PROJECT_BINARY_DIR}/tests)

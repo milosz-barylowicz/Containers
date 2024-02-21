@@ -2,7 +2,7 @@
 
 # run all unit tests to generate code coverage
 cd tests;
-./run_all_unit_tests.sh;
+python3 run_unit_tests.sh;
 cd ..;
 
 # installing lcov
