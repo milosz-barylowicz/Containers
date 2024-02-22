@@ -24,9 +24,23 @@ jobs:
     - name: building
       run: cmake --build ${{ env.BUILD_DIR }}
 
+    - name: setting up python3
+      run: |
+        sudo apt update &&\
+        sudo apt install build-essential software-properties-common -y &&\
+        sudo add-apt-repository ppa:deadsnakes/ppa &&\
+        sudo apt update &&\
+        sudo apt install python3.11 -y &&\
+        python3 --version
+
+    - name: python venv setting up
+      run: |
+        python3 -m venv venv &&\
+        source venv/bin/activate
+
     - name: running ASan
       working-directory: ${{ env.TEST_DIR }}
-      run: ./run_all_unit_tests.sh
+      run: python run_unit_tests.py
 
   ubsan:
     runs-on: [ ubuntu-22.04 ]
@@ -40,9 +54,23 @@ jobs:
     - name: building
       run: cmake --build ${{ env.BUILD_DIR }}
 
+    - name: setting up python3
+      run: |
+        sudo apt update &&\
+        sudo apt install build-essential software-properties-common -y &&\
+        sudo add-apt-repository ppa:deadsnakes/ppa &&\
+        sudo apt update &&\
+        sudo apt install python3.11 -y &&\
+        python3 --version
+
+    - name: python venv setting up
+      run: |
+        python3 -m venv venv &&\
+        source venv/bin/activate
+
     - name: running USan
       working-directory: ${{ env.TEST_DIR }}
-      run: ./run_all_unit_tests.sh
+      run: python run_unit_tests.py
 
   lsan:
     runs-on: [ ubuntu-22.04 ]
@@ -56,6 +84,20 @@ jobs:
       - name: building
         run: cmake --build ${{ env.BUILD_DIR }}
 
+      - name: setting up python3
+        run: |
+          sudo apt update &&\
+          sudo apt install build-essential software-properties-common -y &&\
+          sudo add-apt-repository ppa:deadsnakes/ppa &&\
+          sudo apt update &&\
+          sudo apt install python3.11 -y &&\
+          python3 --version
+
+      - name: python venv setting up
+        run: |
+          python3 -m venv venv &&\
+          source venv/bin/activate
+
       - name: running LSan
         working-directory: ${{ env.TEST_DIR }}
-        run: ./run_all_unit_tests.sh
+        run: python run_unit_tests.py

@@ -11,7 +11,7 @@ jobs:
     unix-based-unit-tests:
       strategy:
         matrix:
-          os: [ubuntu-22.04, macos-12]
+          os: [ubuntu-22.04]
 
       env:
         BUILD_DIR: ${{ github.workspace }}/build
@@ -28,8 +28,23 @@ jobs:
         - name: building
           run: cmake --build ${{ env.BUILD_DIR }}
 
+        - name: setting up python3
+          run: |
+            sudo apt update &&\
+            sudo apt install build-essential software-properties-common -y &&\
+            sudo add-apt-repository ppa:deadsnakes/ppa &&\
+            sudo apt update &&\
+            sudo apt install python3.11 -y &&\
+            python3 --version
+
+        - name: python venv setting up
+          run: |
+            python3 -m venv venv &&\
+            source venv/bin/activate
+
         - name: unit-tests executing
-          run: bash ${{ env.TEST_DIR }}/run_all_unit_tests.sh
+          working-directory: ${{ env.TEST_DIR }}
+          run: python run_unit_tests.py
 
     windows-based-unit-tests:
       strategy:
@@ -51,7 +66,29 @@ jobs:
         run: cmake --build ${{ env.BUILD_DIR }}
 
       - name: unit-tests executing
-        run: cd ${{ env.TEST_DIR }}\array_test_suite && ctest --verbose -C Debug &&
-             cd ${{ env.TEST_DIR }}\stack_test_suite && ctest --verbose -C Debug &&
-             cd ${{ env.TEST_DIR }}\vector_test_suite && ctest --verbose -C Debug &&
-             cd ${{ env.TEST_DIR }}\list_test_suite && ctest --verbose -C Debug
+        working-directory: ${{ env.TEST_DIR }}
+        run: python3 run_unit_tests.py
+
+    macos-based-unit-tests:
+      strategy:
+        matrix:
+          os: [ 'macos-12' ]
+
+      env:
+        BUILD_DIR: ${{ github.workspace }}/build
+        TEST_DIR: ${{ github.workspace }}/build/tests
+
+      runs-on: ${{ matrix.os }}
+
+      steps:
+      - uses: actions/checkout@v4.1.1
+
+      - name: configuring CMake
+        run: cmake -B ${{ env.BUILD_DIR }} -S ${{ github.workspace }}
+
+      - name: building
+        run: cmake --build ${{ env.BUILD_DIR }}
+
+      - name: unit-tests executing
+        working-directory: ${{ env.TEST_DIR }}
+        run: python run_unit_tests.py
