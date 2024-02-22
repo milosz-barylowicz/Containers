@@ -44,7 +44,7 @@ add_subdirectory(tests)
 # Copy script to generating code coverage raport into build directory
 file(
     COPY
-        ${PROJECT_SOURCE_DIR}/scripts/generate_code_coverage_raport.sh
+        ${PROJECT_SOURCE_DIR}/scripts/generate_code_coverage.py
     DESTINATION
         ${PROJECT_BINARY_DIR})
 
