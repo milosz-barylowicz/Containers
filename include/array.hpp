@@ -8,8 +8,7 @@
 namespace containers {
 
 template <typename T, std::size_t element_count>
-class Array
-{
+class Array {
  public:
   using iterator = T*;
   using const_iterator = const T*;
