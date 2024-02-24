@@ -3,6 +3,8 @@
 name: docker-build
 
 on:
+  push:
+    branches: ['*']
   schedule:
     - cron:  '0 3 * * SUN'
   workflow_dispatch:

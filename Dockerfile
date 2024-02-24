@@ -7,9 +7,15 @@ ENV DEBIAN_FRONTEND=noninteractive
 
 RUN apt-get update && apt-get install -y \
     build-essential \
-    curl \ 
+    curl \
     zip \
     git
+
+# Install Python 3.11
+RUN apt-get install build-essential software-properties-common -y && \
+    add-apt-repository ppa:deadsnakes/ppa && \
+    apt-get update && \
+    apt install python3.11 -y
 
 # Silence CMake warrning "Cannot create package registry file"
 RUN mkdir -p /.cmake && chmod 777 /.cmake
@@ -23,7 +29,7 @@ RUN mkdir -p /workspace/build && chmod 777 /workspace/build
 RUN groupadd -g ${GID} dev_user
 RUN useradd -m -u ${UID} -g ${GID} -s /bin/bash dev_usr
 
-COPY /scripts/build_and_run.sh /
-RUN chmod 765 /build_and_run.sh
+COPY /scripts/build_and_run_docker_container.py /
+RUN chmod 765 /build_and_run_docker_container.py
 
-ENTRYPOINT [ "/build_and_run.sh" ]
+ENTRYPOINT [ "/build_and_run_docker_container.py" ]
