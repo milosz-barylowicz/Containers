@@ -29,7 +29,7 @@ RUN mkdir -p /workspace/build && chmod 777 /workspace/build
 RUN groupadd -g ${GID} dev_user
 RUN useradd -m -u ${UID} -g ${GID} -s /bin/bash dev_usr
 
-COPY /scripts/build_and_run_docker_container.py /
-RUN chmod 765 /build_and_run_docker_container.py
+COPY /scripts/docker/compile_and_execute_unit_tests.py /
+RUN chmod 765 /compile_and_execute_unit_tests.py
 
-ENTRYPOINT [ "/build_and_run_docker_container.py" ]
+ENTRYPOINT [ "/compile_and_execute_unit_tests.py" ]

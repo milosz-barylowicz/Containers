@@ -3,8 +3,10 @@
 name: docker-build
 
 on:
-  push:
-    branches: ['*']
+  pull_request:
+    branches:
+      - 'main'
+
   schedule:
     - cron:  '0 3 * * SUN'
   workflow_dispatch:
@@ -16,9 +18,22 @@ jobs:
     steps:
     - uses: actions/checkout@v4.1.1
 
+    - name: setting up python3
+      run: |
+        sudo apt update &&\
+        sudo apt install build-essential software-properties-common -y &&\
+        sudo add-apt-repository ppa:deadsnakes/ppa &&\
+        sudo apt update &&\
+        sudo apt install python3.11 python3.11-venv -y &&\
+        python3 --version
+
+    - name: python venv setting up
+      run: |
+        python3.11 -m venv venv &&\
+        source venv/bin/activate && \
+        newgrp docker
+
+
     - name: Configure Docker
       working-directory: ${{ github.workspace }}
-      run: docker build --tag containers-docker --build-arg UID=$(id -u) --build-arg GID=$(id -g) ${{ github.workspace }}
-
-    - name: Run Docker to build project and run unit-tests
-      run: docker run --user $(id -u):$(id -g) --rm --volume ${{ github.workspace }}:/workspace/containers:ro containers-docker /bin/bash
+      run: python scripts/docker/build_and_run.py --user $(id -u) --group $(id -g)
