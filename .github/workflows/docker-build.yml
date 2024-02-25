@@ -13,27 +13,26 @@ on:
 
 jobs:
   build:
-    runs-on: [ ubuntu-22.04 ]
+    runs-on: [ 'ubuntu-22.04' ]
 
     steps:
     - uses: actions/checkout@v4.1.1
 
-    - name: setting up python3
+    - name: python3-setting-up
       run: |
-        sudo apt update &&\
-        sudo apt install build-essential software-properties-common -y &&\
-        sudo add-apt-repository ppa:deadsnakes/ppa &&\
-        sudo apt update &&\
-        sudo apt install python3.11 python3.11-venv -y &&\
-        python3 --version
+        sudo apt update && \
+        sudo apt install build-essential software-properties-common -y && \
+        sudo add-apt-repository ppa:deadsnakes/ppa && \
+        sudo apt update && \
+        sudo apt install python3.11 python3.11-venv -y
 
-    - name: python venv setting up
+    - name: python-venv-setting-up
       run: |
-        python3.11 -m venv venv &&\
+        python3.11 -m venv venv && \
         source venv/bin/activate && \
         newgrp docker
 
-
-    - name: Configure Docker
+    - name: docker-container-configuration-and-execution
       working-directory: ${{ github.workspace }}
-      run: python scripts/docker/build_and_run.py --user $(id -u) --group $(id -g)
+      run: |
+        python scripts/docker/build_and_run.py --user $(id -u) --group $(id -g)

@@ -7,11 +7,11 @@ on:
 
 jobs:
   remove-all-runs:
-    runs-on: [ ubuntu-22.04 ]
+    runs-on: [ 'ubuntu-22.04' ]
     permissions:
         actions: write
     steps:
-      - name: Remove all workflows runs
+      - name: workflows-runs-removing
         uses: Mattraks/delete-workflow-runs@v2.0.6
         with:
             token: ${{ github.token }}

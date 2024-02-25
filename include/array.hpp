@@ -5,7 +5,8 @@
 #include <optional>
 #include <stdexcept>
 
-namespace containers {
+namespace containers
+{
 
 template <typename T, std::size_t element_count>
 class Array {
@@ -13,7 +14,8 @@ class Array {
   using iterator = T*;
   using const_iterator = const T*;
 
-  Array() {
+  Array()
+  {
     m_data = new T[m_size];
 
     for (size_t i = 0; i < m_size; ++i) {
