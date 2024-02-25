@@ -34,6 +34,6 @@ add_subdirectory(vector_test_suite)
 file(
     COPY
         ${PROJECT_SOURCE_DIR}/scripts/run_unit_tests.py
-        ${PROJECT_SOURCE_DIR}/scripts/run_valgrind.sh
+        ${PROJECT_SOURCE_DIR}/scripts/run_valgrind.py
     DESTINATION
         ${PROJECT_BINARY_DIR}/tests)

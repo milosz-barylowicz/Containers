@@ -24,9 +24,6 @@ jobs:
     - name: setting-up-git
       run: git config --global user.name "${{ secrets.AGENT_NAME }}" && git config --global user.email "${{ secrets.EMAIL }}"
 
-    - name: formatting code
-      run: ./scripts/run_clang_format.sh
-
     - name: setting up python3
       run: |
         sudo apt update &&\
@@ -40,6 +37,9 @@ jobs:
       run: |
         python3 -m venv venv &&\
         source venv/bin/activate
+
+    - name: formatting code
+      run: python scripts/run_clang_code_format.py
 
     - name: commiting changes
       run: python .github/workflows/scripts/commit_changes.py
