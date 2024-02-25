@@ -176,7 +176,7 @@ jobs:
 
       - name: project-building
         run: |
-          cmake -B ${{ env.BUILD_DIR }} -S ${{ github.workspace }} && \
+          cmake -B ${{ env.BUILD_DIR }} -S ${{ github.workspace }} -DCOVERAGE=ON && \
           cmake --build ${{ env.BUILD_DIR }}
 
       - name: code-coverage-generating
