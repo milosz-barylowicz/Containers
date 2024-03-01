@@ -12,11 +12,6 @@ FetchContent_Declare(googletest
     CMAKE_ARGS -DCMAKE_INSTALL_PREFIX=${GTEST_ROOT}
 )
 
-# FetchContent_Declare(googletest
-#     URL https://github.com/google/googletest/archive/refs/tags/${GTEST_VERSION}.tar.gz
-#     URL_HASH MD5=c8340a482851ef6a3fe618a082304cfc
-# )
-
 option(INSTALL_GTEST OFF)
 FetchContent_MakeAvailable(googletest)
 
