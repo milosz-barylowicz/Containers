@@ -21,6 +21,10 @@ jobs:
       steps:
       - uses: actions/checkout@v4.1.1
 
+      - name: CMake-package-update
+        run: |
+          choco install cmake
+
       - name: project-building
         run: |
           cmake -B ${{ env.BUILD_DIR }} -S ${{ github.workspace }} &&
@@ -43,6 +47,10 @@ jobs:
 
       steps:
       - uses: actions/checkout@v4.1.1
+
+      - name: CMake-package-update
+        run: |
+          brew upgrade cmake
 
       - name: building
         run: |

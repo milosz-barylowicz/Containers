@@ -33,6 +33,14 @@ jobs:
         python3.12 -m venv venv && \
         source venv/bin/activate
 
+    - name: CMake-package-update
+      run: |
+        sudo apt purge --auto-remove cmake && \
+        wget -O - https://apt.kitware.com/keys/kitware-archive-latest.asc 2>/dev/null | gpg --dearmor - | sudo tee /etc/apt/trusted.gpg.d/kitware.gpg >/dev/null && \
+        sudo apt-add-repository 'deb https://apt.kitware.com/ubuntu/ jammy main' && \
+        sudo apt update && \
+        sudo apt install cmake
+
     - name: CMake-configuration-and-project-building
       run: |
         cmake -B ${{ env.BUILD_DIR }} -S ${{ github.workspace }} && \
@@ -63,6 +71,14 @@ jobs:
         run: |
           python3.12 -m venv venv && \
           source venv/bin/activate
+
+      - name: CMake-package-update
+        run: |
+          sudo apt purge --auto-remove cmake && \
+          wget -O - https://apt.kitware.com/keys/kitware-archive-latest.asc 2>/dev/null | gpg --dearmor - | sudo tee /etc/apt/trusted.gpg.d/kitware.gpg >/dev/null && \
+          sudo apt-add-repository 'deb https://apt.kitware.com/ubuntu/ jammy main' && \
+          sudo apt update && \
+          sudo apt install cmake
 
       - name: asan-execution
         run: |
@@ -105,6 +121,14 @@ jobs:
         run: |
           python3.12 -m venv venv && \
           source venv/bin/activate
+
+      - name: CMake-package-update
+        run: |
+          sudo apt purge --auto-remove cmake && \
+          wget -O - https://apt.kitware.com/keys/kitware-archive-latest.asc 2>/dev/null | gpg --dearmor - | sudo tee /etc/apt/trusted.gpg.d/kitware.gpg >/dev/null && \
+          sudo apt-add-repository 'deb https://apt.kitware.com/ubuntu/ jammy main' && \
+          sudo apt update && \
+          sudo apt install cmake
 
       - name: valgrind-setting-up
         run: |
@@ -173,6 +197,14 @@ jobs:
         run: |
           python3.12 -m venv venv && \
           source venv/bin/activate
+
+      - name: CMake-package-update
+        run: |
+          sudo apt purge --auto-remove cmake && \
+          wget -O - https://apt.kitware.com/keys/kitware-archive-latest.asc 2>/dev/null | gpg --dearmor - | sudo tee /etc/apt/trusted.gpg.d/kitware.gpg >/dev/null && \
+          sudo apt-add-repository 'deb https://apt.kitware.com/ubuntu/ jammy main' && \
+          sudo apt update && \
+          sudo apt install cmake
 
       - name: project-building
         run: |

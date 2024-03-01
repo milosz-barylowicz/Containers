@@ -21,7 +21,7 @@ RUN apt-get install build-essential software-properties-common -y && \
 RUN mkdir -p /.cmake && chmod 777 /.cmake
 
 # Install CMake
-RUN curl -sSL https://cmake.org/files/v3.24/cmake-3.24.4-linux-x86_64.tar.gz | tar --strip-component=1 -xzC /usr/local
+RUN curl -sSL https://cmake.org/files/v3.29/cmake-3.29.0-rc2-linux-x86_64.tar.gz | tar --strip-component=1 -xzC /usr/local
 
 # Creating build directory to avoid CMake Error: Unable to (re)create the private pkgRedirects directory
 RUN mkdir -p /workspace/build && chmod 777 /workspace/build
