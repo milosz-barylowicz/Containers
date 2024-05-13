@@ -2,8 +2,7 @@ name: docker-build
 
 on:
   pull_request:
-    branches:
-      - 'main'
+    branches: [ 'main' ]
 
   schedule:
     - cron:  '0 3 * * SUN'
