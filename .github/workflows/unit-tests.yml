@@ -2,7 +2,7 @@ name: unit-tests
 
 on:
   push:
-    branches: [ '**' ]
+    branches: [ 'main' ]
   pull_request:
     branches: [ '**' ]
   workflow_dispatch:
@@ -19,7 +19,7 @@ jobs:
       runs-on: ${{ matrix.os }}
 
       steps:
-      - uses: actions/checkout@v4.1.1
+      - uses: actions/checkout@v4.1.4
 
       - name: CMake-package-update
         run: |
@@ -37,7 +37,7 @@ jobs:
     macos-based-unit-tests:
       strategy:
         matrix:
-          os: [ 'macos-12' ]
+          os: [ 'macos-14' ]
 
       env:
         BUILD_DIR: ${{ github.workspace }}/build
@@ -46,7 +46,7 @@ jobs:
       runs-on: ${{ matrix.os }}
 
       steps:
-      - uses: actions/checkout@v4.1.1
+      - uses: actions/checkout@v4.1.4
 
       - name: CMake-package-update
         run: |

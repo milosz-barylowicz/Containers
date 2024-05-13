@@ -2,7 +2,7 @@ name: linux-build-and-validation
 
 on:
   push:
-    branches: [ '**' ]
+    branches: [ 'main' ]
   pull_request:
     branches: [ '**' ]
   schedule:
@@ -18,7 +18,7 @@ jobs:
     runs-on: [ 'ubuntu-22.04' ]
 
     steps:
-    - uses: actions/checkout@v4.1.1
+    - uses: actions/checkout@v4.1.4
 
     - name: python3-setting-up
       run: |
@@ -26,11 +26,11 @@ jobs:
         sudo apt install build-essential software-properties-common -y && \
         sudo add-apt-repository ppa:deadsnakes/ppa && \
         sudo apt update && \
-        sudo apt install python3.12 python3.12-venv -y
+        sudo apt install python3.13 python3.13-venv -y
 
     - name: python3-venv
       run: |
-        python3.12 -m venv venv && \
+        python3.13 -m venv venv && \
         source venv/bin/activate
 
     - name: CMake-package-update
@@ -57,7 +57,7 @@ jobs:
     runs-on: [ 'ubuntu-22.04' ]
 
     steps:
-      - uses: actions/checkout@v4.1.1
+      - uses: actions/checkout@v4.1.4
 
       - name: python3-setting-up
         run: |
@@ -65,11 +65,11 @@ jobs:
           sudo apt install build-essential software-properties-common -y && \
           sudo add-apt-repository ppa:deadsnakes/ppa && \
           sudo apt update && \
-          sudo apt install python3.12 python3.12-venv -y
+          sudo apt install python3.13 python3.13-venv -y
 
       - name: python3-venv
         run: |
-          python3.12 -m venv venv && \
+          python3.13 -m venv venv && \
           source venv/bin/activate
 
       - name: CMake-package-update
@@ -107,7 +107,7 @@ jobs:
     runs-on: [ 'ubuntu-22.04' ]
 
     steps:
-      - uses: actions/checkout@v4.1.1
+      - uses: actions/checkout@v4.1.4
 
       - name: python3-setting-up
         run: |
@@ -115,11 +115,11 @@ jobs:
           sudo apt install build-essential software-properties-common -y && \
           sudo add-apt-repository ppa:deadsnakes/ppa && \
           sudo apt update && \
-          sudo apt install python3.12 python3.12-venv -y
+          sudo apt install python3.13 python3.13-venv -y
 
       - name: python3-venv
         run: |
-          python3.12 -m venv venv && \
+          python3.13 -m venv venv && \
           source venv/bin/activate
 
       - name: CMake-package-update
@@ -150,7 +150,7 @@ jobs:
     runs-on: [ 'ubuntu-22.04' ]
 
     steps:
-      - uses: actions/checkout@v4.1.1
+      - uses: actions/checkout@v4.1.4
       - uses: de-vri-es/setup-git-credentials@v2.1.2
         with:
           credentials: ${{ secrets.GITHUB_TOKEN }}
@@ -161,11 +161,11 @@ jobs:
           sudo apt install build-essential software-properties-common -y && \
           sudo add-apt-repository ppa:deadsnakes/ppa && \
           sudo apt update && \
-          sudo apt install python3.12 python3.12-venv -y
+          sudo apt install python3.13 python3.13-venv -y
 
       - name: python3-venv
         run: |
-          python3.12 -m venv venv && \
+          python3.13 -m venv venv && \
           source venv/bin/activate
 
       - name: clang-format-execution
@@ -183,7 +183,7 @@ jobs:
     runs-on: [ 'ubuntu-22.04' ]
 
     steps:
-      - uses: actions/checkout@v4.1.1
+      - uses: actions/checkout@v4.1.4
 
       - name: python3-setting-up
         run: |
@@ -191,11 +191,11 @@ jobs:
           sudo apt install build-essential software-properties-common -y && \
           sudo add-apt-repository ppa:deadsnakes/ppa && \
           sudo apt update && \
-          sudo apt install python3.12 python3.12-venv -y
+          sudo apt install python3.13 python3.13-venv -y
 
       - name: python3-venv
         run: |
-          python3.12 -m venv venv && \
+          python3.13 -m venv venv && \
           source venv/bin/activate
 
       - name: CMake-package-update
@@ -218,7 +218,7 @@ jobs:
           python generate_code_coverage.py
 
       - name: code-coverage-raport-preaparing-to-publish
-        uses: actions/upload-pages-artifact@v3.0.0
+        uses: actions/upload-pages-artifact@v3.0.1
         with:
             path: "${{ env.BUILD_DIR }}/code_coverage"
 
@@ -239,4 +239,4 @@ jobs:
     steps:
     - name: code-coverage-raport-publishing
       id: deployment
-      uses: actions/deploy-pages@v4.0.3
+      uses: actions/deploy-pages@v4.0.5

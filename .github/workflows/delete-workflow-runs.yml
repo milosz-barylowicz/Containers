@@ -10,6 +10,8 @@ jobs:
     runs-on: [ 'ubuntu-22.04' ]
     permissions:
         actions: write
+        contents: write
+
     steps:
       - name: workflows-runs-removing
         uses: Mattraks/delete-workflow-runs@v2.0.6
