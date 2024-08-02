@@ -215,7 +215,7 @@ jobs:
       id-token: write
 
     environment:
-      name: github-pages
+      name: code-coverage-report
       url: ${{ steps.deployment.outputs.page_url }}
 
     runs-on: [ 'ubuntu-24.04' ]
