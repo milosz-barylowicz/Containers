@@ -23,8 +23,7 @@ jobs:
     - name: python3-setting-up
       run: |
         sudo apt update && \
-        sudo apt install build-essential software-properties-common -y && \
-        sudo add-apt-repository ppa:deadsnakes/ppa && \
+        sudo apt install build-essential software-properties-common -y && sudo add-apt-repository ppa:deadsnakes/ppa && \
         sudo apt update && \
         sudo apt install python3.13 python3.13-venv -y
 
@@ -59,8 +58,7 @@ jobs:
       - name: python3-setting-up
         run: |
           sudo apt update && \
-          sudo apt install build-essential software-properties-common -y && \
-          sudo add-apt-repository ppa:deadsnakes/ppa && \
+          sudo apt install build-essential software-properties-common -y && sudo add-apt-repository ppa:deadsnakes/ppa && \
           sudo apt update && \
           sudo apt install python3.13 python3.13-venv -y
 
@@ -106,8 +104,7 @@ jobs:
       - name: python3-setting-up
         run: |
           sudo apt update && \
-          sudo apt install build-essential software-properties-common -y && \
-          sudo add-apt-repository ppa:deadsnakes/ppa && \
+          sudo apt install build-essential software-properties-common -y && sudo add-apt-repository ppa:deadsnakes/ppa && \
           sudo apt update && \
           sudo apt install python3.13 python3.13-venv -y
 
@@ -149,8 +146,7 @@ jobs:
       - name: python3-setting-up
         run: |
           sudo apt update && \
-          sudo apt install build-essential software-properties-common -y && \
-          sudo add-apt-repository ppa:deadsnakes/ppa && \
+          sudo apt install build-essential software-properties-common -y && sudo add-apt-repository ppa:deadsnakes/ppa && \
           sudo apt update && \
           sudo apt install python3.13 python3.13-venv -y
 
@@ -171,7 +167,7 @@ jobs:
 
   code-coverage-generation:
     needs: [ 'build-validation' ]
-    runs-on: [ 'ubuntu-24.04' ]
+    runs-on: [ 'ubuntu-24.04' ] #TODO: investigate because there is wrn/err print: mismatched end line for still visible
 
     steps:
       - uses: actions/checkout@v4.1.7
@@ -179,8 +175,7 @@ jobs:
       - name: python3-setting-up
         run: |
           sudo apt update && \
-          sudo apt install build-essential software-properties-common -y && \
-          sudo add-apt-repository ppa:deadsnakes/ppa && \
+          sudo apt install build-essential software-properties-common -y && sudo add-apt-repository ppa:deadsnakes/ppa && \
           sudo apt update && \
           sudo apt install python3.13 python3.13-venv -y
 
@@ -192,10 +187,7 @@ jobs:
       - name: CMake-package-update
         run: |
           sudo apt purge --auto-remove cmake && \
-          wget -O - https://apt.kitware.com/keys/kitware-archive-latest.asc 2>/dev/null | gpg --dearmor - | sudo tee /etc/apt/trusted.gpg.d/kitware.gpg >/dev/null && \
-          sudo apt-add-repository 'deb https://apt.kitware.com/ubuntu/ jammy main' && \
-          sudo apt update && \
-          sudo apt install cmake
+          sudo snap install cmake --channel=3.30 --classic
 
       - name: project-building
         run: |
@@ -206,7 +198,8 @@ jobs:
         working-directory: ${{ env.BUILD_DIR }}
         run: |
           sudo apt install lcov && \
-          python generate_code_coverage.py
+          python generate_code_coverage.py && \
+          ls -la ${{ env.BUILD_DIR }}/code_coverage
 
       - name: code-coverage-raport-preaparing-to-publish
         uses: actions/upload-pages-artifact@v3.0.1
