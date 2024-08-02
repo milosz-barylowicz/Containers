@@ -6,7 +6,7 @@ on:
   pull_request:
     branches: [ '**' ]
   schedule:
-    - cron:  '0 3 * * SUN'
+    - cron: '0 3 * * SUN'
   workflow_dispatch:
 
 env:
@@ -15,10 +15,10 @@ env:
 
 jobs:
   build-validation:
-    runs-on: [ 'ubuntu-22.04' ]
+    runs-on: [ 'ubuntu-24.04' ]
 
     steps:
-    - uses: actions/checkout@v4.1.4
+    - uses: actions/checkout@v4.1.7
 
     - name: python3-setting-up
       run: |
@@ -36,10 +36,7 @@ jobs:
     - name: CMake-package-update
       run: |
         sudo apt purge --auto-remove cmake && \
-        wget -O - https://apt.kitware.com/keys/kitware-archive-latest.asc 2>/dev/null | gpg --dearmor - | sudo tee /etc/apt/trusted.gpg.d/kitware.gpg >/dev/null && \
-        sudo apt-add-repository 'deb https://apt.kitware.com/ubuntu/ jammy main' && \
-        sudo apt update && \
-        sudo apt install cmake
+        sudo snap install cmake --channel=3.30 --classic
 
     - name: CMake-configuration-and-project-building
       run: |
@@ -54,10 +51,10 @@ jobs:
 
   sanitizers:
     needs: [ 'build-validation' ]
-    runs-on: [ 'ubuntu-22.04' ]
+    runs-on: [ 'ubuntu-24.04' ]
 
     steps:
-      - uses: actions/checkout@v4.1.4
+      - uses: actions/checkout@v4.1.7
 
       - name: python3-setting-up
         run: |
@@ -75,10 +72,7 @@ jobs:
       - name: CMake-package-update
         run: |
           sudo apt purge --auto-remove cmake && \
-          wget -O - https://apt.kitware.com/keys/kitware-archive-latest.asc 2>/dev/null | gpg --dearmor - | sudo tee /etc/apt/trusted.gpg.d/kitware.gpg >/dev/null && \
-          sudo apt-add-repository 'deb https://apt.kitware.com/ubuntu/ jammy main' && \
-          sudo apt update && \
-          sudo apt install cmake
+          sudo snap install cmake --channel=3.30 --classic
 
       - name: asan-execution
         run: |
@@ -104,10 +98,10 @@ jobs:
 
   valgrind:
     needs: [ 'build-validation' ]
-    runs-on: [ 'ubuntu-22.04' ]
+    runs-on: [ 'ubuntu-24.04' ]
 
     steps:
-      - uses: actions/checkout@v4.1.4
+      - uses: actions/checkout@v4.1.7
 
       - name: python3-setting-up
         run: |
@@ -125,10 +119,7 @@ jobs:
       - name: CMake-package-update
         run: |
           sudo apt purge --auto-remove cmake && \
-          wget -O - https://apt.kitware.com/keys/kitware-archive-latest.asc 2>/dev/null | gpg --dearmor - | sudo tee /etc/apt/trusted.gpg.d/kitware.gpg >/dev/null && \
-          sudo apt-add-repository 'deb https://apt.kitware.com/ubuntu/ jammy main' && \
-          sudo apt update && \
-          sudo apt install cmake
+          sudo snap install cmake --channel=3.30 --classic
 
       - name: valgrind-setting-up
         run: |
@@ -147,10 +138,10 @@ jobs:
 
   code-formatting:
     needs: [ 'build-validation' ]
-    runs-on: [ 'ubuntu-22.04' ]
+    runs-on: [ 'ubuntu-24.04' ]
 
     steps:
-      - uses: actions/checkout@v4.1.4
+      - uses: actions/checkout@v4.1.7
       - uses: de-vri-es/setup-git-credentials@v2.1.2
         with:
           credentials: ${{ secrets.GITHUB_TOKEN }}
@@ -180,10 +171,10 @@ jobs:
 
   code-coverage-generation:
     needs: [ 'build-validation' ]
-    runs-on: [ 'ubuntu-22.04' ]
+    runs-on: [ 'ubuntu-24.04' ]
 
     steps:
-      - uses: actions/checkout@v4.1.4
+      - uses: actions/checkout@v4.1.7
 
       - name: python3-setting-up
         run: |
@@ -234,7 +225,7 @@ jobs:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
 
-    runs-on: [ 'ubuntu-22.04' ]
+    runs-on: [ 'ubuntu-24.04' ]
     if: contains(github.ref, 'main')
     steps:
     - name: code-coverage-raport-publishing
