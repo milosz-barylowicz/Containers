@@ -9,21 +9,18 @@ on:
 
 jobs:
     windows-based-unit-tests:
-      strategy:
-        matrix:
-          os: [ windows-2022 ]
       env:
         BUILD_DIR: ${{ github.workspace }}\build
         TEST_DIR: ${{ github.workspace }}\build\tests
 
-      runs-on: ${{ matrix.os }}
+      runs-on: [ 'windows-2022' ]
 
       steps:
-      - uses: actions/checkout@v4.1.4
+      - uses: actions/checkout@v4.1.7
 
       - name: CMake-package-update
         run: |
-          choco install cmake
+          choco install cmake --version=3.30.1
 
       - name: project-building
         run: |
@@ -35,22 +32,18 @@ jobs:
         run: python3 run_unit_tests.py
 
     macos-based-unit-tests:
-      strategy:
-        matrix:
-          os: [ 'macos-14' ]
-
       env:
         BUILD_DIR: ${{ github.workspace }}/build
         TEST_DIR: ${{ github.workspace }}/build/tests
 
-      runs-on: ${{ matrix.os }}
+      runs-on: [ 'macos-14' ]
 
       steps:
-      - uses: actions/checkout@v4.1.4
+      - uses: actions/checkout@v4.1.7
 
       - name: CMake-package-update
         run: |
-          brew upgrade cmake
+          brew install cmake
 
       - name: building
         run: |
