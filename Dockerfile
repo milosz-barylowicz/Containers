@@ -1,4 +1,4 @@
-FROM ubuntu:22.04
+FROM ubuntu:24.04
 
 ARG UID
 ARG GID
@@ -11,17 +11,17 @@ RUN apt-get update && apt-get install -y \
     zip \
     git
 
-# Install Python 3.11
+# Install Python 3.12
 RUN apt-get install build-essential software-properties-common -y && \
     add-apt-repository ppa:deadsnakes/ppa && \
     apt-get update && \
-    apt install python3.11 -y
+    apt install python3.12 -y
 
 # Silence CMake warrning "Cannot create package registry file"
 RUN mkdir -p /.cmake && chmod 777 /.cmake
 
 # Install CMake
-RUN curl -sSL https://cmake.org/files/v3.29/cmake-3.29.0-rc2-linux-x86_64.tar.gz | tar --strip-component=1 -xzC /usr/local
+RUN curl -sSL https://cmake.org/files/v3.30/cmake-3.30.2-linux-x86_64.tar.gz | tar --strip-component=1 -xzC /usr/local
 
 # Creating build directory to avoid CMake Error: Unable to (re)create the private pkgRedirects directory
 RUN mkdir -p /workspace/build && chmod 777 /workspace/build
