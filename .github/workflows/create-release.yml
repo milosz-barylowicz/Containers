@@ -18,7 +18,7 @@ jobs:
     runs-on: [ 'ubuntu-24.04' ]
 
     steps:
-      - uses: actions/checkout@v4.1.7
+      - uses: actions/checkout@v4.2.2
 
       - name: setting-up-git
         uses: de-vri-es/setup-git-credentials@v2.1.2
