@@ -16,11 +16,11 @@ jobs:
       runs-on: [ 'windows-2022' ]
 
       steps:
-      - uses: actions/checkout@v4.1.7
+      - uses: actions/checkout@v4.2.2
 
       - name: CMake-package-update
         run: |
-          choco install cmake --version=3.30.1
+          choco install cmake --version=3.31.1
 
       - name: project-building
         run: |
@@ -39,7 +39,7 @@ jobs:
       runs-on: [ 'macos-14' ]
 
       steps:
-      - uses: actions/checkout@v4.1.7
+      - uses: actions/checkout@v4.2.2
 
       - name: CMake-package-update
         run: |

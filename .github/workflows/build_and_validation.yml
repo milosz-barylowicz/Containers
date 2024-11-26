@@ -18,7 +18,7 @@ jobs:
     runs-on: [ 'ubuntu-24.04' ]
 
     steps:
-    - uses: actions/checkout@v4.1.7
+    - uses: actions/checkout@v4.2.2
 
     - name: python3-setting-up
       run: |
@@ -35,7 +35,7 @@ jobs:
     - name: CMake-package-update
       run: |
         sudo apt purge --auto-remove cmake && \
-        sudo snap install cmake --channel=3.30 --classic
+        sudo snap install cmake --channel=3.31.1 --classic
 
     - name: CMake-configuration-and-project-building
       run: |
@@ -53,7 +53,7 @@ jobs:
     runs-on: [ 'ubuntu-24.04' ]
 
     steps:
-      - uses: actions/checkout@v4.1.7
+      - uses: actions/checkout@v4.2.2
 
       - name: python3-setting-up
         run: |
@@ -70,7 +70,7 @@ jobs:
       - name: CMake-package-update
         run: |
           sudo apt purge --auto-remove cmake && \
-          sudo snap install cmake --channel=3.30 --classic
+          sudo snap install cmake --channel=3.31.1 --classic
 
       - name: asan-execution
         run: |
@@ -99,7 +99,7 @@ jobs:
     runs-on: [ 'ubuntu-24.04' ]
 
     steps:
-      - uses: actions/checkout@v4.1.7
+      - uses: actions/checkout@v4.2.2
 
       - name: python3-setting-up
         run: |
@@ -116,7 +116,7 @@ jobs:
       - name: CMake-package-update
         run: |
           sudo apt purge --auto-remove cmake && \
-          sudo snap install cmake --channel=3.30 --classic
+          sudo snap install cmake --channel=3.31.1 --classic
 
       - name: valgrind-setting-up
         run: |
@@ -138,7 +138,7 @@ jobs:
     runs-on: [ 'ubuntu-24.04' ]
 
     steps:
-      - uses: actions/checkout@v4.1.7
+      - uses: actions/checkout@v4.2.2
       - uses: de-vri-es/setup-git-credentials@v2.1.2
         with:
           credentials: ${{ secrets.GITHUB_TOKEN }}
@@ -170,7 +170,7 @@ jobs:
     runs-on: [ 'ubuntu-24.04' ] #TODO: investigate because there is wrn/err print: mismatched end line for still visible
 
     steps:
-      - uses: actions/checkout@v4.1.7
+      - uses: actions/checkout@v4.2.2
 
       - name: python3-setting-up
         run: |
@@ -187,7 +187,7 @@ jobs:
       - name: CMake-package-update
         run: |
           sudo apt purge --auto-remove cmake && \
-          sudo snap install cmake --channel=3.30 --classic
+          sudo snap install cmake --channel=3.31.1 --classic
 
       - name: project-building
         run: |
