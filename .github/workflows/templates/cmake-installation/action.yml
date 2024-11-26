@@ -1,10 +1,30 @@
 name: 'cmake-install'
 description: 'cmake installation in linux based workflows'
 
+inputs:
+  os:
+    description: 'operating system to run template on: linux/windows/ios'
+    required: true
+    default: 'linux'
+
+env:
+  version: '3.31'
+
 runs:
   using: "composite"
   steps:
-    - name: download-and-install-cmake
+    - name: linux-download-and-install-cmake
+      if: contains(inputs.os, 'linux')
       run: |
-        sudo snap install cmake --channel=3.31 --classic
+        sudo snap install cmake --channel=${{ env.version }} --classic
+      shell: bash
+    - name: windows-download-and-install-cmake
+      if: contains(inputs.os, 'windows')
+      run: |
+        choco install cmake --version=${{ env.version }}
+      shell: bash
+    - name: ios-download-and-install-cmake
+      if: contains(inputs.os, 'ios')
+      run: |
+        brew install cmake
       shell: bash
