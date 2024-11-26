@@ -33,9 +33,7 @@ jobs:
         source venv/bin/activate
 
     - name: CMake-package-update
-      run: |
-        sudo apt purge --auto-remove cmake && \
-        sudo snap install cmake --channel=3.31.1 --classic
+      uses: ./.github/workflows/cmake-installation
 
     - name: CMake-configuration-and-project-building
       run: |
@@ -68,9 +66,7 @@ jobs:
           source venv/bin/activate
 
       - name: CMake-package-update
-        run: |
-          sudo apt purge --auto-remove cmake && \
-          sudo snap install cmake --channel=3.31.1 --classic
+        uses: ./.github/workflows/cmake-installation
 
       - name: asan-execution
         run: |
@@ -114,9 +110,7 @@ jobs:
           source venv/bin/activate
 
       - name: CMake-package-update
-        run: |
-          sudo apt purge --auto-remove cmake && \
-          sudo snap install cmake --channel=3.31.1 --classic
+        uses: ./.github/workflows/cmake-installation
 
       - name: valgrind-setting-up
         run: |
@@ -185,9 +179,7 @@ jobs:
           source venv/bin/activate
 
       - name: CMake-package-update
-        run: |
-          sudo apt purge --auto-remove cmake && \
-          sudo snap install cmake --channel=3.31.1 --classic
+        uses: ./.github/workflows/cmake-installation
 
       - name: project-building
         run: |

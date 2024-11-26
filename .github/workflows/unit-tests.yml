@@ -20,7 +20,7 @@ jobs:
 
       - name: CMake-package-update
         run: |
-          choco install cmake --version=3.31.1
+          choco install cmake --version=3.31
 
       - name: project-building
         run: |
