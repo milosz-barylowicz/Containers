@@ -19,8 +19,14 @@ jobs:
       - uses: actions/checkout@v4.2.2
 
       - name: CMake-package-update
-        run: |
-          choco install cmake --version=3.31
+        uses: ./.github/workflows/templates/cmake-installation
+        with:
+          os: 'windows'
+
+      - name: python3-install
+        uses: ./.github/workflows/templates/python3-installation
+        with:
+          os: 'windows'
 
       - name: project-building
         run: |
@@ -42,8 +48,14 @@ jobs:
       - uses: actions/checkout@v4.2.2
 
       - name: CMake-package-update
-        run: |
-          brew install cmake
+        uses: ./.github/workflows/templates/cmake-installation
+        with:
+          os: 'ios'
+
+      - name: python3-install
+        uses: ./.github/workflows/templates/python3-installation
+        with:
+          os: 'ios'
 
       - name: building
         run: |
