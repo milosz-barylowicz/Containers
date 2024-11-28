@@ -35,7 +35,8 @@ jobs:
 
       - name: unit-tests-executing
         working-directory: ${{ env.TEST_DIR }}
-        run: python3 run_unit_tests.py
+        run: |
+          python3 run_unit_tests.py
 
     macos-based-unit-tests:
       env:
