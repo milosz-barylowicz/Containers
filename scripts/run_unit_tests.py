@@ -11,5 +11,5 @@ for directory in os.listdir(rootdir):
         home_dir = os.getcwd()
         os.chdir(test_dir)
 
-        subprocess.run(['ctest', '--verbose'])
+        subprocess.run(['ctest', '-C', 'Debug', '--verbose'])
         os.chdir(home_dir)
