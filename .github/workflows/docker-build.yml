@@ -15,13 +15,10 @@ jobs:
     steps:
     - uses: actions/checkout@v4.2.2
 
-    - name: python3-setting-up
-      run: |
-        sudo apt update && \
-        sudo apt install build-essential software-properties-common -y && \
-        sudo add-apt-repository ppa:deadsnakes/ppa && \
-        sudo apt update && \
-        sudo apt install python3.13 python3.13-venv -y
+    - name: python3-install
+      uses: ./.github/workflows/templates/python3-installation
+      with:
+        os: 'linux'
 
     - name: python-venv-setting-up
       run: |
