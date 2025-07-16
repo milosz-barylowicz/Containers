@@ -12,20 +12,18 @@ template <typename T>
 class list {
  private:
   template <typename N>
-  struct Node {
+  struct node {
     N data;
-    Node* next;
+    node* next;
   };
 
  public:
-  // definition of member types
   using size_type = size_t;
-  using iterator = Node<T>*;
-  using const_iterator = const Node<T>*;
+  using iterator = node<T>*;
+  using const_iterator = const node<T>*;
   using value_type = T;
   using reference_type = std::reference_wrapper<T>;
 
-  // definition of basic methods
   list() = default;
 
   list(const list<T>& other) {
@@ -80,6 +78,10 @@ class list {
     }
 
     return true;
+  }
+
+  friend bool operator!=(const list<T>& lhs, const list<T>& rhs) {
+    return not(lhs==rhs);
   }
 
   friend std::ostream& operator<<(std::ostream& os, const list<T>& list) {
@@ -163,12 +165,12 @@ class list {
     m_size++;
 
     if (not m_head) {
-      m_head = m_tail = new Node<T>();
+      m_head = m_tail = new node<T>();
       m_head->data = value;
       return;
     }
 
-    iterator temp = new Node<T>();
+    iterator temp = new node<T>();
     temp->data = value;
 
     m_tail->next = temp;
@@ -192,7 +194,7 @@ class list {
   }
 
   void push_front(const T& value) {
-    iterator temp = new Node<T>();
+    iterator temp = new node<T>();
     temp->data = value;
     temp->next = m_head;
     m_size++;

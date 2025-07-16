@@ -9,12 +9,12 @@ constexpr size_t MAX_SIZE = std::numeric_limits<size_t>::max();
 constexpr size_t EMPTY = 0;
 constexpr size_t NON_EMPTY = 5;
 constexpr int FIRST_ELEMENT = 1;
-const containers::Array<int, NON_EMPTY> NON_EMPTY_ARRAY{
+const containers::array<int, NON_EMPTY> NON_EMPTY_ARRAY{
     FIRST_ELEMENT, FIRST_ELEMENT + 1, FIRST_ELEMENT + 2, FIRST_ELEMENT + 3,
     FIRST_ELEMENT + 4};
 
 void ExpectThatArrayWillBeFilledUpWithZeros(
-    const containers::Array<int, 2>& res) {
+    const containers::array<int, 2>& res) {
   for (size_t i = 0; i < 2; ++i) {
     ASSERT_EQ(EMPTY, res[i]);
   }
@@ -28,7 +28,7 @@ void ExpectThatArrayIsFilledCorrectly(const int* array, size_t size) {
 }
 
 void ExpectThatArrayIsFilledWithDefaultValue(
-    const containers::Array<int, 5>& array) {
+    const containers::array<int, 5>& array) {
   for (size_t i = 0; i < array.size(); ++i) {
     ASSERT_EQ(DEFAULT_VALUE, array[i]);
   }
@@ -42,7 +42,7 @@ using namespace ::testing;
 
 class ArrayTestSuite : public Test {
  public:
-  Array<int, NON_EMPTY> sut{FIRST_ELEMENT, FIRST_ELEMENT + 1, FIRST_ELEMENT + 2,
+  array<int, NON_EMPTY> sut{FIRST_ELEMENT, FIRST_ELEMENT + 1, FIRST_ELEMENT + 2,
                             FIRST_ELEMENT + 3, FIRST_ELEMENT + 4};
 };
 
@@ -72,7 +72,7 @@ TEST_F(ArrayTestSuite, ShouldAccessFirstElementUsingBeginIterator) {
 }
 
 TEST_F(ArrayTestSuite, ShouldSwapToArraysOfTheSameSize) {
-  Array<int, NON_EMPTY> result{FIRST_ELEMENT, FIRST_ELEMENT + 10,
+  array<int, NON_EMPTY> result{FIRST_ELEMENT, FIRST_ELEMENT + 10,
                                FIRST_ELEMENT + 20, FIRST_ELEMENT + 30,
                                FIRST_ELEMENT + 40};
   sut.swap(result);
@@ -82,7 +82,7 @@ TEST_F(ArrayTestSuite, ShouldSwapToArraysOfTheSameSize) {
 }
 
 TEST_F(ArrayTestSuite, ShouldAssingOneArrayToOtherOne) {
-  Array<int, NON_EMPTY> result{10, 20, 30, 40, 50};
+  array<int, NON_EMPTY> result{10, 20, 30, 40, 50};
   sut = result;
   ASSERT_EQ(result, sut);
 }
@@ -155,7 +155,7 @@ TEST_F(ArrayTestSuite, ShouldCreateNonEmptyArray) {
 }
 
 TEST_F(ArrayTestSuite, ShouldCreateDefultArrayFilledWithZeros) {
-  Array<int, 2> result;
+  array<int, 2> result;
   ExpectThatArrayWillBeFilledUpWithZeros(result);
 }
 

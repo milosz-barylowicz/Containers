@@ -8,12 +8,12 @@
 namespace containers {
 
 template <typename T, std::size_t element_count>
-class Array {
+class array {
  public:
   using iterator = T*;
   using const_iterator = const T*;
 
-  Array() {
+  array() {
     m_data = new T[m_size];
 
     for (size_t i = 0; i < m_size; ++i) {
@@ -21,7 +21,7 @@ class Array {
     }
   }
 
-  Array(const std::initializer_list<T>& args) {
+  array(const std::initializer_list<T>& args) {
     m_size = args.size();
     m_data = new T[m_size];
 
@@ -35,7 +35,7 @@ class Array {
     }
   }
 
-  Array(const Array<T, element_count>& other) {
+  array(const array<T, element_count>& other) {
     m_data = new T[m_size];
 
     for (size_t i = 0; i < m_size; ++i) {
@@ -43,14 +43,14 @@ class Array {
     }
   }
 
-  Array(const Array<T, element_count>&& other) {
+  array(const array<T, element_count>&& other) {
     m_data = std::move(other.m_data);
     m_size = std::move(other.m_size);
   }
 
-  ~Array() noexcept { delete[] m_data; }
+  ~array() noexcept { delete[] m_data; }
 
-  Array<T, element_count>& operator=(const Array<T, element_count>& other) {
+  array<T, element_count>& operator=(const array<T, element_count>& other) {
     m_size = other.m_size;
     delete[] m_data;
     m_data = new int[m_size];
@@ -62,8 +62,7 @@ class Array {
     return *this;
   }
 
-  friend bool operator==(const Array<T, element_count>& lhs,
-                         const Array<T, element_count>& rhs) {
+  friend bool operator==(const array<T, element_count>& lhs, const array<T, element_count>& rhs) {
     for (size_t i = 0; i < element_count; ++i) {
       if (lhs.m_data[i] != rhs.m_data[i]) {
         return false;
@@ -71,6 +70,10 @@ class Array {
     }
 
     return true;
+  }
+
+  friend bool operator!=(const array<T, element_count>& lhs, const array<T, element_count>& rhs) {
+    return not(lhs==rhs);
   }
 
   T& operator[](size_t index) const { return m_data[index]; }
@@ -127,7 +130,7 @@ class Array {
     }
   }
 
-  void swap(Array& other) {
+  void swap(array& other) {
     T* temp = new T[other.m_size];
     size_t temp_size = other.m_size;
 

@@ -40,7 +40,7 @@ target_link_libraries(${EXECUTABLE_NAME}
 #include "vector.hpp"
 
 int main() {
-    containers::Vector<int> numbers { 1, 2, 3, 4, 5, 6, 7 };
+    containers::vector<int> numbers { 1, 2, 3, 4, 5, 6, 7 };
     std::cout << "numbers: ";
     for (const auto& number : numbers) {
         std::cout << number << " ";

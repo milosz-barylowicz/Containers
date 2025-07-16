@@ -7,10 +7,10 @@ namespace {
 constexpr int DEFAULT_VALUE = 100;
 constexpr size_t DEFAULT_CAPACITY = 10;
 
-const containers::Vector<int> NON_EMPTY_VECTOR{1, 2, 3, 4, 5};
-const containers::Vector<int> FILLED_WITH_ZEROS{0, 0, 0, 0, 0};
+const containers::vector<int> NON_EMPTY_VECTOR{1, 2, 3, 4, 5};
+const containers::vector<int> FILLED_WITH_ZEROS{0, 0, 0, 0, 0};
 
-containers::Vector<int> BuildDefaultFilledVector() {
+containers::vector<int> BuildDefaultFilledVector() {
   return {DEFAULT_VALUE, DEFAULT_VALUE, DEFAULT_VALUE, DEFAULT_VALUE,
           DEFAULT_VALUE};
 }
@@ -23,7 +23,7 @@ using namespace ::testing;
 
 class EmptyVectorTestSuite : public Test {
  public:
-  Vector<int> sut;
+  vector<int> sut;
 };
 
 TEST_F(EmptyVectorTestSuite,
@@ -45,7 +45,7 @@ TEST_F(EmptyVectorTestSuite,
 }
 
 TEST_F(EmptyVectorTestSuite, ShouldSwapWithNonEmptyVector) {
-  Vector<int> other{1, 2, 3, 4, 5};
+  vector<int> other{1, 2, 3, 4, 5};
   sut.swap(other);
 
   EXPECT_FALSE(sut.empty());
@@ -53,7 +53,7 @@ TEST_F(EmptyVectorTestSuite, ShouldSwapWithNonEmptyVector) {
 }
 
 TEST_F(EmptyVectorTestSuite, ShouldSwapWithEmptyVector) {
-  Vector<int> other;
+  vector<int> other;
   sut.swap(other);
   ASSERT_EQ(sut, other);
 }
@@ -145,7 +145,7 @@ TEST_F(EmptyVectorTestSuite, ShouldAddNewElement) {
 }
 
 TEST(EmptyVectorTester, ShouldCreateNewVectorFromExistingOne) {
-  Vector<int> sut(NON_EMPTY_VECTOR);
+  vector<int> sut(NON_EMPTY_VECTOR);
 
   ASSERT_EQ(NON_EMPTY_VECTOR.size(), sut.size());
   ASSERT_EQ(NON_EMPTY_VECTOR, sut);
@@ -153,7 +153,7 @@ TEST(EmptyVectorTester, ShouldCreateNewVectorFromExistingOne) {
 
 TEST(EmptyVectorTester, ShouldCreateNewVectorFromMovedOne) {
   auto result = NON_EMPTY_VECTOR;
-  Vector<int> sut(std::move(NON_EMPTY_VECTOR));
+  vector<int> sut(std::move(NON_EMPTY_VECTOR));
 
   ASSERT_EQ(result.size(), sut.size());
   ASSERT_EQ(result, sut);

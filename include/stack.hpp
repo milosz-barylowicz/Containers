@@ -9,15 +9,15 @@ static constexpr size_t DEFAULT_STACK_SIZE = 0;
 static constexpr size_t EMPTY = 0;
 
 template <typename T>
-class Stack {
+class stack {
  public:
-  Stack() noexcept = default;
+  stack() noexcept = default;
 
-  Stack(const Stack<T>& other) { CopyData(other); }
+  stack(const stack<T>& other) { CopyData(other); }
 
-  virtual ~Stack() { delete[] m_data; }
+  virtual ~stack() { delete[] m_data; }
 
-  void operator=(const Stack<T>& other) {
+  void operator=(const stack<T>& other) {
     m_size = other.m_size;
     m_data = new T[m_size];
 
@@ -26,7 +26,7 @@ class Stack {
     }
   }
 
-  friend std::ostream& operator<<(std::ostream& os, const Stack<T>& data) {
+  friend std::ostream& operator<<(std::ostream& os, const stack<T>& data) {
     os << "size: " << data.size() << ", elements: ";
     for (size_t i = 0; i < data.size(); ++i) {
       os << data.m_data[i] << " ";
@@ -34,29 +34,21 @@ class Stack {
     return os;
   }
 
-  friend bool operator!=(const Stack<T>& base, const Stack<T>& other) {
-    if (other.m_size == base.m_size) {
-      for (size_t i = 0; i < base.m_size; ++i) {
-        if (base.m_data[i] != other.m_data[i]) {
-          return true;
-        }
-      }
-      return false;
-    }
-    return true;
-  }
-
-  friend bool operator==(const Stack<T>& base, const Stack<T>& other) {
-    if (other.m_size != base.m_size) {
+  friend bool operator==(const stack<T>& lhs, const stack<T>& rhs) {
+    if (rhs.m_size != lhs.m_size) {
       return false;
     }
 
-    for (size_t i = 0; i < base.m_size; ++i) {
-      if (base.m_data[i] != other.m_data[i]) {
+    for (size_t i = 0; i < lhs.m_size; ++i) {
+      if (lhs.m_data[i] != rhs.m_data[i]) {
         return false;
       }
     }
     return true;
+  }
+
+  friend bool operator!=(const stack<T>& lhs, const stack<T>& rhs) {
+    return not(lhs == rhs);
   }
 
   void push(const T& value) {
@@ -83,7 +75,7 @@ class Stack {
     return m_data[m_size - 1];
   }
 
-  void swap(Stack<T>& other) {
+  void swap(stack<T>& other) {
     if (not m_data) {
       m_size = other.m_size;
       m_data = other.m_data;
@@ -107,7 +99,7 @@ class Stack {
   size_t size() const { return m_size; }
 
  private:
-  void CopyData(const Stack<T>& other) {
+  void CopyData(const stack<T>& other) {
     m_size = other.m_size;
     m_data = new T[m_size];
 
