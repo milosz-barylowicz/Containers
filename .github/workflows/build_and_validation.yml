@@ -151,7 +151,7 @@ jobs:
 
   code-coverage-generation:
     needs: [ 'build-validation' ]
-    runs-on: [ 'ubuntu-24.04' ] #TODO: investigate because there is wrn/err print: mismatched end line for still visible
+    runs-on: [ 'ubuntu-24.04' ]
 
     steps:
       - uses: actions/checkout@v4.2.2
@@ -179,12 +179,12 @@ jobs:
         run: |
           sudo apt install lcov && \
           python generate_code_coverage.py && \
-          ls -la ${{ env.BUILD_DIR }}/code_coverage
+          ls -la ${{ env.BUILD_DIR }}/code-coverage
 
       - name: code-coverage-raport-preaparing-to-publish
         uses: actions/upload-pages-artifact@v3.0.1
         with:
-            path: "${{ env.BUILD_DIR }}/code_coverage"
+            path: "${{ env.BUILD_DIR }}/code-coverage"
 
 
   deploy-code-coverage-raport:
