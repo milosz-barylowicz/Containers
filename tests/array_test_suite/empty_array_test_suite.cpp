@@ -6,7 +6,7 @@ namespace {
 
 constexpr int DEFAULT_VALUE = 100;
 constexpr size_t EMPTY = 0;
-const containers::Array<int, EMPTY> EMPTY_ARRAY;
+const containers::array<int, EMPTY> EMPTY_ARRAY;
 constexpr size_t MAX_SIZE = std::numeric_limits<size_t>::max();
 
 }  // namespace
@@ -17,11 +17,11 @@ using namespace ::testing;
 
 class EmptyArrayTestSuite : public Test {
  public:
-  Array<int, EMPTY> sut;
+  array<int, EMPTY> sut;
 };
 
 TEST_F(EmptyArrayTestSuite, ShouldSwapTwoEmptyArrays) {
-  Array<int, EMPTY> result;
+  array<int, EMPTY> result;
   sut.swap(result);
 
   ASSERT_EQ(EMPTY, sut.size());

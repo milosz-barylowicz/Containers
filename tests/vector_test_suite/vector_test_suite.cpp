@@ -6,9 +6,9 @@ namespace {
 
 constexpr int DEFAULT_VALUE = 100;
 constexpr size_t DEFAULT_CAPACITY = 2;
-const containers::Vector<int> reversed{DEFAULT_VALUE + 1, DEFAULT_VALUE};
+const containers::vector<int> reversed{DEFAULT_VALUE + 1, DEFAULT_VALUE};
 
-containers::Vector<int> BuildDefaultFilledVecotr() {
+containers::vector<int> BuildDefaultFilledVecotr() {
   return {DEFAULT_VALUE, DEFAULT_VALUE + 1, DEFAULT_VALUE, DEFAULT_VALUE,
           DEFAULT_VALUE};
 }
@@ -21,7 +21,7 @@ using namespace ::testing;
 
 class VectorTestSuite : public Test {
  public:
-  Vector<int> sut{DEFAULT_VALUE, DEFAULT_VALUE + 1};
+  vector<int> sut{DEFAULT_VALUE, DEFAULT_VALUE + 1};
 };
 
 TEST_F(VectorTestSuite,
@@ -34,7 +34,7 @@ TEST_F(VectorTestSuite,
 }
 
 TEST_F(VectorTestSuite, ShouldChangeCapacityButDoNotChangeSizeWhenResizing) {
-  Vector<int> expected{DEFAULT_VALUE, DEFAULT_VALUE + 1, 0, 0, 0};
+  vector<int> expected{DEFAULT_VALUE, DEFAULT_VALUE + 1, 0, 0, 0};
   sut.resize(5);
 
   EXPECT_EQ(5, sut.size());
@@ -43,16 +43,16 @@ TEST_F(VectorTestSuite, ShouldChangeCapacityButDoNotChangeSizeWhenResizing) {
 }
 
 TEST_F(VectorTestSuite, ShouldSwapWithNonEmptyVector) {
-  Vector<int> res{DEFAULT_VALUE, DEFAULT_VALUE + 1, DEFAULT_VALUE + 2};
+  vector<int> res{DEFAULT_VALUE, DEFAULT_VALUE + 1, DEFAULT_VALUE + 2};
   sut.swap(res);
 
   ASSERT_EQ(3, sut.size());
 }
 
 TEST_F(VectorTestSuite, ShouldSwapWithEmptyVector) {
-  Vector<int> empty;
+  vector<int> empty;
   sut.swap(empty);
-  Vector<int> res{DEFAULT_VALUE, DEFAULT_VALUE + 1};
+  vector<int> res{DEFAULT_VALUE, DEFAULT_VALUE + 1};
 
   ASSERT_EQ(empty, res);
   ASSERT_TRUE(sut.empty());
@@ -160,7 +160,7 @@ TEST_F(VectorTestSuite, ShouldModifyElementUsingAccessOperator) {
 }
 
 TEST_F(VectorTestSuite, ShouldAssingNonEmptyVectorWithDifferentSize) {
-  Vector<int> result{DEFAULT_VALUE + 10, DEFAULT_VALUE + 20,
+  vector<int> result{DEFAULT_VALUE + 10, DEFAULT_VALUE + 20,
                      DEFAULT_VALUE + 30};
 
   sut = result;
@@ -171,7 +171,7 @@ TEST_F(VectorTestSuite, ShouldAssingNonEmptyVectorWithDifferentSize) {
 
 TEST_F(VectorTestSuite,
        ShouldAssignTwoVectorsWithTheSameSizeButDifferentValues) {
-  Vector<int> result{DEFAULT_VALUE + 10, DEFAULT_VALUE + 20};
+  vector<int> result{DEFAULT_VALUE + 10, DEFAULT_VALUE + 20};
 
   sut = result;
 
@@ -184,7 +184,7 @@ TEST_F(VectorTestSuite, ShouldAddNewElement) {
 }
 
 TEST(VectorTest, ShouldCreateMoreThen10ElementsInVector) {
-  Vector<int> sut{DEFAULT_VALUE, DEFAULT_VALUE, DEFAULT_VALUE,
+  vector<int> sut{DEFAULT_VALUE, DEFAULT_VALUE, DEFAULT_VALUE,
                   DEFAULT_VALUE, DEFAULT_VALUE, DEFAULT_VALUE,
                   DEFAULT_VALUE, DEFAULT_VALUE, DEFAULT_VALUE,
                   DEFAULT_VALUE, DEFAULT_VALUE, DEFAULT_VALUE + 1};

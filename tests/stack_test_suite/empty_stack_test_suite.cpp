@@ -8,8 +8,8 @@ constexpr int EMPTY_STACK = 0;
 constexpr int DEFAULT_VALUE = 100;
 const auto EMPTY_VARIABLE = std::nullopt;
 
-containers::Stack<int> BuildFilledStack(int value) {
-  containers::Stack<int> result;
+containers::stack<int> BuildFilledStack(int value) {
+  containers::stack<int> result;
   for (size_t i = 0; i < 5; ++i) {
     result.emplace(value + i);
   }
@@ -24,11 +24,11 @@ using namespace testing;
 
 class EmptyStackTestSuite : public Test {
  public:
-  Stack<int> sut;
+  stack<int> sut;
 };
 
 TEST_F(EmptyStackTestSuite, ShouldAssignOtherStacckToEmptyOne) {
-  Stack<int> result = BuildFilledStack(DEFAULT_VALUE);
+  stack<int> result = BuildFilledStack(DEFAULT_VALUE);
   sut = result;
 
   ASSERT_EQ(result, sut);
@@ -39,7 +39,7 @@ TEST_F(EmptyStackTestSuite, ShouldReturnLastElementAsNull) {
 }
 
 TEST_F(EmptyStackTestSuite, ShouldSwapWithNonEmptyStack) {
-  Stack<int> other = BuildFilledStack(DEFAULT_VALUE);
+  stack<int> other = BuildFilledStack(DEFAULT_VALUE);
 
   sut.swap(other);
   ASSERT_FALSE(sut.empty());

@@ -9,16 +9,16 @@
 namespace containers {
 
 template <typename T>
-class Vector {
+class vector {
  public:
-  Vector() = default;
+  vector() = default;
 
-  Vector(const Vector<T>& other) {
+  vector(const vector<T>& other) {
     CreateNewDataContainer(other);
     CopyData(other.m_data, m_data);
   }
 
-  Vector(Vector<T>&& other) {
+  vector(vector<T>&& other) {
     m_data = other.m_data;
     other.m_data = nullptr;
 
@@ -26,7 +26,7 @@ class Vector {
     m_capacity = other.m_capacity;
   }
 
-  Vector(const std::initializer_list<T>& args) {
+  vector(const std::initializer_list<T>& args) {
     m_capacity = args.size();
     m_data = new T[m_capacity];
 
@@ -35,16 +35,16 @@ class Vector {
     }
   }
 
-  Vector<T>& operator=(const Vector<T>& other) {
+  vector<T>& operator=(const vector<T>& other) {
     CreateNewDataContainer(other);
     CopyData(other.m_data, m_data);
 
     return *this;
   }
 
-  ~Vector() { delete[] m_data; }
+  ~vector() { delete[] m_data; }
 
-  friend bool operator==(const Vector<T>& lhs, const Vector<T>& rhs) {
+  friend bool operator==(const vector<T>& lhs, const vector<T>& rhs) {
     const auto size = lhs.size();
     if (size != rhs.size()) {
       return false;
@@ -59,6 +59,10 @@ class Vector {
     return true;
   }
 
+  friend bool operator!=(const vector<T>& lhs, const vector<T>& rhs) {
+    return not(lhs == rhs);
+  }
+
   T& operator[](size_t index) const { return m_data[index]; }
 
   T& at(size_t index) const {
@@ -69,7 +73,7 @@ class Vector {
     return m_data[index];
   }
 
-  friend std::ostream& operator<<(std::ostream& os, const Vector<T>& other) {
+  friend std::ostream& operator<<(std::ostream& os, const vector<T>& other) {
     for (size_t i = 0; i < other.m_size; ++i) {
       os << other.m_data[i] << " ";
     }
@@ -203,7 +207,7 @@ class Vector {
     }
   }
 
-  void swap(Vector<T>& other) {
+  void swap(vector<T>& other) {
     T* temp = m_data;
     const size_t size = m_size;
     const size_t capacity = m_capacity;
@@ -256,7 +260,7 @@ class Vector {
     }
   }
 
-  void CreateNewDataContainer(const Vector<T>& other) {
+  void CreateNewDataContainer(const vector<T>& other) {
     m_size = other.m_size;
     m_capacity = other.m_capacity;
 

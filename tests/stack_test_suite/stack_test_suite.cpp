@@ -8,8 +8,8 @@ constexpr int DEFAULT_VALUE = 100;
 constexpr int EXPECTED_VALUE = 9;
 constexpr size_t DEFAULT_SIZE = 10;
 
-containers::Stack<int> BuildFilledStack(int value) {
-  containers::Stack<int> result;
+containers::stack<int> BuildFilledStack(int value) {
+  containers::stack<int> result;
   for (size_t i = 0; i < 5; ++i) {
     result.emplace(value + i);
   }
@@ -36,7 +36,7 @@ class StackTestSuite : public Test {
     ASSERT_EQ(DEFAULT_VALUE, sut.top());
   }
 
-  Stack<int> sut;
+  stack<int> sut;
 
  private:
   void FillStackWithData() {
@@ -48,7 +48,7 @@ class StackTestSuite : public Test {
 
 TEST_F(StackTestSuite,
        ShouldNotBeEqualIfThereAreDifferentValuesInStacksBuTheSameSizes) {
-  Stack<int> result;
+  stack<int> result;
   for (size_t i = 0; i < DEFAULT_SIZE; ++i) {
     result.push(DEFAULT_VALUE);
   }
@@ -58,14 +58,14 @@ TEST_F(StackTestSuite,
 }
 
 TEST_F(StackTestSuite, ShouldNotBeEqualIfThereAreDifferentSizesOfStacks) {
-  Stack<int> result;
+  stack<int> result;
   result.push(DEFAULT_VALUE);
 
   ASSERT_NE(result, sut);
 }
 
 TEST_F(StackTestSuite, ShouldBuildStackBasedOnOtherOne) {
-  Stack<int> result(sut);
+  stack<int> result(sut);
   ASSERT_EQ(sut, result);
 }
 
@@ -80,7 +80,7 @@ TEST_F(StackTestSuite, ShouldEmplaceNextVariable) {
 }
 
 TEST_F(StackTestSuite, ShouldSwapTwoStacksWithEachOther) {
-  Stack<int> other = BuildFilledStack(DEFAULT_VALUE);
+  stack<int> other = BuildFilledStack(DEFAULT_VALUE);
 
   sut.swap(other);
 
