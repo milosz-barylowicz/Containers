@@ -5,7 +5,7 @@ set(GTEST_ROOT ${PROJECT_BINARY_DIR}/googletest)
 include(FetchContent)
 
 # One of methods can be used to downloading googletests framework
-set(GTEST_VERSION "v1.15.2")
+set(GTEST_VERSION "v1.17.0")
 FetchContent_Declare(googletest
     GIT_REPOSITORY https://github.com/google/googletest.git
     GIT_TAG        ${GTEST_VERSION}

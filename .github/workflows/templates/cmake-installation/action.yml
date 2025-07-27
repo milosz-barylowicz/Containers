@@ -8,7 +8,7 @@ inputs:
     default: 'linux'
 
 env:
-  version: '3.31.1'
+  version: '4.1.0-rc3'
 
 runs:
   using: "composite"
@@ -16,7 +16,11 @@ runs:
     - name: linux-download-and-install-cmake
       if: contains(inputs.os, 'linux')
       run: |
-        sudo snap install cmake --channel=${{ env.version }} --classic
+        wget https://github.com/Kitware/CMake/releases/download/cmake-"{{ env.version }}"/cmake-"{{ env.version }}"-linux-x86_64.sh
+        chmod +x "cmake-{{ env.version }}"-linux-x86_64.sh
+        ./cmake-"{{ env.version }}"-linux-x86_64.sh --prefix=/opt/cmake --skip-license
+        export PATH=/opt/cmake/bin:$PATH
+        cmake --version
       shell: bash
     - name: windows-download-and-install-cmake
       if: contains(inputs.os, 'windows')
@@ -26,5 +30,10 @@ runs:
     - name: ios-download-and-install-cmake
       if: contains(inputs.os, 'ios')
       run: |
-        brew install cmake
+        version=${{ env.version }}
+        curl -LO https://github.com/Kitware/CMake/releases/download/v${version}/cmake-${version}-macos-universal.tar.gz
+        tar -xzf cmake-${version}-macos-universal.tar.gz
+        sudo mv cmake-${version}-rc3-macos-universal /opt/cmake-${version}
+        export PATH="/opt/cmake-${version}/CMake.app/Contents/bin:$PATH"
+        source ~/.zshrc
       shell: bash
