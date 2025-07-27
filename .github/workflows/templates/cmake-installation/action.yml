@@ -8,7 +8,7 @@ inputs:
     default: 'linux'
 
 env:
-  version: 'cmake-4.1.0-rc3'
+  version: '4.1.0-rc3'
 
 runs:
   using: "composite"
@@ -16,9 +16,9 @@ runs:
     - name: linux-download-and-install-cmake
       if: contains(inputs.os, 'linux')
       run: |
-        wget https://github.com/Kitware/CMake/releases/download/"{{ env.version }}"/"{{ env.version }}"-linux-x86_64.sh
-        chmod +x "{{ env.version }}"-linux-x86_64.sh
-        ./"{{ env.version }}"-linux-x86_64.sh --prefix=/opt/cmake --skip-license
+        wget https://github.com/Kitware/CMake/releases/download/cmake-"{{ env.version }}"/cmake-"{{ env.version }}"-linux-x86_64.sh
+        chmod +x "cmake-{{ env.version }}"-linux-x86_64.sh
+        ./cmake-"{{ env.version }}"-linux-x86_64.sh --prefix=/opt/cmake --skip-license
         export PATH=/opt/cmake/bin:$PATH
         cmake --version
       shell: bash
@@ -30,5 +30,10 @@ runs:
     - name: ios-download-and-install-cmake
       if: contains(inputs.os, 'ios')
       run: |
-        brew install cmake
+        version=${{ env.version }}
+        curl -LO https://github.com/Kitware/CMake/releases/download/v${version}/cmake-${version}-macos-universal.tar.gz
+        tar -xzf cmake-${version}-macos-universal.tar.gz
+        sudo mv cmake-${version}-rc3-macos-universal /opt/cmake-${version}
+        export PATH="/opt/cmake-${version}/CMake.app/Contents/bin:$PATH"
+        source ~/.zshrc
       shell: bash
