@@ -16,7 +16,11 @@ runs:
     - name: linux-download-and-install-cmake
       if: contains(inputs.os, 'linux')
       run: |
-        sudo snap install cmake --channel=${{ env.version }} --classic
+        wget https://github.com/Kitware/CMake/releases/download/"{{ env.version }}"/"{{ env.version }}"-linux-x86_64.sh
+        chmod +x "{{ env.version }}"-linux-x86_64.sh
+        ./"{{ env.version }}"-linux-x86_64.sh --prefix=/opt/cmake --skip-license
+        export PATH=/opt/cmake/bin:$PATH
+        cmake --version
       shell: bash
     - name: windows-download-and-install-cmake
       if: contains(inputs.os, 'windows')
