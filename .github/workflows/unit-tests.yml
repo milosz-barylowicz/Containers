@@ -17,12 +17,10 @@ jobs:
 
       steps:
       - uses: actions/checkout@v5.0.0
-
-      - name: CMake-package-update
-        uses: ./.github/workflows/templates/cmake-installation
+      - uses: milosz-barylowicz/cpp-projects-github-actions/cmake-upgrade@main
         with:
-          os: 'windows'
-
+          cmake-version: '3.30.3'
+          target-os: 'windows-2022'
       - uses: milosz-barylowicz/cpp-projects-github-actions/python3-upgrade@main
         with:
             python3-version: '13'
@@ -47,12 +45,10 @@ jobs:
 
       steps:
       - uses: actions/checkout@v4.2.2
-
-      - name: CMake-package-update
-        uses: ./.github/workflows/templates/cmake-installation
+      - uses: milosz-barylowicz/cpp-projects-github-actions/cmake-upgrade@main
         with:
-          os: 'ios'
-
+          cmake-version: '3.30.3'
+          target-os: 'macos-14'
       - uses: milosz-barylowicz/cpp-projects-github-actions/python3-upgrade@main
         with:
             python3-version: '13'

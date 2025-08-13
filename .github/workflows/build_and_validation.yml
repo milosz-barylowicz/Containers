@@ -32,6 +32,7 @@ jobs:
     - uses: milosz-barylowicz/cpp-projects-github-actions/cmake-upgrade@main
       with:
         cmake-version: '3.30.3'
+        target-os: 'ubuntu-24.04'
 
     - name: CMake-configuration-and-project-building
       run: |
@@ -63,6 +64,7 @@ jobs:
       - uses: milosz-barylowicz/cpp-projects-github-actions/cmake-upgrade@main
         with:
           cmake-version: '3.30.3'
+          target-os: 'ubuntu-24.04'
 
       - name: asan-execution
         run: |
@@ -105,6 +107,7 @@ jobs:
       - uses:  milosz-barylowicz/cpp-projects-github-actions/cmake-upgrade@main
         with:
           cmake-version: '3.30.3'
+          target-os: 'ubuntu-24.04'
 
       - name: valgrind-setting-up
         run: |
@@ -170,6 +173,7 @@ jobs:
       - uses: milosz-barylowicz/cpp-projects-github-actions/cmake-upgrade@main
         with:
           cmake-version: '3.30.3'
+          target-os: 'ubuntu-24.04'
 
       - name: project-building
         run: |
