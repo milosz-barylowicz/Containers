@@ -13,12 +13,11 @@ jobs:
     runs-on: [ 'ubuntu-24.04' ]
 
     steps:
-    - uses: actions/checkout@v4.2.2
-
-    - name: python3-install
-      uses: ./.github/workflows/templates/python3-installation
+    - uses: actions/checkout@v5.0.0
+    - uses: milosz-barylowicz/cpp-projects-github-actions/python3-upgrade@main
       with:
-        os: 'linux'
+        python3-version: '13'
+        operating-system: 'ubuntu-24.04'
 
     - name: python-venv-setting-up
       run: |

@@ -18,20 +18,20 @@ jobs:
     runs-on: [ 'ubuntu-24.04' ]
 
     steps:
-    - uses: actions/checkout@v4.2.2
-
-    - name: python3-setting-up
-      uses: ./.github/workflows/templates/python3-installation
+    - uses: actions/checkout@v5.0.0
+    - uses: milosz-barylowicz/cpp-projects-github-actions/python3-upgrade@main
+      with:
+        python3-version: '13'
+        operating-system: 'ubuntu-24.04'
 
     - name: python3-venv
       run: |
         python3.13 -m venv venv && \
         source venv/bin/activate
 
-    - name: CMake-package-update
-      uses: ./.github/workflows/templates/cmake-installation
+    - uses: milosz-barylowicz/cpp-projects-github-actions/cmake-upgrade@main
       with:
-        os: 'linux'
+        cmake-version: '3.30.3'
 
     - name: CMake-configuration-and-project-building
       run: |
@@ -49,20 +49,20 @@ jobs:
     runs-on: [ 'ubuntu-24.04' ]
 
     steps:
-      - uses: actions/checkout@v4.2.2
-
-      - name: python3-setting-up
-        uses: ./.github/workflows/templates/python3-installation
+      - uses: actions/checkout@v5.0.0
+      - uses: milosz-barylowicz/cpp-projects-github-actions/python3-upgrade@main
+        with:
+            python3-version: '13'
+            operating-system: 'ubuntu-24.04'
 
       - name: python3-venv
         run: |
           python3.13 -m venv venv && \
           source venv/bin/activate
 
-      - name: CMake-package-update
-        uses: ./.github/workflows/templates/cmake-installation
+      - uses: milosz-barylowicz/cpp-projects-github-actions/cmake-upgrade@main
         with:
-          os: 'linux'
+          cmake-version: '3.30.3'
 
       - name: asan-execution
         run: |
@@ -91,20 +91,20 @@ jobs:
     runs-on: [ 'ubuntu-24.04' ]
 
     steps:
-      - uses: actions/checkout@v4.2.2
-
-      - name: python3-setting-up
-        uses: ./.github/workflows/templates/python3-installation
+      - uses: actions/checkout@v5.0.0
+      - uses: milosz-barylowicz/cpp-projects-github-actions/python3-upgrade@main
+        with:
+            python3-version: '13'
+            operating-system: 'ubuntu-24.04'
 
       - name: python3-venv
         run: |
           python3.13 -m venv venv && \
           source venv/bin/activate
 
-      - name: CMake-package-update
-        uses: ./.github/workflows/templates/cmake-installation
+      - uses:  milosz-barylowicz/cpp-projects-github-actions/cmake-upgrade@main
         with:
-          os: 'linux'
+          cmake-version: '3.30.3'
 
       - name: valgrind-setting-up
         run: |
@@ -126,13 +126,15 @@ jobs:
     runs-on: [ 'ubuntu-24.04' ]
 
     steps:
-      - uses: actions/checkout@v4.2.2
+      - uses: actions/checkout@v5.0.0
       - uses: de-vri-es/setup-git-credentials@v2.1.2
         with:
           credentials: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: python3-setting-up
-        uses: ./.github/workflows/templates/python3-installation
+      - uses: milosz-barylowicz/cpp-projects-github-actions/python3-upgrade@main
+        with:
+            python3-version: '13'
+            operating-system: 'ubuntu-24.04'
 
       - name: python3-venv
         run: |
@@ -154,20 +156,20 @@ jobs:
     runs-on: [ 'ubuntu-24.04' ]
 
     steps:
-      - uses: actions/checkout@v4.2.2
-
-      - name: python3-setting-up
-        uses: ./.github/workflows/templates/python3-installation
+      - uses: actions/checkout@v5.0.0
+      - uses: milosz-barylowicz/cpp-projects-github-actions/python3-upgrade@main
+        with:
+            python3-version: '13'
+            operating-system: 'ubuntu-24.04'
 
       - name: python3-venv
         run: |
           python3.13 -m venv venv && \
           source venv/bin/activate
 
-      - name: CMake-package-update
-        uses: ./.github/workflows/templates/cmake-installation
+      - uses: milosz-barylowicz/cpp-projects-github-actions/cmake-upgrade@main
         with:
-          os: 'linux'
+          cmake-version: '3.30.3'
 
       - name: project-building
         run: |
@@ -189,7 +191,6 @@ jobs:
 
   deploy-code-coverage-raport:
     needs: [ 'code-coverage-generation' ]
-
     permissions:
       pages: write
       id-token: write
