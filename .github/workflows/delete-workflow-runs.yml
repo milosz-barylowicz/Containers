@@ -1,4 +1,4 @@
-name: delete-all-github-workflows-runs
+name: Delete Outdated Workflows Runs
 
 on:
   schedule:
@@ -6,17 +6,5 @@ on:
   workflow_dispatch:
 
 jobs:
-  remove-all-runs:
-    runs-on: [ 'ubuntu-24.04' ]
-    permissions:
-        actions: write
-        contents: write
-
-    steps:
-      - name: workflows-runs-removing
-        uses: Mattraks/delete-workflow-runs@v2.0.6
-        with:
-            token: ${{ github.token }}
-            repository: ${{ github.repository }}
-            retain_days: 30
-            keep_minimum_runs: 0
+  call-delte-outdated-workflows-run:
+    uses: milosz-barylowicz/cpp-projects-github-actions/.github/workflows/delete-outdated-workflow-runs.yml@v1.0.0

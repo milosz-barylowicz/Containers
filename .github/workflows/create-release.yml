@@ -1,4 +1,4 @@
-name: create-release
+name: Create Release
 
 on:
   workflow_dispatch:
@@ -11,39 +11,12 @@ on:
         required: false
 
 env:
-  GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  GH_TOKEN: ${{ github.token }}
 
 jobs:
-  create-release:
-    runs-on: [ 'ubuntu-24.04' ]
-
-    steps:
-      - uses: actions/checkout@v4.2.2
-
-      - name: setting-up-git
-        uses: de-vri-es/setup-git-credentials@v2.1.2
-        with:
-          credentials: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: setting-up-python3
-        run: |
-          sudo apt update && \
-          sudo apt install build-essential software-properties-common -y && \
-          sudo add-apt-repository ppa:deadsnakes/ppa && \
-          sudo apt update && \
-          sudo apt install python3.13 python3.13-venv -y
-
-      - name: python-venv-setting-up
-        run: |
-          python3.13 -m venv venv && \
-          source venv/bin/activate
-
-      - name: creating-release
-        if: inputs.release-title == ''
-        run: |
-          python ./.github/workflows/scripts/create_release.py --release_version ${{ inputs.release-number }}
-
-      - name: creating-release-with-title
-        if: inputs.release-title != ''
-        run: |
-          python ./.github/workflows/scripts/create_release.py --release_version ${{ inputs.release-number }} --release_title ${{ inputs.release-title }}
+  call-create-release:
+    uses: milosz-barylowicz/cpp-projects-github-actions/.github/workflows/create-release.yml@v1.0.0
+    with:
+      release-version: ${{ inputs.release-number }}
+    secrets:
+      GH_TOKEN: ${{ secrets.GH_TOKEN }}
