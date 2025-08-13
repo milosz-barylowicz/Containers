@@ -15,7 +15,7 @@ env:
 
 jobs:
   call-create-release:
-    uses: milosz-barylowicz/cpp-projects-github-actions/.github/workflows/create-release.yml@main
+    uses: milosz-barylowicz/cpp-projects-github-actions/.github/workflows/create-release.yml@v1.0.0
     with:
       release-version: ${{ inputs.release-number }}
     secrets:

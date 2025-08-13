@@ -19,7 +19,7 @@ jobs:
 
     steps:
     - uses: actions/checkout@v5.0.0
-    - uses: milosz-barylowicz/cpp-projects-github-actions/python3-upgrade@main
+    - uses: milosz-barylowicz/cpp-projects-github-actions/python3-upgrade@v1.0.0
       with:
         python3-version: '13'
         operating-system: 'ubuntu-24.04'
@@ -29,7 +29,7 @@ jobs:
         python3.13 -m venv venv && \
         source venv/bin/activate
 
-    - uses: milosz-barylowicz/cpp-projects-github-actions/cmake-upgrade@main
+    - uses: milosz-barylowicz/cpp-projects-github-actions/cmake-upgrade@v1.0.0
       with:
         cmake-version: '3.30.3'
         target-os: 'ubuntu-24.04'
@@ -51,7 +51,7 @@ jobs:
 
     steps:
       - uses: actions/checkout@v5.0.0
-      - uses: milosz-barylowicz/cpp-projects-github-actions/python3-upgrade@main
+      - uses: milosz-barylowicz/cpp-projects-github-actions/python3-upgrade@v1.0.0
         with:
             python3-version: '13'
             operating-system: 'ubuntu-24.04'
@@ -61,7 +61,7 @@ jobs:
           python3.13 -m venv venv && \
           source venv/bin/activate
 
-      - uses: milosz-barylowicz/cpp-projects-github-actions/cmake-upgrade@main
+      - uses: milosz-barylowicz/cpp-projects-github-actions/cmake-upgrade@v1.0.0
         with:
           cmake-version: '3.30.3'
           target-os: 'ubuntu-24.04'
@@ -94,7 +94,7 @@ jobs:
 
     steps:
       - uses: actions/checkout@v5.0.0
-      - uses: milosz-barylowicz/cpp-projects-github-actions/python3-upgrade@main
+      - uses: milosz-barylowicz/cpp-projects-github-actions/python3-upgrade@v1.0.0
         with:
             python3-version: '13'
             operating-system: 'ubuntu-24.04'
@@ -104,7 +104,7 @@ jobs:
           python3.13 -m venv venv && \
           source venv/bin/activate
 
-      - uses:  milosz-barylowicz/cpp-projects-github-actions/cmake-upgrade@main
+      - uses:  milosz-barylowicz/cpp-projects-github-actions/cmake-upgrade@v1.0.0
         with:
           cmake-version: '3.30.3'
           target-os: 'ubuntu-24.04'
@@ -134,7 +134,7 @@ jobs:
         with:
           credentials: ${{ secrets.GITHUB_TOKEN }}
 
-      - uses: milosz-barylowicz/cpp-projects-github-actions/python3-upgrade@main
+      - uses: milosz-barylowicz/cpp-projects-github-actions/python3-upgrade@v1.0.0
         with:
             python3-version: '13'
             operating-system: 'ubuntu-24.04'
@@ -160,7 +160,7 @@ jobs:
 
     steps:
       - uses: actions/checkout@v5.0.0
-      - uses: milosz-barylowicz/cpp-projects-github-actions/python3-upgrade@main
+      - uses: milosz-barylowicz/cpp-projects-github-actions/python3-upgrade@v1.0.0
         with:
             python3-version: '13'
             operating-system: 'ubuntu-24.04'
@@ -170,7 +170,7 @@ jobs:
           python3.13 -m venv venv && \
           source venv/bin/activate
 
-      - uses: milosz-barylowicz/cpp-projects-github-actions/cmake-upgrade@main
+      - uses: milosz-barylowicz/cpp-projects-github-actions/cmake-upgrade@v1.0.0
         with:
           cmake-version: '3.30.3'
           target-os: 'ubuntu-24.04'
